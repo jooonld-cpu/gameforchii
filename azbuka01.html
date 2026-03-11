@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Азбука 01 — Юный Спасатель</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fire: #FF4500;
+    --fire2: #FF6B35;
+    --safe: #2ECC71;
+    --sky: #87CEEB;
+    --dark: #1a1a2e;
+    --card: #fff8f0;
+    --accent: #FFD700;
+    --smoke: #8a8a9a;
+    --btn-shadow: 0 6px 0 #c0392b;
+    --green-shadow: 0 6px 0 #1a7a42;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  /* ── Stars bg ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, white, transparent),
+      radial-gradient(1px 1px at 60% 10%, white, transparent),
+      radial-gradient(1.5px 1.5px at 80% 50%, white, transparent),
+      radial-gradient(1px 1px at 40% 70%, white, transparent),
+      radial-gradient(1px 1px at 10% 80%, white, transparent),
+      radial-gradient(1.5px 1.5px at 90% 20%, white, transparent),
+      radial-gradient(1px 1px at 70% 90%, white, transparent),
+      radial-gradient(1px 1px at 30% 50%, white, transparent),
+      radial-gradient(1px 1px at 55% 60%, white, transparent),
+      radial-gradient(1px 1px at 15% 45%, white, transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #app {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 860px;
+    padding: 16px;
+  }
+
+  /* ── Screen management ── */
+  .screen { display: none; animation: fadeIn .4s ease; }
+  .screen.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+  /* ── Progress bar ── */
+  #progress-bar {
+    display: flex; gap: 8px; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .prog-dot {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    border: 3px solid rgba(255,255,255,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; color: rgba(255,255,255,.5);
+    transition: all .4s;
+    font-family: 'Fredoka One', cursive;
+  }
+  .prog-dot.done { background: var(--safe); border-color: var(--safe); color: #fff; }
+  .prog-dot.active { background: var(--accent); border-color: var(--accent); color: #1a1a2e; transform: scale(1.2); }
+
+  /* ── Cards / panels ── */
+  .game-card {
+    background: var(--card);
+    border-radius: 28px;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 4px rgba(255,215,0,.3);
+    position: relative; overflow: hidden;
+  }
+  .game-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 8px;
+    background: linear-gradient(90deg, var(--fire), var(--accent), var(--fire2));
+  }
+
+  h1.game-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    color: var(--fire);
+    text-align: center;
+    text-shadow: 3px 3px 0 rgba(0,0,0,.1);
+    line-height: 1.1;
+  }
+  h2.level-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .level-badge {
+    display: inline-block;
+    background: var(--fire);
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+    font-size: 13px; padding: 4px 14px;
+    border-radius: 20px; margin-bottom: 12px;
+  }
+  p.desc { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-block; padding: 14px 32px;
+    border: none; border-radius: 50px; cursor: pointer;
+    font-family: 'Fredoka One', cursive; font-size: 18px;
+    transition: transform .12s, box-shadow .12s;
+    text-decoration: none;
+  }
+  .btn-fire {
+    background: linear-gradient(135deg, var(--fire), var(--fire2));
+    color: #fff; box-shadow: var(--btn-shadow);
+  }
+  .btn-fire:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #c0392b; }
+  .btn-fire:active { transform: translateY(3px); box-shadow: 0 3px 0 #c0392b; }
+
+  .btn-green {
+    background: linear-gradient(135deg, #2ECC71, #27ae60);
+    color: #fff; box-shadow: var(--green-shadow);
+  }
+  .btn-green:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #1a7a42; }
+  .btn-green:active { transform: translateY(3px); box-shadow: 0 3px 0 #1a7a42; }
+
+  .btn-gray {
+    background: #ddd; color: #555;
+    box-shadow: 0 6px 0 #aaa;
+  }
+
+  /* ── Mascot ── */
+  .mascot { font-size: clamp(48px, 10vw, 80px); text-align: center; margin: 8px 0; }
+
+  /* ════════════════════════════════════════
+     LEVEL 1 — Sort items
+  ════════════════════════════════════════ */
+  #items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 14px; margin: 20px 0;
+  }
+  .item-card {
+    background: #fff;
+    border: 3px solid #e0d8cf;
+    border-radius: 20px; padding: 16px 8px;
+    text-align: center; cursor: pointer;
+    transition: transform .18s, border-color .18s, box-shadow .18s;
+    user-select: none;
+    position: relative; overflow: hidden;
+  }
+  .item-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+  .item-card .item-icon { font-size: 44px; display: block; }
+  .item-card .item-name { font-size: 12px; font-weight: 700; color: #666; margin-top: 6px; }
+  .item-card.danger { border-color: var(--fire); background: #fff3f0; animation: shakeCard .4s; }
+  .item-card.safe-item { border-color: var(--safe); background: #f0fff4; }
+  .item-card.correct-danger { border-color: var(--safe); background: #f0fff4; }
+  .item-card.wrong { animation: wrongPulse .5s; }
+  @keyframes shakeCard {
+    0%,100%{transform:none} 20%{transform:rotate(-5deg)} 40%{transform:rotate(5deg)} 60%{transform:rotate(-3deg)} 80%{transform:rotate(3deg)}
+  }
+  @keyframes wrongPulse {
+    0%{box-shadow:none} 50%{box-shadow:0 0 0 6px rgba(255,69,0,.4)} 100%{box-shadow:none}
+  }
+  .spark-anim {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; overflow: hidden;
+  }
+  .spark {
+    position: absolute; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: sparkFly .7s forwards;
+  }
+  @keyframes sparkFly {
+    from { transform: translate(var(--sx), var(--sy)) scale(1); opacity: 1; }
+    to   { transform: translate(var(--ex), var(--ey)) scale(0); opacity: 0; }
+  }
+  #lvl1-score { font-size: 16px; font-weight: 700; color: #555; text-align:center; }
+
+  /* ════════════════════════════════════════
+     LEVEL 2 — Maze / Choices
+  ════════════════════════════════════════ */
+  .room-scene {
+    background: linear-gradient(to bottom, #c8e6c9 0%, #ffecb3 40%, #bcaaa4 100%);
+    border-radius: 20px; height: 180px; margin: 16px 0;
+    position: relative; overflow: hidden;
+    border: 3px solid #bbb;
+  }
+  .room-scene .floor { position:absolute; bottom:0; left:0; right:0; height:50px; background:#8d6e63; }
+  .room-scene .window { position:absolute; top:20px; left:30px; width:60px; height:50px; background:#87ceeb; border:3px solid #795548; border-radius:4px; }
+  .room-scene .window::after { content:''; position:absolute; top:0;bottom:0;left:50%;width:2px; background:#795548; }
+  .room-scene .door { position:absolute; bottom:50px; right:40px; width:45px; height:70px; background:#a1887f; border:3px solid #795548; border-radius:4px 4px 0 0; }
+  .room-scene .smoke-cloud {
+    position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    font-size:36px; animation: smokeDrift 2s infinite alternate;
+  }
+  @keyframes smokeDrift {
+    from { transform:translateX(-50%) translateY(0) scale(1); opacity:.9; }
+    to   { transform:translateX(-40%) translateY(-10px) scale(1.1); opacity:.6; }
+  }
+  .room-scene .character {
+    position:absolute; bottom:52px; left:40%;
+    font-size:40px; transition: left 1.5s ease, bottom 1.5s ease;
+  }
+
+  .choice-btn {
+    display: block; width: 100%;
+    background: #fff; border: 3px solid #ddd;
+    border-radius: 16px; padding: 14px 20px;
+    margin: 10px 0; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
+    text-align: left; transition: all .2s; color: #333;
+  }
+  .choice-btn:hover { border-color: #aaa; background: #f5f5f5; transform: translateX(4px); }
+  .choice-btn .choice-num {
+    display: inline-flex; align-items:center; justify-content:center;
+    width:28px; height:28px; border-radius:50%; background: #eee;
+    font-size:14px; font-weight:900; margin-right:10px; flex-shrink:0;
+  }
+  .choice-btn.correct { border-color: var(--safe); background: #f0fff4; animation: bounceIn .4s; }
+  .choice-btn.wrong   { border-color: var(--fire); background: #fff3f0; animation: shake .4s; }
+  @keyframes bounceIn { 0%{transform:scale(.95)} 60%{transform:scale(1.05)} 100%{transform:scale(1)} }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  .feedback-box {
+    border-radius: 16px; padding: 16px;
+    font-size: 15px; font-weight: 700;
+    margin: 12px 0; display: none;
+  }
+  .feedback-box.good { background: #d4edda; color: #155724; border: 2px solid var(--safe); display:block; }
+  .feedback-box.bad  { background: #f8d7da; color: #721c24; border: 2px solid var(--fire); display:block; }
+
+  /* ════════════════════════════════════════
+     LEVEL 3 — Phone dialer
+  ════════════════════════════════════════ */
+  .phone-wrap {
+    display: flex; justify-content: center; margin: 16px 0;
+  }
+  .phone {
+    background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+    border-radius: 30px; padding: 20px;
+    width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.1);
+    border: 2px solid #444;
+  }
+  .phone-screen {
+    background: #0a2a0a; color: #00ff41;
+    border-radius: 16px; height: 64px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Courier New', monospace; font-size: 28px; font-weight: 900;
+    letter-spacing: 6px; margin-bottom: 14px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,.5);
+    border: 2px solid #1a3a1a;
+  }
+  .phone-keys {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
+  }
+  .phone-key {
+    background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+    color: #fff; border: none; border-radius: 12px;
+    padding: 12px 0; font-family: 'Fredoka One', cursive; font-size: 20px;
+    cursor: pointer; transition: all .1s;
+    box-shadow: 0 4px 0 #111;
+  }
+  .phone-key:active, .phone-key.pressed {
+    transform: translateY(3px); box-shadow: 0 1px 0 #111;
+    background: linear-gradient(145deg, #555, #444);
+  }
+  .phone-key.red { background: linear-gradient(145deg, #c0392b, #922b21); box-shadow: 0 4px 0 #5a1414; }
+  .phone-key.green { background: linear-gradient(145deg, #27ae60, #1e8449); box-shadow: 0 4px 0 #0d4a26; }
+
+  .num-options { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin: 16px 0; }
+  .num-chip {
+    background: #fff; border: 3px solid #ddd; border-radius: 50px;
+    padding: 8px 22px; font-family:'Fredoka One',cursive; font-size:20px;
+    cursor:pointer; transition:all .2s; color: #333;
+  }
+  .num-chip:hover { border-color: var(--fire); color: var(--fire); transform:scale(1.1); }
+  .num-chip.correct-num { border-color: var(--safe); background:#d4edda; color:#155724; }
+  .num-chip.wrong-num   { border-color: var(--fire); background:#f8d7da; color:#721c24; animation:shake .4s; }
+
+  .dispatcher-box {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border: 3px solid var(--safe); border-radius: 20px;
+    padding: 20px; text-align:center; display:none; margin-top:12px;
+  }
+  .dispatcher-box .dispatcher-icon { font-size:48px; }
+  .dispatcher-box p { font-size:15px; font-weight:700; color:#155724; margin:8px 0; line-height:1.5; }
+
+  /* ════════════════════════════════════════
+     LEVEL 4 — Firefighter dress-up
+  ════════════════════════════════════════ */
+  .dressup-area {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; margin: 16px 0;
+  }
+  @media(max-width:560px) { .dressup-area { grid-template-columns:1fr; } }
+
+  .firefighter-display {
+    background: linear-gradient(to bottom, #e3f2fd 0%, #c8e6c9 100%);
+    border-radius: 20px; min-height: 320px; position:relative;
+    border: 3px solid #90caf9; padding: 10px;
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+  }
+  .ff-body { font-size:90px; line-height:1; position:relative; transition: all .3s; }
+  .ff-equipment { position:absolute; top:0; left:0; right:0; bottom:0; pointer-events:none; }
+  .ff-item-on { position:absolute; font-size:36px; transition:all .3s; }
+
+  .items-shelf {
+    display:grid; grid-template-columns: repeat(3,1fr);
+    gap:10px;
+  }
+  .shelf-item {
+    background:#fff; border:3px solid #e0d8cf;
+    border-radius:16px; padding:12px 6px;
+    text-align:center; cursor:grab;
+    transition:all .2s; user-select:none;
+    position:relative;
+  }
+  .shelf-item:hover { border-color: var(--fire2); transform:scale(1.05); box-shadow:0 4px 16px rgba(0,0,0,.1); }
+  .shelf-item.used { opacity:.3; pointer-events:none; }
+  .shelf-item.wrong-item { border-color: #aaa; }
+  .shelf-item .s-icon { font-size:34px; }
+  .shelf-item .s-name { font-size:10px; font-weight:700; color:#666; margin-top:4px; }
+
+  .tooltip-bubble {
+    background:#1a1a2e; color:#fff; border-radius:12px;
+    padding:10px 14px; font-size:13px; line-height:1.4;
+    margin:10px 0; display:none; text-align:center;
+    animation: fadeIn .3s;
+  }
+  .tooltip-bubble.show { display:block; }
+
+  .siren-anim {
+    display:none; text-align:center; padding:20px;
+    animation: sirenPulse .5s infinite alternate;
+  }
+  @keyframes sirenPulse {
+    from { color:#e74c3c; } to { color:#f39c12; }
+  }
+
+  /* ════════════════════════════════════════
+     LEVEL 5 — Fire extinguishing
+  ════════════════════════════════════════ */
+  .fire-scene {
+    background: linear-gradient(to bottom, #fff3e0 0%, #ffe0b2 100%);
+    border-radius: 20px; padding: 20px;
+    text-align:center; margin:16px 0;
+    position:relative; min-height:160px;
+    border: 3px solid #ffcc80;
+  }
+  .fire-object { font-size:60px; display:inline-block; position:relative; }
+  .fire-flame  { font-size:44px; animation:flicker .4s infinite alternate; display:inline-block; }
+  @keyframes flicker { from{transform:scale(1) rotate(-3deg)} to{transform:scale(1.1) rotate(3deg)} }
+  .fire-flame.out { animation:none; font-size:0; transition:font-size .5s; }
+
+  .tools-grid {
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:12px; margin:16px 0;
+  }
+  @media(max-width:480px) { .tools-grid { grid-template-columns:repeat(2,1fr); } }
+
+  .tool-card {
+    background:#fff; border:3px solid #e0d8cf;
+    border-radius:20px; padding:16px 8px;
+    text-align:center; cursor:pointer;
+    transition:all .2s;
+  }
+  .tool-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.12); border-color:#bbb; }
+  .tool-card .t-icon { font-size:42px; }
+  .tool-card .t-name { font-size:11px; font-weight:700; color:#666; margin-top:6px; }
+  .tool-card.correct-tool { border-color:var(--safe); background:#f0fff4; }
+  .tool-card.wrong-tool   { border-color:var(--fire); background:#fff3f0; animation:shake .4s; }
+
+  .fire-warning {
+    background:#fff3cd; border:3px solid #ffc107;
+    border-radius:16px; padding:14px; margin:12px 0;
+    font-size:14px; font-weight:700; color:#856404; display:none;
+  }
+  .fire-warning.show { display:block; animation:fadeIn .3s; }
+
+  /* ════════════════════════════════════════
+     DIPLOMA
+  ════════════════════════════════════════ */
+  #diploma-screen .game-card {
+    background: linear-gradient(135deg, #fff8f0, #fffde7);
+    border: 5px solid var(--accent);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 10px rgba(255,215,0,.2), 0 0 0 15px rgba(255,215,0,.1);
+  }
+  .diploma-header { text-align:center; margin-bottom:20px; }
+  .diploma-title {
+    font-family:'Fredoka One',cursive;
+    font-size:clamp(1.8rem,5vw,2.8rem);
+    color:var(--fire);
+    text-shadow:2px 2px 0 rgba(0,0,0,.1);
+  }
+  .diploma-subtitle {
+    font-size:18px; color:#555; font-weight:700; margin-top:4px;
+  }
+  .diploma-stars { font-size:36px; letter-spacing:4px; }
+  .diploma-name-area {
+    background: rgba(255,215,0,.2); border: 3px dashed var(--accent);
+    border-radius:16px; padding:20px; text-align:center; margin:16px 0;
+  }
+  .diploma-name-area label { font-size:14px; font-weight:700; color:#888; display:block; margin-bottom:8px; }
+  #diploma-name-input {
+    border:none; border-bottom:3px solid var(--accent);
+    background:transparent; width:100%; max-width:300px;
+    font-family:'Fredoka One',cursive; font-size:24px;
+    text-align:center; color:var(--dark); outline:none;
+    display:block; margin:0 auto;
+  }
+  .diploma-body {
+    text-align:center; font-size:16px; color:#555;
+    line-height:1.8; margin:16px 0;
+  }
+  .diploma-body strong { color:var(--fire); font-size:18px; }
+  .diploma-badges { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin:20px 0; }
+  .d-badge {
+    background:#fff; border:3px solid var(--accent); border-radius:20px;
+    padding:10px 18px; font-size:13px; font-weight:800; color:var(--dark);
+    display:flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,.08);
+  }
+  .diploma-footer { text-align:center; color:#aaa; font-size:13px; margin-top:16px; }
+  .fireworks { position:fixed; top:0; left:0; right:0; bottom:0; pointer-events:none; z-index:10; }
+
+  /* ════════════════════════════════════════
+     INTRO SCREEN
+  ════════════════════════════════════════ */
+  .intro-card { text-align:center; }
+  .intro-emoji { font-size:80px; margin:16px 0; animation:bounce 1.5s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .level-list { display:flex; flex-direction:column; gap:8px; margin:20px 0; text-align:left; }
+  .level-list-item {
+    background:#fff; border-radius:14px; padding:12px 16px;
+    display:flex; align-items:center; gap:12px;
+    font-size:14px; font-weight:700; color:#333;
+    border: 2px solid #e0d8cf;
+  }
+  .level-list-item .li-num {
+    background:var(--fire); color:#fff; border-radius:50%;
+    width:28px; height:28px; display:flex; align-items:center; justify-content:center;
+    font-family:'Fredoka One',cursive; flex-shrink:0;
+  }
+
+  /* ─ utils ─ */
+  .text-center { text-align:center; }
+  .mt-16 { margin-top:16px; }
+  .mt-8 { margin-top:8px; }
+  .hidden { display:none!important; }
+  .btn-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Progress bar -->
+  <div id="progress-bar">
+    <div class="prog-dot active" id="dot-1">1</div>
+    <div class="prog-dot" id="dot-2">2</div>
+    <div class="prog-dot" id="dot-3">3</div>
+    <div class="prog-dot" id="dot-4">4</div>
+    <div class="prog-dot" id="dot-5">5</div>
+  </div>
+
+  <!-- ══ INTRO ══ -->
+  <div id="intro-screen" class="screen active">
+    <div class="game-card intro-card">
+      <h1 class="game-title">🚒 Азбука 01</h1>
+      <p style="font-size:17px;color:#777;margin-top:4px;">Стань Юным Спасателем!</p>
+      <div class="intro-emoji">🧑‍🚒</div>
+      <div class="level-list">
+        <div class="level-list-item"><div class="li-num">1</div>🔥 Опасно или Безопасно — сортируй предметы</div>
+        <div class="level-list-item"><div class="li-num">2</div>🚪 Выход из ловушки — правила при пожаре</div>
+        <div class="level-list-item"><div class="li-num">3</div>📱 Вызови помощь — набери нужный номер</div>
+        <div class="level-list-item"><div class="li-num">4</div>👷 Экипировка пожарного — одень героя</div>
+        <div class="level-list-item"><div class="li-num">5</div>💧 Потуши искру — выбери способ тушения</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-fire" onclick="startGame()">Начать игру! 🎮</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEVEL 1 ══ -->
+  <div id="level1-screen" class="screen">
+    <div class="game-card">
+      <div class="level-badge">Уровень 1 из 5</div>
+      <h2 class="level-title">🔥 Опасно — Безопасно</h2>
+      <p class="desc">Нажимай только на те предметы, которые <strong>могут стать причиной пожара!</strong></p>
+      <div id="lvl1-score" class="mb-8">Найдено: <span id="found-count">0</span> из <span id="total-danger">0</span></div>
+      <div id="items-grid"></div>
+      <div id="lvl1-feedback" class="feedback-box"></div>
+      <div class="btn-row">
+        <button id="lvl1-next" class="btn btn-green hidden" onclick="goToLevel(2)">Дальше →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEVEL 2 ══ -->
+  <div id="level2-screen" class="screen">
+    <div class="game-card">
+      <div class="level-badge">Уровень 2 из 5</div>
+      <h2 class="level-title">🚪 Выход из ловушки</h2>
+      <p class="desc">В комнате появился дым! Что нужно делать?</p>
+      <div class="room-scene" id="room-scene">
+        <div class="floor"></div>
+        <div class="window"></div>
+        <div class="door"></div>
+        <div class="smoke-cloud">💨💨</div>
+        <div class="character" id="character">🧒</div>
+      </div>
+      <div id="choices-area">
+        <button class="choice-btn" onclick="checkChoice(this,false,'Прятаться под кроватью опасно! Там скапливается дым и тебя сложнее найти спасателям.')">
+          <span class="choice-num">1</span>Спрятаться под кровать
+        </button>
+        <button class="choice-btn" onclick="checkChoice(this,false,'На балконе можно оказаться в ловушке. Если огонь распространится — выхода не будет!')">
+          <span class="choice-num">2</span>Выбежать на балкон
+        </button>
+        <button class="choice-btn" onclick="checkChoice(this,true,'Правильно! Намоченная ткань фильтрует дым. Ползком — ниже дым, легче дышать. Двигайся к выходу!')">
+          <span class="choice-num">3</span>Намочить тряпочку, прикрыть нос и ползти к выходу
+        </button>
+      </div>
+      <div id="lvl2-feedback" class="feedback-box"></div>
+      <div class="btn-row">
+        <button id="lvl2-next" class="btn btn-green hidden" onclick="goToLevel(3)">Дальше →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEVEL 3 ══ -->
+  <div id="level3-screen" class="screen">
+    <div class="game-card">
+      <div class="level-badge">Уровень 3 из 5</div>
+      <h2 class="level-title">📱 Вызови помощь</h2>
+      <p class="desc">Выбери правильный номер пожарной службы!</p>
+      <div class="num-options">
+        <button class="num-chip" onclick="checkNumber(this,'01')">01</button>
+        <button class="num-chip" onclick="checkNumber(this,'02')">02</button>
+        <button class="num-chip" onclick="checkNumber(this,'03')">03</button>
+        <button class="num-chip" onclick="checkNumber(this,'101')">101</button>
+        <button class="num-chip" onclick="checkNumber(this,'112')">112</button>
+      </div>
+      <div id="lvl3-feedback" class="feedback-box"></div>
+      <div id="dispatcher-box" class="dispatcher-box">
+        <div class="dispatcher-icon">📞</div>
+        <p>🚒 <strong>«Пожарная служба слушает! Что у вас случилось?»</strong></p>
+        <p style="margin-top:10px;">🗣️ Проговори вслух свой адрес — улицу и номер дома!</p>
+        <p style="font-size:13px;color:#2e7d32;margin-top:6px;">Пример: «У нас пожар! Я живу на улице Ленина, дом 5»</p>
+      </div>
+      <div class="phone-wrap mt-16">
+        <div class="phone">
+          <div class="phone-screen" id="phone-display">_</div>
+          <div class="phone-keys">
+            <button class="phone-key" onclick="phoneKey('1')">1</button>
+            <button class="phone-key" onclick="phoneKey('2')">2</button>
+            <button class="phone-key" onclick="phoneKey('3')">3</button>
+            <button class="phone-key" onclick="phoneKey('4')">4</button>
+            <button class="phone-key" onclick="phoneKey('5')">5</button>
+            <button class="phone-key" onclick="phoneKey('6')">6</button>
+            <button class="phone-key" onclick="phoneKey('7')">7</button>
+            <button class="phone-key" onclick="phoneKey('8')">8</button>
+            <button class="phone-key" onclick="phoneKey('9')">9</button>
+            <button class="phone-key red" onclick="phoneClear()">✕</button>
+            <button class="phone-key" onclick="phoneKey('0')">0</button>
+            <button class="phone-key green" onclick="phoneCall()">📞</button>
+          </div>
+        </div>
+      </div>
+      <div id="phone-feedback" class="feedback-box mt-16"></div>
+      <div class="btn-row">
+        <button id="lvl3-next" class="btn btn-green hidden" onclick="goToLevel(4)">Дальше →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEVEL 4 ══ -->
+  <div id="level4-screen" class="screen">
+    <div class="game-card">
+      <div class="level-badge">Уровень 4 из 5</div>
+      <h2 class="level-title">👷 Экипировка пожарного</h2>
+      <p class="desc">Нажимай на предметы <strong>снаряжения</strong> (не лишние вещи!), чтобы одеть пожарного на вызов!</p>
+      <div id="tooltip-bubble" class="tooltip-bubble"></div>
+      <div class="dressup-area">
+        <div class="firefighter-display" id="ff-display">
+          <div id="ff-layers" style="position:relative;font-size:90px;line-height:1;text-align:center;">
+            <span id="ff-base">👨</span>
+            <div id="ff-equipment" style="position:absolute;inset:0;pointer-events:none;"></div>
+          </div>
+          <div id="ff-name" style="font-family:'Fredoka One',cursive;font-size:20px;color:#555;margin-top:8px;">Пожарный Иван</div>
+          <div id="siren-anim" class="siren-anim" style="display:none;font-size:28px;">🚨 ВЫ-У-У-У! 🚒</div>
+        </div>
+        <div>
+          <div class="items-shelf" id="items-shelf"></div>
+        </div>
+      </div>
+      <div id="lvl4-feedback" class="feedback-box"></div>
+      <div class="btn-row">
+        <button id="lvl4-next" class="btn btn-green hidden" onclick="goToLevel(5)">Дальше →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEVEL 5 ══ -->
+  <div id="level5-screen" class="screen">
+    <div class="game-card">
+      <div class="level-badge">Уровень 5 из 5</div>
+      <h2 class="level-title">💧 Потуши искру!</h2>
+      <div id="fire-scenario-title" style="font-weight:700;color:#555;margin-bottom:8px;"></div>
+      <div class="fire-scene" id="fire-scene">
+        <div id="fire-object" class="fire-object"></div>
+        <span id="fire-flame" class="fire-flame">🔥</span>
+        <div id="smoke-out" style="font-size:32px;display:none;">💨</div>
+      </div>
+      <p class="desc">Выбери правильное средство тушения:</p>
+      <div class="tools-grid" id="tools-grid"></div>
+      <div id="fire-warning" class="fire-warning"></div>
+      <div id="lvl5-feedback" class="feedback-box"></div>
+      <div id="final-lesson" style="display:none;background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:16px;padding:16px;margin-top:12px;font-weight:700;color:#e65100;font-size:15px;text-align:center;border:3px solid #ff9800;">
+        🧑‍🚒 «Ты молодец, но помни: если огонь стал большим — не туши его сам, а скорее беги на улицу и вызывай 101!»
+      </div>
+      <div class="btn-row">
+        <button id="lvl5-next" class="btn btn-green hidden" onclick="showDiploma()">🏆 Получить диплом!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DIPLOMA ══ -->
+  <div id="diploma-screen" class="screen">
+    <div class="fireworks" id="fireworks"></div>
+    <div class="game-card">
+      <div class="diploma-header">
+        <div class="diploma-stars">⭐⭐⭐⭐⭐</div>
+        <h1 class="diploma-title">🏆 ДИПЛОМ 🏆</h1>
+        <p class="diploma-subtitle">Юного Спасателя</p>
+      </div>
+      <div class="diploma-name-area">
+        <label>Введи своё имя:</label>
+        <input type="text" id="diploma-name-input" placeholder="Твоё имя" maxlength="30">
+      </div>
+      <div class="diploma-body">
+        Настоящим удостоверяется, что<br>
+        <strong id="diploma-name-display">Юный Герой</strong><br>
+        успешно прошёл обучение по программе<br>
+        <strong>«Азбука 01 — Пожарная безопасность»</strong><br>
+        и теперь знает, как действовать при пожаре!
+      </div>
+      <div class="diploma-badges">
+        <div class="d-badge">🔥 Знает опасности</div>
+        <div class="d-badge">🚪 Умеет выбраться</div>
+        <div class="d-badge">📱 Знает 101</div>
+        <div class="d-badge">👷 Знает пожарного</div>
+        <div class="d-badge">💧 Умеет тушить</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-fire" onclick="printDiploma()">🖨️ Распечатать</button>
+        <button class="btn btn-green" onclick="restartGame()">🔄 Играть снова</button>
+      </div>
+      <div class="diploma-footer">🚒 Азбука 01 • Юный Спасатель • Береги себя и других!</div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<script>
+// ════════════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════════════
+const ITEMS = [
+  { icon:'🧨', name:'Петарда',      danger:true,  msg:'Петарда очень опасна!' },
+  { icon:'🕯️', name:'Свеча',        danger:true,  msg:'Открытый огонь — источник пожара!' },
+  { icon:'🔌', name:'Утюг',          danger:true,  msg:'Забытый утюг может вызвать пожар!' },
+  { icon:'🪵', name:'Костёр',        danger:true,  msg:'Огонь в неположенном месте — опасно!' },
+  { icon:'🎇', name:'Бенгальский огонь', danger:true, msg:'Искры от него очень опасны!' },
+  { icon:'⚡', name:'Оголённый провод', danger:true, msg:'Искрящий провод — риск возгорания!' },
+  { icon:'🧸', name:'Мишка',         danger:false, msg:'Мишка безопасен! 🐻' },
+  { icon:'🏀', name:'Мяч',           danger:false, msg:'Мяч просто прыгает! 🏀' },
+  { icon:'📚', name:'Книга',          danger:false, msg:'Читать — полезно! 📖' },
+  { icon:'🎨', name:'Краски',         danger:false, msg:'Рисовать — весело! 🎨' },
+  { icon:'🪀', name:'Йо-йо',          danger:false, msg:'Отличная игрушка! 🪀' },
+  { icon:'🎮', name:'Геймпад',        danger:false, msg:'Игры — это круто! 🎮' },
+];
+
+const FF_ITEMS = [
+  { icon:'⛑️',  name:'Каска',           correct:true,  info:'Каска защищает голову от ударов и падающих предметов!' },
+  { icon:'👢',  name:'Сапоги',           correct:true,  info:'Специальные сапоги защищают ноги от горячих предметов.' },
+  { icon:'🦺',  name:'Защитный костюм',  correct:true,  info:'Костюм не горит в огне и защищает от высоких температур!' },
+  { icon:'😷',  name:'Маска-противогаз', correct:true,  info:'Маска защищает лёгкие от дыма и ядовитых газов.' },
+  { icon:'🪂',  name:'Спасательный круг',correct:false, info:'Спасательный круг нужен на воде, не при пожаре.' },
+  { icon:'👨‍🍳', name:'Колпак повара',    correct:false, info:'Это колпак повара, пожарному он не нужен!' },
+  { icon:'🤿',  name:'Ласты',             correct:false, info:'Ласты для плавания, не для тушения пожара!' },
+  { icon:'🧤',  name:'Огнеупорные перчатки', correct:true, info:'Перчатки защищают руки от огня и горячих поверхностей!' },
+  { icon:'🔦',  name:'Фонарь',           correct:true,  info:'Фонарь помогает видеть в дыму и темноте.' },
+];
+
+const FIRE_SCENARIOS = [
+  {
+    object:'🪟', flamePos:'left', label:'Загорелась занавеска',
+    tools:[
+      { icon:'🪣', name:'Вода',          correct:true,   warn:null,        okMsg:'Правильно! Водой можно потушить занавеску.' },
+      { icon:'🧯', name:'Огнетушитель',   correct:true,   warn:null,        okMsg:'Отлично! Огнетушитель справится с этим.' },
+      { icon:'🛏️', name:'Плотное одеяло', correct:true,   warn:null,        okMsg:'Верно! Одеяло перекрывает доступ воздуха.' },
+      { icon:'🏖️', name:'Песок',          correct:false,  warn:'Песком можно, но до него далеко. Есть лучший вариант!', okMsg:'' },
+    ],
+    bestAnswer: 0
+  },
+  {
+    object:'🔌', flamePos:'right', label:'Загорелся электроприбор',
+    tools:[
+      { icon:'🪣', name:'Вода',          correct:false,  warn:'⚠️ Стой! Водой нельзя тушить то, что включено в розетку — это опасно для жизни!' },
+      { icon:'🧯', name:'Огнетушитель',   correct:true,   warn:null, okMsg:'Правильно! Огнетушитель безопасен для электроприборов.' },
+      { icon:'🛏️', name:'Плотное одеяло', correct:true,   warn:null, okMsg:'Можно! Только сначала отключи прибор от розетки.' },
+      { icon:'🏖️', name:'Песок',          correct:true,   warn:null, okMsg:'Верно, песок не проводит ток. Молодец!' },
+    ],
+    bestAnswer: 1
+  },
+];
+
+// ════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════
+let currentLevel = 0;
+let lvl1Found = 0, lvl1Total = 0;
+let lvl2Answered = false;
+let lvl3Done = false, phoneBuffer = '';
+let lvl4Equipped = [], lvl4CorrectCount = 0;
+const LVL4_NEEDED = FF_ITEMS.filter(i=>i.correct).length;
+let lvl5ScenarioIdx = 0, lvl5Answered = false;
+let currentFireScenario = 0;
+
+// ════════════════════════════════════════════════
+//  NAVIGATION
+// ════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function startGame() {
+  showScreen('level1-screen');
+  updateProgress(1);
+  buildLevel1();
+}
+
+function goToLevel(n) {
+  currentLevel = n;
+  updateProgress(n);
+  if(n===2){ showScreen('level2-screen'); buildLevel2(); }
+  else if(n===3){ showScreen('level3-screen'); buildLevel3(); }
+  else if(n===4){ showScreen('level4-screen'); buildLevel4(); }
+  else if(n===5){ showScreen('level5-screen'); buildLevel5(); }
+}
+
+function updateProgress(active) {
+  for(let i=1;i<=5;i++){
+    const d = document.getElementById('dot-'+i);
+    d.className = 'prog-dot';
+    if(i<active) d.classList.add('done');
+    else if(i===active) d.classList.add('active');
+  }
+}
+
+function showDiploma() {
+  showScreen('diploma-screen');
+  launchFireworks();
+}
+function restartGame() {
+  lvl1Found=0; lvl1Total=0; lvl2Answered=false;
+  lvl3Done=false; phoneBuffer='';
+  lvl4Equipped=[]; lvl4CorrectCount=0;
+  lvl5Answered=false; lvl5ScenarioIdx=0;
+  updateProgress(1);
+  showScreen('intro-screen');
+}
+
+// ════════════════════════════════════════════════
+//  LEVEL 1
+// ════════════════════════════════════════════════
+function buildLevel1() {
+  const grid = document.getElementById('items-grid');
+  grid.innerHTML='';
+  lvl1Found=0;
+  const shuffled=[...ITEMS].sort(()=>Math.random()-.5);
+  lvl1Total = shuffled.filter(i=>i.danger).length;
+  document.getElementById('found-count').textContent='0';
+  document.getElementById('total-danger').textContent=lvl1Total;
+  document.getElementById('lvl1-feedback').className='feedback-box';
+  document.getElementById('lvl1-feedback').textContent='';
+  document.getElementById('lvl1-next').classList.add('hidden');
+
+  shuffled.forEach(item=>{
+    const card = document.createElement('div');
+    card.className='item-card';
+    card.innerHTML=`<span class="item-icon">${item.icon}</span><span class="item-name">${item.name}</span>`;
+    card.onclick=()=>handleItem1(card,item);
+    grid.appendChild(card);
+  });
+}
+
+function handleItem1(card,item){
+  if(card.dataset.clicked) return;
+  card.dataset.clicked='1';
+  const fb = document.getElementById('lvl1-feedback');
+  if(item.danger){
+    card.classList.add('correct-danger');
+    spawnSparks(card);
+    lvl1Found++;
+    document.getElementById('found-count').textContent=lvl1Found;
+    fb.className='feedback-box good';
+    fb.textContent='🔥 '+item.msg;
+    if(lvl1Found===lvl1Total){
+      fb.className='feedback-box good';
+      fb.textContent='🎉 Отлично! Ты нашёл все опасные предметы!';
+      document.getElementById('lvl1-next').classList.remove('hidden');
+    }
+  } else {
+    card.classList.add('safe-item');
+    card.classList.add('wrong');
+    fb.className='feedback-box bad';
+    fb.textContent='😊 '+item.msg+' Ищи опасные предметы!';
+    setTimeout(()=>{card.classList.remove('wrong');},600);
+    // bounce animation for safe items
+    card.style.transition='transform .3s';
+    card.style.transform='scale(1.15) rotate(5deg)';
+    setTimeout(()=>{card.style.transform='';},300);
+  }
+}
+
+function spawnSparks(card){
+  const s=document.createElement('div');
+  s.className='spark-anim'; card.appendChild(s);
+  for(let i=0;i<8;i++){
+    const sp=document.createElement('div');
+    sp.className='spark';
+    const angle=Math.random()*360;
+    const dist=30+Math.random()*40;
+    sp.style.setProperty('--sx','50%'); sp.style.setProperty('--sy','50%');
+    sp.style.setProperty('--ex',`${Math.cos(angle*Math.PI/180)*dist}px`);
+    sp.style.setProperty('--ey',`${Math.sin(angle*Math.PI/180)*dist}px`);
+    sp.style.left='50%'; sp.style.top='50%';
+    sp.style.background=['#FF4500','#FFD700','#FF6B35'][i%3];
+    s.appendChild(sp);
+  }
+  setTimeout(()=>s.remove(),800);
+}
+
+// ════════════════════════════════════════════════
+//  LEVEL 2
+// ════════════════════════════════════════════════
+function buildLevel2(){
+  lvl2Answered=false;
+  document.querySelectorAll('.choice-btn').forEach(b=>{ b.className='choice-btn'; b.disabled=false; });
+  document.getElementById('lvl2-feedback').className='feedback-box';
+  document.getElementById('lvl2-feedback').textContent='';
+  document.getElementById('lvl2-next').classList.add('hidden');
+  document.getElementById('character').style.left='40%';
+  document.getElementById('character').style.bottom='52px';
+  document.getElementById('character').textContent='🧒';
+}
+
+function checkChoice(btn,correct,msg){
+  if(lvl2Answered) return;
+  lvl2Answered=true;
+  const fb=document.getElementById('lvl2-feedback');
+  document.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true);
+  if(correct){
+    btn.classList.add('correct');
+    fb.className='feedback-box good'; fb.textContent='✅ '+msg;
+    // animate character escaping
+    const char=document.getElementById('character');
+    char.textContent='🏃';
+    setTimeout(()=>{ char.style.left='75%'; char.style.bottom='52px'; },200);
+    setTimeout(()=>{ char.textContent='😊'; },1600);
+    document.getElementById('lvl2-next').classList.remove('hidden');
+  } else {
+    btn.classList.add('wrong');
+    fb.className='feedback-box bad'; fb.textContent='❌ '+msg;
+    setTimeout(()=>{
+      lvl2Answered=false;
+      document.querySelectorAll('.choice-btn').forEach(b=>{ b.classList.remove('wrong','correct'); b.disabled=false; });
+      fb.className='feedback-box'; fb.textContent='';
+    },2500);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  LEVEL 3
+// ════════════════════════════════════════════════
+function buildLevel3(){
+  lvl3Done=false; phoneBuffer='';
+  document.getElementById('phone-display').textContent='_';
+  document.getElementById('lvl3-feedback').className='feedback-box';
+  document.getElementById('lvl3-feedback').textContent='';
+  document.getElementById('dispatcher-box').style.display='none';
+  document.getElementById('lvl3-next').classList.add('hidden');
+  document.querySelectorAll('.num-chip').forEach(c=>{c.className='num-chip';c.disabled=false;});
+  document.getElementById('phone-feedback').className='feedback-box';
+  document.getElementById('phone-feedback').textContent='';
+}
+
+function checkNumber(btn,num){
+  if(lvl3Done) return;
+  document.querySelectorAll('.num-chip').forEach(c=>c.disabled=true);
+  const correct = (num==='101'||num==='112'||num==='01');
+  const fb=document.getElementById('lvl3-feedback');
+  if(correct){
+    btn.classList.add('correct-num');
+    fb.className='feedback-box good';
+    fb.textContent=`✅ Правильно! ${num} — это пожарная служба!`;
+    lvl3Done=true;
+    document.getElementById('dispatcher-box').style.display='block';
+    document.getElementById('lvl3-next').classList.remove('hidden');
+  } else {
+    btn.classList.add('wrong-num');
+    fb.className='feedback-box bad';
+    const hints={'02':'02 — это полиция.','03':'03 — это скорая помощь.'};
+    fb.textContent='❌ '+(hints[num]||'Это не пожарная!')+ ' Попробуй ещё раз!';
+    setTimeout(()=>{
+      document.querySelectorAll('.num-chip').forEach(c=>{c.className='num-chip';c.disabled=false;});
+      fb.className='feedback-box'; fb.textContent='';
+    },2000);
+  }
+}
+
+function phoneKey(d){
+  if(phoneBuffer.length>=3) return;
+  phoneBuffer+=d;
+  document.getElementById('phone-display').textContent=phoneBuffer||'_';
+}
+function phoneClear(){ phoneBuffer=''; document.getElementById('phone-display').textContent='_'; }
+function phoneCall(){
+  if(!phoneBuffer) return;
+  const fb=document.getElementById('phone-feedback');
+  const correct=['01','101','112'].includes(phoneBuffer);
+  if(correct){
+    fb.className='feedback-box good';
+    fb.textContent=`✅ Номер ${phoneBuffer} набран! Пожарные едут!`;
+    lvl3Done=true;
+    document.getElementById('dispatcher-box').style.display='block';
+    document.getElementById('lvl3-next').classList.remove('hidden');
+  } else {
+    fb.className='feedback-box bad';
+    fb.textContent=`❌ Номер ${phoneBuffer} неверный. Попробуй снова!`;
+    setTimeout(()=>{ phoneBuffer=''; document.getElementById('phone-display').textContent='_'; fb.className='feedback-box'; fb.textContent=''; },2000);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  LEVEL 4
+// ════════════════════════════════════════════════
+function buildLevel4(){
+  lvl4Equipped=[]; lvl4CorrectCount=0;
+  document.getElementById('ff-base').textContent='👨';
+  document.getElementById('ff-equipment').innerHTML='';
+  document.getElementById('lvl4-feedback').className='feedback-box';
+  document.getElementById('lvl4-feedback').textContent='';
+  document.getElementById('lvl4-next').classList.add('hidden');
+  document.getElementById('siren-anim').style.display='none';
+  document.getElementById('tooltip-bubble').className='tooltip-bubble';
+
+  const shelf=document.getElementById('items-shelf');
+  shelf.innerHTML='';
+  const shuffled=[...FF_ITEMS].sort(()=>Math.random()-.5);
+  shuffled.forEach((item,i)=>{
+    const el=document.createElement('div');
+    el.className='shelf-item'+(item.correct?'':' wrong-item');
+    el.innerHTML=`<div class="s-icon">${item.icon}</div><div class="s-name">${item.name}</div>`;
+    el.onclick=()=>handleFF(el,item);
+    shelf.appendChild(el);
+  });
+}
+
+function handleFF(el,item){
+  if(el.classList.contains('used')) return;
+  const tip=document.getElementById('tooltip-bubble');
+  const fb=document.getElementById('lvl4-feedback');
+  tip.textContent=item.icon+' '+item.info;
+  tip.className='tooltip-bubble show';
+  if(item.correct){
+    el.classList.add('used');
+    lvl4CorrectCount++;
+    const equip=document.getElementById('ff-equipment');
+    const span=document.createElement('span');
+    // Position items creatively around body
+    const positions=[
+      'top:-20px;left:50%;transform:translateX(-50%)',
+      'bottom:-10px;left:50%;transform:translateX(-50%)',
+      'top:20px;left:-20px',
+      'top:10px;right:-20px',
+      'bottom:20px;left:-20px',
+      'bottom:20px;right:-20px',
+      'top:50%;left:-30px',
+      'top:50%;right:-30px',
+      'top:40px;left:40%'
+    ];
+    span.style.cssText='position:absolute;font-size:28px;'+positions[lvl4CorrectCount%positions.length];
+    span.textContent=item.icon;
+    span.style.animation='fadeIn .3s';
+    equip.appendChild(span);
+    fb.className='feedback-box good';
+    fb.textContent='✅ Молодец! '+item.info;
+    if(lvl4CorrectCount===LVL4_NEEDED){
+      setTimeout(()=>{
+        document.getElementById('ff-base').textContent='🧑‍🚒';
+        document.getElementById('siren-anim').style.display='block';
+        fb.className='feedback-box good';
+        fb.textContent='🎉 Пожарный готов к выезду! Сирена включена — УУУ! 🚨';
+        document.getElementById('lvl4-next').classList.remove('hidden');
+      },400);
+    }
+  } else {
+    fb.className='feedback-box bad';
+    fb.textContent='❌ '+item.info;
+    el.style.animation='shake .4s';
+    setTimeout(()=>el.style.animation='',500);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  LEVEL 5
+// ════════════════════════════════════════════════
+function buildLevel5(){
+  lvl5Answered=false;
+  currentFireScenario=Math.floor(Math.random()*FIRE_SCENARIOS.length);
+  renderFireScenario();
+}
+
+function renderFireScenario(){
+  const sc=FIRE_SCENARIOS[currentFireScenario];
+  document.getElementById('fire-scenario-title').textContent='Сцена: '+sc.label;
+  document.getElementById('fire-object').textContent=sc.object;
+  const flame=document.getElementById('fire-flame');
+  flame.textContent='🔥'; flame.className='fire-flame';
+  document.getElementById('smoke-out').style.display='none';
+  document.getElementById('fire-warning').className='fire-warning';
+  document.getElementById('lvl5-feedback').className='feedback-box';
+  document.getElementById('lvl5-feedback').textContent='';
+  document.getElementById('lvl5-next').classList.add('hidden');
+  document.getElementById('final-lesson').style.display='none';
+
+  const grid=document.getElementById('tools-grid');
+  grid.innerHTML='';
+  sc.tools.forEach((t,i)=>{
+    const card=document.createElement('div');
+    card.className='tool-card';
+    card.innerHTML=`<div class="t-icon">${t.icon}</div><div class="t-name">${t.name}</div>`;
+    card.onclick=()=>handleTool(card,t);
+    grid.appendChild(card);
+  });
+}
+
+function handleTool(card,tool){
+  if(lvl5Answered) return;
+  const warn=document.getElementById('fire-warning');
+  const fb=document.getElementById('lvl5-feedback');
+  if(tool.warn){
+    warn.textContent=tool.warn;
+    warn.className='fire-warning show';
+    card.classList.add('wrong-tool');
+    setTimeout(()=>{card.classList.remove('wrong-tool'); warn.className='fire-warning';},2500);
+    return;
+  }
+  if(tool.correct){
+    lvl5Answered=true;
+    card.classList.add('correct-tool');
+    fb.className='feedback-box good'; fb.textContent='✅ '+tool.okMsg;
+    // extinguish animation
+    const flame=document.getElementById('fire-flame');
+    flame.style.transition='font-size .8s'; flame.style.fontSize='0';
+    setTimeout(()=>{ document.getElementById('smoke-out').style.display='block'; },600);
+    setTimeout(()=>{
+      document.getElementById('final-lesson').style.display='block';
+      document.getElementById('lvl5-next').classList.remove('hidden');
+    },1200);
+  } else {
+    card.classList.add('wrong-tool');
+    fb.className='feedback-box bad'; fb.textContent='❌ Это не поможет! Попробуй другое средство.';
+    setTimeout(()=>card.classList.remove('wrong-tool'),600);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  DIPLOMA
+// ════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('diploma-name-input');
+  if(inp) inp.addEventListener('input',()=>{
+    const v=inp.value.trim();
+    document.getElementById('diploma-name-display').textContent=v||'Юный Герой';
+  });
+});
+
+function printDiploma(){
+  const name=document.getElementById('diploma-name-input').value.trim()||'Юный Герой';
+  document.getElementById('diploma-name-display').textContent=name;
+  window.print();
+}
+
+// ════════════════════════════════════════════════
+//  FIREWORKS
+// ════════════════════════════════════════════════
+function launchFireworks(){
+  const container=document.getElementById('fireworks');
+  container.innerHTML='';
+  const colors=['#FF4500','#FFD700','#2ECC71','#3498DB','#9B59B6','#E91E63'];
+  for(let i=0;i<50;i++){
+    const p=document.createElement('div');
+    const x=Math.random()*100, y=Math.random()*100;
+    const c=colors[Math.floor(Math.random()*colors.length)];
+    const size=4+Math.random()*8;
+    p.style.cssText=`
+      position:absolute; left:${x}vw; top:${y}vh;
+      width:${size}px; height:${size}px; border-radius:50%;
+      background:${c}; opacity:0;
+      animation: fw ${0.8+Math.random()*1.2}s ${Math.random()*1.5}s forwards;
+    `;
+    container.appendChild(p);
+  }
+  // inject keyframes once
+  if(!document.getElementById('fw-style')){
+    const st=document.createElement('style');
+    st.id='fw-style';
+    st.textContent=`@keyframes fw{
+      0%{opacity:1;transform:translate(0,0) scale(1)}
+      100%{opacity:0;transform:translate(${Math.random()>0.5?'':'-'}${20+Math.random()*60}px,${-30-Math.random()*80}px) scale(0)}
+    }`;
+    document.head.appendChild(st);
+  }
+  setTimeout(()=>container.innerHTML='',3000);
+}
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+(function init(){
+  // nothing needed - intro screen is active by default
+})();
+</script>
+</body>
+</html>
