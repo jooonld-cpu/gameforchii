@@ -2,568 +2,858 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Азбука 01 — Юный Спасатель</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🚒 Азбука 01 — Юный Спасатель</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --fire: #FF4500;
-    --fire2: #FF6B35;
-    --safe: #2ECC71;
-    --sky: #87CEEB;
-    --dark: #1a1a2e;
-    --card: #fff8f0;
-    --accent: #FFD700;
-    --smoke: #8a8a9a;
-    --btn-shadow: 0 6px 0 #c0392b;
-    --green-shadow: 0 6px 0 #1a7a42;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --fire: #FF4500;
+  --fire2: #FF6B35;
+  --fire3: #FFD700;
+  --safe: #2ECC71;
+  --safe2: #27ae60;
+  --sky: #87CEEB;
+  --bg1: #1a0533;
+  --bg2: #0d1b4b;
+  --card: #fff9f0;
+  --accent: #FFD700;
+  --purple: #9B59B6;
+  --pink: #E91E63;
+  --blue: #3498DB;
+  --r: 28px;
+}
 
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 20% 30%, white, transparent),
-      radial-gradient(1px 1px at 60% 10%, white, transparent),
-      radial-gradient(1.5px 1.5px at 80% 50%, white, transparent),
-      radial-gradient(1px 1px at 40% 70%, white, transparent),
-      radial-gradient(1px 1px at 10% 80%, white, transparent),
-      radial-gradient(1.5px 1.5px at 90% 20%, white, transparent),
-      radial-gradient(1px 1px at 70% 90%, white, transparent),
-      radial-gradient(1px 1px at 30% 50%, white, transparent),
-      radial-gradient(1px 1px at 55% 60%, white, transparent),
-      radial-gradient(1px 1px at 15% 45%, white, transparent);
-    pointer-events: none;
-    z-index: 0;
-  }
+html, body {
+  font-family: 'Baloo 2', 'Nunito', sans-serif;
+  background: radial-gradient(ellipse at 30% 20%, #3a0a6e 0%, #1a0533 40%, #0d1b4b 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
 
-  #app {
-    position: relative; z-index: 1;
-    width: 100%; max-width: 860px;
-    padding: 16px;
-  }
+/* ── Floating emojis background ── */
+.bg-floaters {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+}
+.floater {
+  position: absolute; font-size: clamp(20px,4vw,36px); opacity: 0.08;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.08; }
+  90%  { opacity: 0.08; }
+  100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
 
-  /* ── Voice toggle button ── */
-  #voice-toggle {
-    position: fixed;
-    top: 16px; right: 16px;
-    z-index: 100;
-    background: rgba(255,255,255,.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,.3);
-    border-radius: 50px;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-family: 'Fredoka One', cursive;
-    font-size: 15px;
-    color: #fff;
-    display: flex; align-items: center; gap: 6px;
-    transition: all .2s;
-    box-shadow: 0 4px 15px rgba(0,0,0,.3);
-  }
-  #voice-toggle:hover { background: rgba(255,255,255,.25); transform: scale(1.05); }
-  #voice-toggle .voice-icon { font-size: 18px; }
-  #voice-toggle.muted { opacity: .5; }
+/* ── Stars ── */
+.stars-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 10% 15%, #fff, transparent),
+    radial-gradient(2px 2px at 25% 8%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 30%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 5%, #fff, transparent),
+    radial-gradient(2px 2px at 75% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 35%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 92% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 50%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 70% 70%, rgba(255,255,255,.5), transparent);
+}
 
-  /* Speaking animation */
-  .speaking-indicator {
-    display: none;
-    align-items: center;
-    gap: 3px;
-    padding: 6px 12px;
-    background: rgba(46,204,113,.15);
-    border: 2px solid var(--safe);
-    border-radius: 20px;
-    margin: 8px auto;
-    width: fit-content;
-    font-size: 12px;
-    font-weight: 700;
-    color: #155724;
-  }
-  .speaking-indicator.active { display: flex; }
-  .speak-bar {
-    width: 3px; background: var(--safe); border-radius: 2px;
-    animation: speakBounce .5s infinite alternate;
-  }
-  .speak-bar:nth-child(2) { animation-delay: .1s; height: 8px; }
-  .speak-bar:nth-child(3) { animation-delay: .2s; height: 14px; }
-  .speak-bar:nth-child(4) { animation-delay: .3s; height: 10px; }
-  .speak-bar:nth-child(5) { animation-delay: .15s; height: 6px; }
-  @keyframes speakBounce {
-    from { transform: scaleY(.4); }
-    to   { transform: scaleY(1.2); }
-  }
+/* ── Voice bar ── */
+#voice-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(16px);
+  border-bottom: 2px solid rgba(255,215,0,.3);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; gap: 12px;
+}
+#voice-bar .app-logo {
+  font-family: 'Baloo 2', sans-serif; font-size: 20px; font-weight: 900;
+  color: #fff; letter-spacing: 1px;
+}
+#voice-bar .app-logo span { color: var(--fire3); }
 
-  /* ── Screen management ── */
-  .screen { display: none; animation: fadeIn .4s ease; }
-  .screen.active { display: block; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+#voice-btn {
+  background: linear-gradient(135deg, #FF4500, #FFD700);
+  border: none; border-radius: 50px; padding: 8px 18px;
+  font-family: 'Baloo 2', sans-serif; font-size: 15px; font-weight: 800;
+  color: #fff; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 4px 16px rgba(255,69,0,.5); transition: all .2s;
+  touch-action: manipulation;
+}
+#voice-btn:active { transform: scale(.95); }
+#voice-btn.off { background: #555; box-shadow: none; }
 
-  /* ── Progress bar ── */
-  #progress-bar {
-    display: flex; gap: 8px; justify-content: center;
-    margin-bottom: 18px;
-  }
-  .prog-dot {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,.15);
-    border: 3px solid rgba(255,255,255,.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 900; color: rgba(255,255,255,.5);
-    transition: all .4s;
-    font-family: 'Fredoka One', cursive;
-  }
-  .prog-dot.done { background: var(--safe); border-color: var(--safe); color: #fff; }
-  .prog-dot.active { background: var(--accent); border-color: var(--accent); color: #1a1a2e; transform: scale(1.2); }
+/* Speaking waves in bar */
+.speak-waves { display: flex; align-items: center; gap: 3px; }
+.sw { width: 4px; border-radius: 3px; background: var(--fire3); animation: sw .5s infinite alternate; }
+.sw:nth-child(1){ height:6px; animation-delay:0s; }
+.sw:nth-child(2){ height:14px; animation-delay:.1s; }
+.sw:nth-child(3){ height:20px; animation-delay:.05s; }
+.sw:nth-child(4){ height:12px; animation-delay:.15s; }
+.sw:nth-child(5){ height:8px; animation-delay:.2s; }
+@keyframes sw { from{transform:scaleY(.3)} to{transform:scaleY(1)} }
+.speak-waves { opacity: 0; transition: opacity .3s; }
+.speak-waves.active { opacity: 1; }
 
-  /* ── Cards / panels ── */
-  .game-card {
-    background: var(--card);
-    border-radius: 28px;
-    padding: 32px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 4px rgba(255,215,0,.3);
-    position: relative; overflow: hidden;
-  }
-  .game-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 8px;
-    background: linear-gradient(90deg, var(--fire), var(--accent), var(--fire2));
-  }
+/* ── App wrapper ── */
+#app {
+  position: relative; z-index: 1;
+  max-width: 900px; margin: 0 auto;
+  padding: 80px 16px 32px;
+}
 
-  /* Read aloud button */
-  .read-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(255,69,0,.1); border: 2px solid rgba(255,69,0,.3);
-    border-radius: 50px; padding: 5px 14px;
-    font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
-    color: var(--fire); cursor: pointer;
-    transition: all .2s; margin-left: 8px; vertical-align: middle;
-  }
-  .read-btn:hover { background: rgba(255,69,0,.2); border-color: var(--fire); }
-  .read-btn.reading { background: rgba(46,204,113,.15); border-color: var(--safe); color: #155724; }
+/* ── Screen transitions ── */
+.screen { display: none; }
+.screen.active {
+  display: block;
+  animation: screenIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes screenIn {
+  from { opacity:0; transform:translateY(40px) scale(.95); }
+  to   { opacity:1; transform:none; }
+}
 
-  h1.game-title {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    color: var(--fire);
-    text-align: center;
-    text-shadow: 3px 3px 0 rgba(0,0,0,.1);
-    line-height: 1.1;
-  }
-  h2.level-title {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.3rem, 4vw, 1.9rem);
-    color: var(--dark);
-    margin-bottom: 8px;
-  }
-  .level-badge {
-    display: inline-block;
-    background: var(--fire);
-    color: #fff;
-    font-family: 'Fredoka One', cursive;
-    font-size: 13px; padding: 4px 14px;
-    border-radius: 20px; margin-bottom: 12px;
-  }
-  p.desc { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+/* ── Progress ── */
+#progress-wrap {
+  display: flex; gap: 6px; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.prog-step {
+  display: flex; align-items: center; gap: 6px;
+}
+.prog-dot {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 3px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; transition: all .5s cubic-bezier(.34,1.56,.64,1);
+}
+.prog-dot.done {
+  background: var(--safe); border-color: var(--safe2);
+  box-shadow: 0 0 20px rgba(46,204,113,.5);
+  transform: scale(1.1);
+}
+.prog-dot.active {
+  background: linear-gradient(135deg, var(--fire), var(--fire3));
+  border-color: var(--fire3);
+  box-shadow: 0 0 30px rgba(255,215,0,.6);
+  transform: scale(1.25);
+  animation: pulseProg 1.2s infinite;
+}
+@keyframes pulseProg { 0%,100%{box-shadow:0 0 30px rgba(255,215,0,.6)} 50%{box-shadow:0 0 50px rgba(255,215,0,.9),0 0 80px rgba(255,100,0,.4)} }
+.prog-line {
+  width: 20px; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,.15);
+  transition: background .5s;
+}
+.prog-line.done { background: var(--safe); }
 
-  /* ── Buttons ── */
-  .btn {
-    display: inline-block; padding: 14px 32px;
-    border: none; border-radius: 50px; cursor: pointer;
-    font-family: 'Fredoka One', cursive; font-size: 18px;
-    transition: transform .12s, box-shadow .12s;
-    text-decoration: none;
-  }
-  .btn-fire {
-    background: linear-gradient(135deg, var(--fire), var(--fire2));
-    color: #fff; box-shadow: var(--btn-shadow);
-  }
-  .btn-fire:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #c0392b; }
-  .btn-fire:active { transform: translateY(3px); box-shadow: 0 3px 0 #c0392b; }
+/* ── Game card ── */
+.game-card {
+  background: linear-gradient(160deg, #fffef8 0%, #fff8f0 100%);
+  border-radius: 32px; padding: clamp(20px,4vw,36px);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.6),
+    0 0 0 4px rgba(255,215,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  position: relative; overflow: hidden;
+}
+.game-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 10px;
+  background: linear-gradient(90deg, #FF4500, #FFD700, #FF6B35, #FFD700, #FF4500);
+  background-size: 200% 100%;
+  animation: shimmerBar 2s linear infinite;
+}
+@keyframes shimmerBar { from{background-position:0%} to{background-position:200%} }
 
-  .btn-green {
-    background: linear-gradient(135deg, #2ECC71, #27ae60);
-    color: #fff; box-shadow: var(--green-shadow);
-  }
-  .btn-green:hover { transform: translateY(-3px); box-shadow: 0 9px 0 #1a7a42; }
-  .btn-green:active { transform: translateY(3px); box-shadow: 0 3px 0 #1a7a42; }
+/* ── Titles ── */
+.game-title {
+  font-family: 'Baloo 2', sans-serif; font-size: clamp(2.2rem,7vw,3.6rem);
+  font-weight: 900; color: var(--fire); text-align: center;
+  text-shadow: 3px 3px 0 rgba(255,100,0,.2), 0 0 40px rgba(255,100,0,.3);
+  line-height: 1;
+}
+.level-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, var(--fire), var(--fire2));
+  color: #fff; font-size: 14px; font-weight: 800;
+  padding: 6px 18px; border-radius: 50px; margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(255,69,0,.4);
+}
+.level-title {
+  font-family: 'Baloo 2', sans-serif; font-size: clamp(1.5rem,4.5vw,2.2rem);
+  font-weight: 900; color: #1a1a2e; margin-bottom: 6px; line-height: 1.1;
+}
+.desc {
+  font-size: clamp(15px,3.5vw,18px); color: #555; font-weight: 700;
+  line-height: 1.6; margin-bottom: 16px;
+}
+.desc strong { color: var(--fire); font-size: 1.1em; }
 
-  .btn-gray {
-    background: #ddd; color: #555;
-    box-shadow: 0 6px 0 #aaa;
-  }
+/* ── Big read button ── */
+.read-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(255,69,0,.12), rgba(255,165,0,.12));
+  border: 2.5px solid rgba(255,100,0,.35);
+  border-radius: 50px; padding: 8px 18px;
+  font-family: 'Baloo 2', sans-serif; font-size: 14px; font-weight: 800;
+  color: var(--fire); cursor: pointer; transition: all .2s;
+  box-shadow: 0 2px 10px rgba(255,69,0,.15);
+  touch-action: manipulation;
+}
+.read-btn:active { transform: scale(.95); }
+.read-btn.reading {
+  background: linear-gradient(135deg, rgba(46,204,113,.15), rgba(39,174,96,.15));
+  border-color: var(--safe); color: var(--safe2);
+  animation: readPulse .8s infinite;
+}
+@keyframes readPulse { 0%,100%{box-shadow:0 2px 10px rgba(46,204,113,.2)} 50%{box-shadow:0 2px 20px rgba(46,204,113,.5)} }
 
-  /* ── Mascot ── */
-  .mascot { font-size: clamp(48px, 10vw, 80px); text-align: center; margin: 8px 0; }
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: clamp(14px,3vw,18px) clamp(24px,5vw,44px);
+  border: none; border-radius: 60px; cursor: pointer;
+  font-family: 'Baloo 2', sans-serif; font-size: clamp(17px,4vw,22px);
+  font-weight: 900; transition: all .15s; touch-action: manipulation;
+  text-decoration: none; white-space: nowrap;
+}
+.btn-fire {
+  background: linear-gradient(135deg, #FF4500 0%, #FF6B35 50%, #FFD700 100%);
+  color: #fff;
+  box-shadow: 0 8px 0 #b83200, 0 12px 30px rgba(255,69,0,.4);
+}
+.btn-fire:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #b83200, 0 16px 40px rgba(255,69,0,.5); }
+.btn-fire:active { transform: translateY(4px); box-shadow: 0 4px 0 #b83200; }
+.btn-green {
+  background: linear-gradient(135deg, #2ECC71, #27ae60);
+  color: #fff;
+  box-shadow: 0 8px 0 #1a6e3b, 0 12px 30px rgba(46,204,113,.4);
+}
+.btn-green:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #1a6e3b; }
+.btn-green:active { transform: translateY(4px); box-shadow: 0 4px 0 #1a6e3b; }
+.btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
 
-  /* ════ LEVEL 1 ════ */
-  #items-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 14px; margin: 20px 0;
-  }
-  .item-card {
-    background: #fff;
-    border: 3px solid #e0d8cf;
-    border-radius: 20px; padding: 16px 8px;
-    text-align: center; cursor: pointer;
-    transition: transform .18s, border-color .18s, box-shadow .18s;
-    user-select: none;
-    position: relative; overflow: hidden;
-  }
-  .item-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
-  .item-card .item-icon { font-size: 44px; display: block; }
-  .item-card .item-name { font-size: 12px; font-weight: 700; color: #666; margin-top: 6px; }
-  .item-card.danger { border-color: var(--fire); background: #fff3f0; animation: shakeCard .4s; }
-  .item-card.safe-item { border-color: var(--safe); background: #f0fff4; }
-  .item-card.correct-danger { border-color: var(--safe); background: #f0fff4; }
-  .item-card.wrong { animation: wrongPulse .5s; }
-  @keyframes shakeCard {
-    0%,100%{transform:none} 20%{transform:rotate(-5deg)} 40%{transform:rotate(5deg)} 60%{transform:rotate(-3deg)} 80%{transform:rotate(3deg)}
-  }
-  @keyframes wrongPulse {
-    0%{box-shadow:none} 50%{box-shadow:0 0 0 6px rgba(255,69,0,.4)} 100%{box-shadow:none}
-  }
-  .spark-anim {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none; overflow: hidden;
-  }
-  .spark {
-    position: absolute; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent); animation: sparkFly .7s forwards;
-  }
-  @keyframes sparkFly {
-    from { transform: translate(var(--sx), var(--sy)) scale(1); opacity: 1; }
-    to   { transform: translate(var(--ex), var(--ey)) scale(0); opacity: 0; }
-  }
-  #lvl1-score { font-size: 16px; font-weight: 700; color: #555; text-align:center; }
+/* ── Mascot big ── */
+.mascot-big {
+  text-align: center; font-size: clamp(80px,18vw,130px);
+  animation: mascotBounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 10px 30px rgba(255,100,0,.3));
+  display: block; margin: 8px auto;
+}
+@keyframes mascotBounce {
+  0%,100%{transform:translateY(0) scale(1)} 
+  30%{transform:translateY(-18px) scale(1.05)} 
+  60%{transform:translateY(-8px) scale(1.02)}
+}
 
-  /* ════ LEVEL 2 ════ */
-  .room-scene {
-    background: linear-gradient(to bottom, #c8e6c9 0%, #ffecb3 40%, #bcaaa4 100%);
-    border-radius: 20px; height: 180px; margin: 16px 0;
-    position: relative; overflow: hidden;
-    border: 3px solid #bbb;
-  }
-  .room-scene .floor { position:absolute; bottom:0; left:0; right:0; height:50px; background:#8d6e63; }
-  .room-scene .window { position:absolute; top:20px; left:30px; width:60px; height:50px; background:#87ceeb; border:3px solid #795548; border-radius:4px; }
-  .room-scene .window::after { content:''; position:absolute; top:0;bottom:0;left:50%;width:2px; background:#795548; }
-  .room-scene .door { position:absolute; bottom:50px; right:40px; width:45px; height:70px; background:#a1887f; border:3px solid #795548; border-radius:4px 4px 0 0; }
-  .room-scene .smoke-cloud {
-    position:absolute; top:10px; left:50%; transform:translateX(-50%);
-    font-size:36px; animation: smokeDrift 2s infinite alternate;
-  }
-  @keyframes smokeDrift {
-    from { transform:translateX(-50%) translateY(0) scale(1); opacity:.9; }
-    to   { transform:translateX(-40%) translateY(-10px) scale(1.1); opacity:.6; }
-  }
-  .room-scene .character {
-    position:absolute; bottom:52px; left:40%;
-    font-size:40px; transition: left 1.5s ease, bottom 1.5s ease;
-  }
+/* ── Feedback boxes ── */
+.feedback-box {
+  border-radius: 20px; padding: 18px 20px;
+  font-size: clamp(14px,3.5vw,17px); font-weight: 800;
+  margin: 14px 0; display: none; line-height: 1.5;
+  animation: feedIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes feedIn { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+.feedback-box.good { background: linear-gradient(135deg,#d4edda,#a8e6c0); color: #0d4a22; border: 3px solid var(--safe); display:block; }
+.feedback-box.bad  { background: linear-gradient(135deg,#fde8e8,#fcc8c8); color: #7b1f1f; border: 3px solid var(--fire); display:block; }
 
-  .choice-btn {
-    display: block; width: 100%;
-    background: #fff; border: 3px solid #ddd;
-    border-radius: 16px; padding: 14px 20px;
-    margin: 10px 0; cursor: pointer;
-    font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 700;
-    text-align: left; transition: all .2s; color: #333;
-  }
-  .choice-btn:hover { border-color: #aaa; background: #f5f5f5; transform: translateX(4px); }
-  .choice-btn .choice-num {
-    display: inline-flex; align-items:center; justify-content:center;
-    width:28px; height:28px; border-radius:50%; background: #eee;
-    font-size:14px; font-weight:900; margin-right:10px; flex-shrink:0;
-  }
-  .choice-btn.correct { border-color: var(--safe); background: #f0fff4; animation: bounceIn .4s; }
-  .choice-btn.wrong   { border-color: var(--fire); background: #fff3f0; animation: shake .4s; }
-  @keyframes bounceIn { 0%{transform:scale(.95)} 60%{transform:scale(1.05)} 100%{transform:scale(1)} }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+/* ══════ INTRO ══════ */
+.intro-features {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin: 20px 0;
+}
+@media(max-width:480px){ .intro-features { grid-template-columns: 1fr; } }
+.feat-card {
+  background: linear-gradient(135deg, #fff, #f5f0ff);
+  border-radius: 20px; padding: 16px;
+  display: flex; align-items: center; gap: 12px;
+  border: 2.5px solid #e8e0f8;
+  transition: all .25s; cursor: default;
+  animation: featPop .5s backwards;
+}
+.feat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.08); border-color: #c8b0f0; }
+.feat-icon { font-size: 44px; flex-shrink: 0; filter: drop-shadow(0 4px 8px rgba(0,0,0,.15)); }
+.feat-text { font-size: 14px; font-weight: 800; color: #333; line-height: 1.4; }
+.feat-text span { display: block; font-size: 12px; color: #888; font-weight: 700; margin-top: 2px; }
+@keyframes featPop {
+  from{opacity:0;transform:scale(.8) translateY(20px)} to{opacity:1;transform:none}
+}
+.feat-card:nth-child(1){animation-delay:.1s}
+.feat-card:nth-child(2){animation-delay:.2s}
+.feat-card:nth-child(3){animation-delay:.3s}
+.feat-card:nth-child(4){animation-delay:.4s}
+.feat-card:nth-child(5){animation-delay:.5s}
 
-  .feedback-box {
-    border-radius: 16px; padding: 16px;
-    font-size: 15px; font-weight: 700;
-    margin: 12px 0; display: none;
-  }
-  .feedback-box.good { background: #d4edda; color: #155724; border: 2px solid var(--safe); display:block; }
-  .feedback-box.bad  { background: #f8d7da; color: #721c24; border: 2px solid var(--fire); display:block; }
+/* ══════ LEVEL 1 ══════ */
+#items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(100px,22vw,130px),1fr));
+  gap: 14px; margin: 20px 0;
+}
+.item-card {
+  background: linear-gradient(160deg,#fff,#fafafa);
+  border: 3.5px solid #e8e0d8; border-radius: 24px;
+  padding: 18px 10px; text-align: center; cursor: pointer;
+  transition: all .2s; user-select: none; position: relative; overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.item-card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+.item-card:active { transform: scale(.93); }
+.item-icon {
+  font-size: clamp(44px,10vw,64px); display: block;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.1));
+}
+.item-card:hover .item-icon { transform: scale(1.15) rotate(-5deg); }
+.item-name { font-size: clamp(11px,2.5vw,13px); font-weight: 800; color: #888; margin-top: 8px; }
+.item-card.correct-pick {
+  border-color: var(--safe); background: linear-gradient(160deg,#f0fff4,#d4edda);
+  animation: correctBounce .5s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes correctBounce {
+  0%{transform:scale(1)} 30%{transform:scale(1.25) rotate(-5deg)} 60%{transform:scale(1.1) rotate(3deg)} 100%{transform:scale(1)}
+}
+.item-card.danger-border { border-color: #e8b0a0; background: linear-gradient(160deg,#fff5f0,#fde8e8); }
+.item-card.safe-pick {
+  border-color: #c0c0c0; background: #f0f0f0;
+  animation: wrongWobble .4s;
+}
+@keyframes wrongWobble {
+  0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)}
+}
 
-  /* ════ LEVEL 3 ════ */
-  .phone-wrap {
-    display: flex; justify-content: center; margin: 16px 0;
-  }
-  .phone {
-    background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
-    border-radius: 30px; padding: 20px;
-    width: 220px; box-shadow: 0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.1);
-    border: 2px solid #444;
-  }
-  .phone-screen {
-    background: #0a2a0a; color: #00ff41;
-    border-radius: 16px; height: 64px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Courier New', monospace; font-size: 28px; font-weight: 900;
-    letter-spacing: 6px; margin-bottom: 14px;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,.5);
-    border: 2px solid #1a3a1a;
-  }
-  .phone-keys {
-    display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
-  }
-  .phone-key {
-    background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-    color: #fff; border: none; border-radius: 12px;
-    padding: 12px 0; font-family: 'Fredoka One', cursive; font-size: 20px;
-    cursor: pointer; transition: all .1s;
-    box-shadow: 0 4px 0 #111;
-  }
-  .phone-key:active, .phone-key.pressed {
-    transform: translateY(3px); box-shadow: 0 1px 0 #111;
-    background: linear-gradient(145deg, #555, #444);
-  }
-  .phone-key.red { background: linear-gradient(145deg, #c0392b, #922b21); box-shadow: 0 4px 0 #5a1414; }
-  .phone-key.green { background: linear-gradient(145deg, #27ae60, #1e8449); box-shadow: 0 4px 0 #0d4a26; }
+/* Danger badge on items */
+.danger-badge {
+  position: absolute; top: 6px; right: 6px;
+  background: var(--fire); color: #fff; border-radius: 50%;
+  width: 22px; height: 22px; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; opacity: 0; transition: opacity .3s;
+}
+.item-card.correct-pick .danger-badge { opacity: 1; }
 
-  .num-options { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin: 16px 0; }
-  .num-chip {
-    background: #fff; border: 3px solid #ddd; border-radius: 50px;
-    padding: 8px 22px; font-family:'Fredoka One',cursive; font-size:20px;
-    cursor:pointer; transition:all .2s; color: #333;
-  }
-  .num-chip:hover { border-color: var(--fire); color: var(--fire); transform:scale(1.1); }
-  .num-chip.correct-num { border-color: var(--safe); background:#d4edda; color:#155724; }
-  .num-chip.wrong-num   { border-color: var(--fire); background:#f8d7da; color:#721c24; animation:shake .4s; }
+/* Stars burst */
+.burst {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+}
+.burst-star {
+  position: absolute; top: 50%; left: 50%;
+  font-size: 16px; animation: burstOut .7s forwards;
+}
+@keyframes burstOut {
+  from{transform:translate(-50%,-50%) scale(.5);opacity:1}
+  to{transform:translate(calc(-50% + var(--bx)),calc(-50% + var(--by))) scale(1.2);opacity:0}
+}
 
-  .dispatcher-box {
-    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-    border: 3px solid var(--safe); border-radius: 20px;
-    padding: 20px; text-align:center; display:none; margin-top:12px;
-  }
-  .dispatcher-box .dispatcher-icon { font-size:48px; }
-  .dispatcher-box p { font-size:15px; font-weight:700; color:#155724; margin:8px 0; line-height:1.5; }
+#lvl1-counter {
+  text-align: center; font-size: clamp(16px,3.5vw,20px); font-weight: 900;
+  color: #555; margin-bottom: 8px;
+}
+.counter-nums { font-size: clamp(24px,5vw,32px); font-weight: 900; color: var(--fire); }
 
-  /* ════ LEVEL 4 ════ */
-  .dressup-area {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 20px; margin: 16px 0;
-  }
-  @media(max-width:560px) { .dressup-area { grid-template-columns:1fr; } }
+/* ══════ LEVEL 2 ══════ */
+.room-scene {
+  position: relative; height: clamp(180px,35vw,260px);
+  background: linear-gradient(to bottom, #c8e6f9 0%, #e8f4fd 35%, #f5deb3 70%, #8d6e63 100%);
+  border-radius: 24px; overflow: hidden; border: 3px solid #b0c8e0;
+  margin: 16px 0;
+}
+/* Window */
+.rs-window {
+  position:absolute; top:20px; left:25px;
+  width:clamp(50px,12vw,75px); height:clamp(45px,10vw,65px);
+  background: linear-gradient(135deg,#87CEEB,#b0e0f8);
+  border:3px solid #795548; border-radius:4px 4px 0 0;
+}
+.rs-window::after {
+  content:''; position:absolute; top:0;bottom:0;left:50%;width:2px;background:#795548;
+}
+.rs-window::before {
+  content:'☀️'; position:absolute; top:-15px; left:50%; transform:translateX(-50%);
+  font-size:18px;
+}
+/* Door */
+.rs-door {
+  position:absolute; bottom:22%;right:clamp(20px,6vw,45px);
+  width:clamp(38px,9vw,55px); height:clamp(60px,14vw,85px);
+  background:linear-gradient(to bottom,#d4a050,#a1887f);
+  border:3px solid #795548; border-radius:5px 5px 0 0;
+}
+.rs-door::after {
+  content:'●'; position:absolute; right:5px; top:50%;
+  font-size:10px; color:#FFD700;
+}
+/* Floor */
+.rs-floor {
+  position:absolute; bottom:0; left:0; right:0;
+  height:22%; background:repeating-linear-gradient(90deg,#8d6e63 0,#8d6e63 49%,#795548 49%,#795548 100%);
+  background-size:60px 100%;
+}
+/* Smoke */
+.rs-smoke {
+  position:absolute; top:15px; left:50%; transform:translateX(-50%);
+  display:flex; gap:6px;
+}
+.smoke-puff {
+  font-size:clamp(28px,6vw,44px);
+  animation:smokeDrift 1.8s ease-in-out infinite;
+}
+.smoke-puff:nth-child(2){animation-delay:.3s; font-size:clamp(22px,5vw,34px);}
+.smoke-puff:nth-child(3){animation-delay:.6s; font-size:clamp(18px,4vw,28px);}
+@keyframes smokeDrift {
+  0%{transform:translateY(0) scale(1);opacity:.9}
+  50%{transform:translateY(-12px) scale(1.1) rotate(5deg);opacity:.6}
+  100%{transform:translateY(0) scale(1);opacity:.9}
+}
+/* Character */
+.rs-character {
+  position:absolute; bottom:22%;
+  font-size:clamp(38px,8vw,55px);
+  transition: left 1.8s cubic-bezier(.25,.46,.45,.94), bottom 1.5s;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.2));
+}
 
-  .firefighter-display {
-    background: linear-gradient(to bottom, #e3f2fd 0%, #c8e6c9 100%);
-    border-radius: 20px; min-height: 320px; position:relative;
-    border: 3px solid #90caf9; padding: 10px;
-    display:flex; align-items:center; justify-content:center;
-    flex-direction:column;
-  }
-  .ff-body { font-size:90px; line-height:1; position:relative; transition: all .3s; }
-  .ff-equipment { position:absolute; top:0; left:0; right:0; bottom:0; pointer-events:none; }
-  .ff-item-on { position:absolute; font-size:36px; transition:all .3s; }
+.choice-grid { display:flex; flex-direction:column; gap:12px; margin-top:16px; }
+.choice-card {
+  background:#fff; border:3px solid #e0d8d0;
+  border-radius:20px; padding:clamp(14px,3vw,18px) 20px;
+  cursor:pointer; display:flex; align-items:center; gap:14px;
+  font-family:'Baloo 2',sans-serif; font-size:clamp(14px,3.5vw,17px); font-weight:800;
+  color:#333; transition:all .2s; text-align:left;
+  touch-action:manipulation;
+}
+.choice-card:hover { transform:translateX(6px); border-color:#ccc; background:#fafafa; }
+.choice-card:active { transform:scale(.97); }
+.choice-num {
+  width:clamp(38px,7vw,48px); height:clamp(38px,7vw,48px); border-radius:50%;
+  background:linear-gradient(135deg,#e0e0e0,#ccc);
+  display:flex; align-items:center; justify-content:center;
+  font-size:clamp(16px,3vw,20px); font-weight:900; flex-shrink:0; color:#333;
+}
+.choice-card.cc-correct {
+  border-color:var(--safe); background:linear-gradient(135deg,#f0fff4,#d4edda);
+  animation:correctBounce .5s cubic-bezier(.34,1.56,.64,1);
+}
+.choice-card.cc-correct .choice-num { background:var(--safe); color:#fff; }
+.choice-card.cc-wrong { border-color:var(--fire); background:linear-gradient(135deg,#fff3f0,#fde8e8); animation:wrongWobble .4s; }
+.choice-card.cc-wrong .choice-num { background:var(--fire); color:#fff; }
 
-  .items-shelf {
-    display:grid; grid-template-columns: repeat(3,1fr);
-    gap:10px;
-  }
-  .shelf-item {
-    background:#fff; border:3px solid #e0d8cf;
-    border-radius:16px; padding:12px 6px;
-    text-align:center; cursor:grab;
-    transition:all .2s; user-select:none;
-    position:relative;
-  }
-  .shelf-item:hover { border-color: var(--fire2); transform:scale(1.05); box-shadow:0 4px 16px rgba(0,0,0,.1); }
-  .shelf-item.used { opacity:.3; pointer-events:none; }
-  .shelf-item.wrong-item { border-color: #aaa; }
-  .shelf-item .s-icon { font-size:34px; }
-  .shelf-item .s-name { font-size:10px; font-weight:700; color:#666; margin-top:4px; }
+/* ══════ LEVEL 3 ══════ */
+.phone-container { display:flex; justify-content:center; align-items:flex-start; gap:24px; flex-wrap:wrap; margin:16px 0; }
 
-  .tooltip-bubble {
-    background:#1a1a2e; color:#fff; border-radius:12px;
-    padding:10px 14px; font-size:13px; line-height:1.4;
-    margin:10px 0; display:none; text-align:center;
-    animation: fadeIn .3s;
-  }
-  .tooltip-bubble.show { display:block; }
+.phone-outer {
+  background:linear-gradient(145deg,#2d2d3a,#1a1a28);
+  border-radius:36px; padding:clamp(16px,4vw,24px);
+  width:clamp(200px,50vw,250px); flex-shrink:0;
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 0 3px rgba(255,255,255,.05);
+  border:2px solid #444;
+}
+.phone-screen {
+  background:#071a07; border:2px solid #1a3a1a;
+  border-radius:16px; height:clamp(55px,12vw,72px);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Courier New',monospace; font-size:clamp(28px,6vw,38px);
+  font-weight:900; letter-spacing:8px; color:#00ff41;
+  margin-bottom:clamp(12px,3vw,18px);
+  box-shadow:inset 0 2px 10px rgba(0,0,0,.8), 0 0 20px rgba(0,255,65,.1);
+  transition:all .3s;
+}
+.phone-screen.ring { animation:phoneRing .3s 3 alternate; color:#FFD700; }
+@keyframes phoneRing { from{box-shadow:inset 0 2px 10px rgba(0,0,0,.8)} to{box-shadow:inset 0 2px 10px rgba(0,0,0,.8),0 0 40px rgba(255,215,0,.5)} }
+.phone-keys { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(6px,2vw,10px); }
+.pkey {
+  background:linear-gradient(145deg,#3a3a4a,#2a2a3a);
+  color:#fff; border:none; border-radius:clamp(10px,2vw,14px);
+  padding:clamp(10px,2.5vw,15px) 0;
+  font-family:'Baloo 2',sans-serif; font-size:clamp(18px,4vw,24px); font-weight:900;
+  cursor:pointer; transition:all .1s;
+  box-shadow:0 4px 0 #111, inset 0 1px 0 rgba(255,255,255,.08);
+  touch-action:manipulation;
+}
+.pkey:active,.pkey.pressed {
+  transform:translateY(3px); box-shadow:0 1px 0 #111;
+  background:linear-gradient(145deg,#555,#444);
+}
+.pkey.red { background:linear-gradient(145deg,#c0392b,#922b21); box-shadow:0 4px 0 #5a1414; }
+.pkey.green { background:linear-gradient(145deg,#27ae60,#1e8449); box-shadow:0 4px 0 #0d4a26; }
+.pkey.red:active { box-shadow:0 1px 0 #5a1414; }
+.pkey.green:active { box-shadow:0 1px 0 #0d4a26; }
 
-  .siren-anim {
-    display:none; text-align:center; padding:20px;
-    animation: sirenPulse .5s infinite alternate;
-  }
-  @keyframes sirenPulse {
-    from { color:#e74c3c; } to { color:#f39c12; }
-  }
+.num-choices-big {
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin:20px 0;
+}
+.num-chip-big {
+  background:#fff; border:4px solid #e0d8d0; border-radius:24px;
+  padding:clamp(12px,3vw,16px) clamp(22px,5vw,32px);
+  font-family:'Baloo 2',sans-serif; font-size:clamp(24px,5vw,34px); font-weight:900;
+  cursor:pointer; transition:all .2s; color:#333;
+  box-shadow:0 4px 0 #bbb;
+  touch-action:manipulation;
+}
+.num-chip-big:hover { transform:translateY(-4px) scale(1.05); border-color:var(--fire); color:var(--fire); box-shadow:0 8px 0 rgba(255,69,0,.3); }
+.num-chip-big:active { transform:scale(.93); }
+.num-chip-big.ncb-correct { border-color:var(--safe); background:linear-gradient(135deg,#f0fff4,#d4edda); color:var(--safe2); box-shadow:0 4px 20px rgba(46,204,113,.4); animation:correctBounce .5s; }
+.num-chip-big.ncb-wrong { border-color:var(--fire); background:linear-gradient(135deg,#fff3f0,#fde8e8); color:var(--fire); animation:wrongWobble .4s; }
 
-  /* ════ LEVEL 5 ════ */
-  .fire-scene {
-    background: linear-gradient(to bottom, #fff3e0 0%, #ffe0b2 100%);
-    border-radius: 20px; padding: 20px;
-    text-align:center; margin:16px 0;
-    position:relative; min-height:160px;
-    border: 3px solid #ffcc80;
-  }
-  .fire-object { font-size:60px; display:inline-block; position:relative; }
-  .fire-flame  { font-size:44px; animation:flicker .4s infinite alternate; display:inline-block; }
-  @keyframes flicker { from{transform:scale(1) rotate(-3deg)} to{transform:scale(1.1) rotate(3deg)} }
-  .fire-flame.out { animation:none; font-size:0; transition:font-size .5s; }
+.dispatcher-card {
+  background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+  border:3px solid var(--safe); border-radius:24px;
+  padding:clamp(16px,4vw,24px); text-align:center;
+  display:none; margin-top:16px;
+  animation:feedIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+.dispatcher-icon { font-size:clamp(48px,10vw,72px); animation:mascotBounce 2s infinite; display:block; }
+.dispatcher-card p { font-size:clamp(14px,3.5vw,17px); font-weight:800; color:#1b5e20; margin:8px 0; line-height:1.5; }
 
-  .tools-grid {
-    display:grid; grid-template-columns:repeat(4,1fr);
-    gap:12px; margin:16px 0;
-  }
-  @media(max-width:480px) { .tools-grid { grid-template-columns:repeat(2,1fr); } }
+/* ══════ LEVEL 4 ══════ */
+.ff-arena {
+  display:grid; grid-template-columns:1fr 1.4fr;
+  gap:20px; margin:16px 0;
+}
+@media(max-width:560px){ .ff-arena{ grid-template-columns:1fr; } }
 
-  .tool-card {
-    background:#fff; border:3px solid #e0d8cf;
-    border-radius:20px; padding:16px 8px;
-    text-align:center; cursor:pointer;
-    transition:all .2s;
-  }
-  .tool-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.12); border-color:#bbb; }
-  .tool-card .t-icon { font-size:42px; }
-  .tool-card .t-name { font-size:11px; font-weight:700; color:#666; margin-top:6px; }
-  .tool-card.correct-tool { border-color:var(--safe); background:#f0fff4; }
-  .tool-card.wrong-tool   { border-color:var(--fire); background:#fff3f0; animation:shake .4s; }
+.ff-display {
+  background:linear-gradient(to bottom,#e3f2fd 0%,#c8e6c9 100%);
+  border-radius:24px; min-height:clamp(280px,50vw,380px);
+  border:3px solid #90caf9; padding:16px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.ff-bg-sky {
+  position:absolute; inset:0; overflow:hidden;
+}
+.ff-cloud { position:absolute; font-size:36px; animation:cloudDrift 6s linear infinite; opacity:.5; }
+.ff-cloud:nth-child(2){animation-delay:-3s;top:60%;font-size:24px;}
+@keyframes cloudDrift { from{left:-15%} to{left:110%} }
 
-  .fire-warning {
-    background:#fff3cd; border:3px solid #ffc107;
-    border-radius:16px; padding:14px; margin:12px 0;
-    font-size:14px; font-weight:700; color:#856404; display:none;
-  }
-  .fire-warning.show { display:block; animation:fadeIn .3s; }
+.ff-figure { position:relative; z-index:1; text-align:center; }
+.ff-body-emoji {
+  font-size:clamp(80px,18vw,120px); display:block;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.15));
+}
+.ff-gear-layer {
+  position:absolute; inset:-20px; pointer-events:none; z-index:2;
+}
+.ff-gear-item {
+  position:absolute; font-size:clamp(28px,6vw,40px);
+  animation:gearPop .4s cubic-bezier(.34,1.56,.64,1);
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));
+}
+@keyframes gearPop { from{transform:scale(0) rotate(-30deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
 
-  /* ════ DIPLOMA ════ */
-  #diploma-screen .game-card {
-    background: linear-gradient(135deg, #fff8f0, #fffde7);
-    border: 5px solid var(--accent);
-    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 10px rgba(255,215,0,.2), 0 0 0 15px rgba(255,215,0,.1);
-  }
-  .diploma-header { text-align:center; margin-bottom:20px; }
-  .diploma-title {
-    font-family:'Fredoka One',cursive;
-    font-size:clamp(1.8rem,5vw,2.8rem);
-    color:var(--fire);
-    text-shadow:2px 2px 0 rgba(0,0,0,.1);
-  }
-  .diploma-subtitle {
-    font-size:18px; color:#555; font-weight:700; margin-top:4px;
-  }
-  .diploma-stars { font-size:36px; letter-spacing:4px; }
-  .diploma-name-area {
-    background: rgba(255,215,0,.2); border: 3px dashed var(--accent);
-    border-radius:16px; padding:20px; text-align:center; margin:16px 0;
-  }
-  .diploma-name-area label { font-size:14px; font-weight:700; color:#888; display:block; margin-bottom:8px; }
-  #diploma-name-input {
-    border:none; border-bottom:3px solid var(--accent);
-    background:transparent; width:100%; max-width:300px;
-    font-family:'Fredoka One',cursive; font-size:24px;
-    text-align:center; color:var(--dark); outline:none;
-    display:block; margin:0 auto;
-  }
-  .diploma-body {
-    text-align:center; font-size:16px; color:#555;
-    line-height:1.8; margin:16px 0;
-  }
-  .diploma-body strong { color:var(--fire); font-size:18px; }
-  .diploma-badges { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin:20px 0; }
-  .d-badge {
-    background:#fff; border:3px solid var(--accent); border-radius:20px;
-    padding:10px 18px; font-size:13px; font-weight:800; color:var(--dark);
-    display:flex; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,.08);
-  }
-  .diploma-footer { text-align:center; color:#aaa; font-size:13px; margin-top:16px; }
-  .fireworks { position:fixed; top:0; left:0; right:0; bottom:0; pointer-events:none; z-index:10; }
+.ff-name {
+  font-family:'Baloo 2',sans-serif; font-size:clamp(16px,4vw,20px);
+  font-weight:900; color:#555; margin-top:8px; text-align:center;
+}
+.ff-progress {
+  font-size:clamp(12px,3vw,14px); font-weight:800; color:#888; text-align:center; margin-top:4px;
+}
+.siren-glow {
+  display:none; text-align:center; margin-top:12px;
+  font-size:clamp(18px,4vw,24px); font-weight:900;
+}
+.siren-glow.active {
+  display:block;
+  animation:sirenColors .5s infinite alternate;
+}
+@keyframes sirenColors { from{color:#e74c3c;text-shadow:0 0 20px rgba(231,76,60,.8)} to{color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,.8)} }
 
-  /* ════ INTRO ════ */
-  .intro-card { text-align:center; }
-  .intro-emoji { font-size:80px; margin:16px 0; animation:bounce 1.5s infinite; }
-  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-  .level-list { display:flex; flex-direction:column; gap:8px; margin:20px 0; text-align:left; }
-  .level-list-item {
-    background:#fff; border-radius:14px; padding:12px 16px;
-    display:flex; align-items:center; gap:12px;
-    font-size:14px; font-weight:700; color:#333;
-    border: 2px solid #e0d8cf;
-  }
-  .level-list-item .li-num {
-    background:var(--fire); color:#fff; border-radius:50%;
-    width:28px; height:28px; display:flex; align-items:center; justify-content:center;
-    font-family:'Fredoka One',cursive; flex-shrink:0;
-  }
+.shelf-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+}
+.shelf-card {
+  background:#fff; border:3px solid #e0d8d0; border-radius:20px;
+  padding:clamp(12px,2.5vw,16px) 6px; text-align:center; cursor:pointer;
+  transition:all .25s; user-select:none; position:relative;
+  touch-action:manipulation;
+}
+.shelf-card:hover:not(.used) { transform:translateY(-5px) scale(1.04); box-shadow:0 8px 24px rgba(0,0,0,.1); border-color:#aaa; }
+.shelf-card:active:not(.used) { transform:scale(.92); }
+.shelf-card.used { opacity:.25; pointer-events:none; }
+.shelf-card.wrong-shelf { border-color:#ddd; background:#f5f5f5; }
+.shelf-card .sc-icon { font-size:clamp(30px,7vw,44px); transition:transform .3s; filter:drop-shadow(0 3px 6px rgba(0,0,0,.1)); }
+.shelf-card:hover:not(.used) .sc-icon { transform:scale(1.2) rotate(-5deg); }
+.shelf-card .sc-name { font-size:clamp(9px,2vw,12px); font-weight:800; color:#888; margin-top:6px; line-height:1.2; }
+.correct-stamp {
+  position:absolute; top:-6px; right:-6px;
+  background:var(--safe); color:#fff; border-radius:50%;
+  width:22px; height:22px; font-size:12px;
+  display:flex; align-items:center; justify-content:center; font-weight:900;
+  box-shadow:0 2px 8px rgba(46,204,113,.5); display:none;
+}
+.shelf-card.used .correct-stamp { display:flex; }
 
-  .text-center { text-align:center; }
-  .mt-16 { margin-top:16px; }
-  .mt-8 { margin-top:8px; }
-  .hidden { display:none!important; }
-  .btn-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+.tooltip-pop {
+  background:linear-gradient(135deg,#1a1a2e,#2d2d4e);
+  color:#fff; border-radius:20px;
+  padding:14px 18px; font-size:clamp(13px,3vw,15px); line-height:1.5;
+  margin:10px 0; display:none; text-align:center;
+  border:2px solid rgba(255,215,0,.3);
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+.tooltip-pop.show { display:block; animation:feedIn .3s; }
+.tooltip-pop strong { color:var(--fire3); }
+
+/* ══════ LEVEL 5 ══════ */
+.fire-stage {
+  background:linear-gradient(to bottom,#fff3e0,#ffe0b2);
+  border-radius:24px; padding:clamp(20px,5vw,36px) 20px;
+  text-align:center; margin:16px 0; position:relative;
+  border:3px solid #ffcc80; min-height:clamp(150px,25vw,200px);
+  overflow:hidden;
+}
+.fire-bg-glow {
+  position:absolute; inset:0; border-radius:21px; pointer-events:none;
+  background:radial-gradient(circle at 50% 80%, rgba(255,100,0,.15) 0%, transparent 70%);
+}
+.fire-obj { font-size:clamp(55px,12vw,80px); display:inline-block; position:relative; z-index:1; }
+.fire-flames { display:inline-block; position:relative; z-index:2; vertical-align:bottom; }
+.flame {
+  display:inline-block;
+  animation:flicker .35s infinite alternate;
+  font-size:clamp(36px,8vw,52px);
+  filter:drop-shadow(0 0 12px rgba(255,100,0,.7));
+}
+.flame:nth-child(2){ animation-delay:.1s; font-size:clamp(28px,6vw,40px); animation-duration:.5s; }
+.flame:nth-child(3){ animation-delay:.2s; font-size:clamp(22px,5vw,30px); animation-duration:.3s; }
+@keyframes flicker {
+  0%{transform:scale(1) rotate(-4deg);} 100%{transform:scale(1.12) rotate(4deg);}
+}
+.flame.out { animation:none; transition:font-size .6s,opacity .6s; font-size:0!important; opacity:0; }
+.puff-smoke { display:none; font-size:clamp(28px,6vw,42px); animation:puffUp 1s forwards; }
+@keyframes puffUp { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-30px)} }
+
+.fire-scenario-label {
+  font-size:clamp(14px,3vw,17px); font-weight:800; color:#e65100; margin-bottom:10px;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+
+.tools-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:clamp(8px,2vw,14px); margin:16px 0;
+}
+@media(max-width:480px){ .tools-grid{ grid-template-columns:repeat(2,1fr); } }
+
+.tool-card {
+  background:#fff; border:3px solid #e0d8d0;
+  border-radius:22px; padding:clamp(14px,3vw,20px) 8px;
+  text-align:center; cursor:pointer; transition:all .2s;
+  touch-action:manipulation; position:relative; overflow:hidden;
+}
+.tool-card:hover { transform:translateY(-6px); box-shadow:0 10px 28px rgba(0,0,0,.12); border-color:#ccc; }
+.tool-card:active { transform:scale(.92); }
+.tool-card .ti { font-size:clamp(36px,8vw,52px); transition:transform .3s; filter:drop-shadow(0 4px 8px rgba(0,0,0,.1)); }
+.tool-card:hover .ti { transform:scale(1.2); }
+.tool-card .tn { font-size:clamp(10px,2.5vw,13px); font-weight:800; color:#888; margin-top:6px; }
+.tool-card.tool-ok { border-color:var(--safe); background:linear-gradient(160deg,#f0fff4,#d4edda); animation:correctBounce .5s; }
+.tool-card.tool-no { border-color:var(--fire); background:linear-gradient(160deg,#fff3f0,#fde8e8); animation:wrongWobble .4s; }
+.tool-card.tool-warn { border-color:#f39c12; background:linear-gradient(160deg,#fffbf0,#fef3d0); animation:wrongWobble .4s; }
+
+.danger-notice {
+  background:linear-gradient(135deg,#fff3cd,#fde8b0);
+  border:3px solid #ffc107; border-radius:20px;
+  padding:14px 18px; margin:12px 0; font-size:clamp(13px,3vw,15px);
+  font-weight:800; color:#856404; display:none;
+  animation:feedIn .3s;
+}
+.danger-notice.show { display:block; }
+
+.final-tip {
+  background:linear-gradient(135deg,#fff3e0,#ffe0b2);
+  border:3px solid #ff9800; border-radius:20px;
+  padding:16px 20px; margin-top:14px; display:none;
+  font-size:clamp(14px,3.5vw,17px); font-weight:800; color:#bf360c;
+  text-align:center; animation:feedIn .5s;
+}
+
+/* ══════ DIPLOMA ══════ */
+#diploma-screen .game-card {
+  background:linear-gradient(135deg,#fffef5,#fffde7);
+  border:5px solid var(--accent);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.6),
+    0 0 0 10px rgba(255,215,0,.2),
+    0 0 0 18px rgba(255,215,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+.dip-header { text-align:center; }
+.dip-stars { font-size:clamp(28px,7vw,44px); letter-spacing:4px; animation:starSpin 3s linear infinite; }
+@keyframes starSpin { 0%,100%{filter:drop-shadow(0 0 8px gold)} 50%{filter:drop-shadow(0 0 24px gold)} }
+.dip-title {
+  font-family:'Baloo 2',sans-serif;
+  font-size:clamp(2rem,6vw,3.2rem); font-weight:900;
+  color:var(--fire); text-shadow:2px 2px 0 rgba(0,0,0,.1);
+}
+.dip-subtitle { font-size:clamp(15px,4vw,20px); color:#888; font-weight:800; margin-top:4px; }
+
+.dip-name-area {
+  background:rgba(255,215,0,.15); border:3px dashed var(--accent);
+  border-radius:20px; padding:clamp(16px,4vw,24px); text-align:center; margin:16px 0;
+}
+.dip-name-area label { font-size:14px; font-weight:800; color:#aaa; display:block; margin-bottom:10px; }
+#dip-name-input {
+  border:none; border-bottom:3px solid var(--accent);
+  background:transparent; width:100%; max-width:320px;
+  font-family:'Baloo 2',sans-serif; font-size:clamp(20px,5vw,28px); font-weight:900;
+  text-align:center; color:var(--fire); outline:none; display:block; margin:0 auto;
+}
+.dip-body {
+  text-align:center; font-size:clamp(14px,3.5vw,17px); color:#666;
+  line-height:1.9; margin:16px 0;
+}
+.dip-body strong { color:var(--fire); font-weight:900; font-size:1.15em; }
+.dip-badges { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:20px 0; }
+.dip-badge {
+  background:linear-gradient(135deg,#fff,#fffde7);
+  border:3px solid var(--accent); border-radius:20px;
+  padding:10px 16px; font-size:clamp(12px,3vw,14px); font-weight:900; color:#333;
+  display:flex; align-items:center; gap:6px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  animation:featPop .5s backwards;
+}
+.dip-badge:nth-child(1){animation-delay:.1s}
+.dip-badge:nth-child(2){animation-delay:.2s}
+.dip-badge:nth-child(3){animation-delay:.3s}
+.dip-badge:nth-child(4){animation-delay:.4s}
+.dip-badge:nth-child(5){animation-delay:.5s}
+.dip-footer { text-align:center; color:#bbb; font-size:13px; margin-top:20px; }
+
+/* ── Confetti layer ── */
+.confetti-layer { position:fixed; inset:0; pointer-events:none; z-index:999; }
+.conf-piece {
+  position:absolute; width:10px; height:10px; border-radius:2px;
+  animation:confFall linear forwards;
+}
+@keyframes confFall {
+  0%{transform:translateY(-20px) rotate(0deg);opacity:1}
+  100%{transform:translateY(105vh) rotate(720deg);opacity:.3}
+}
+
+/* ── Big bounce letters (intro anim) ── */
+.bounce-title-letter {
+  display:inline-block;
+  animation:letterBounce .6s cubic-bezier(.34,1.56,.64,1) backwards;
+}
+@keyframes letterBounce {
+  from{opacity:0;transform:translateY(-30px) scale(.5)}
+  to{opacity:1;transform:none}
+}
+
+.hidden { display:none!important; }
+.mt-12 { margin-top:12px; }
+.mt-20 { margin-top:20px; }
+.text-center { text-align:center; }
 </style>
 </head>
 <body>
 
-<!-- Voice toggle button -->
-<button id="voice-toggle" onclick="toggleVoice()" title="Включить/выключить озвучку">
-  <span class="voice-icon">🔊</span>
-  <span id="voice-label">Озвучка</span>
-</button>
+<!-- Background layers -->
+<div class="stars-layer"></div>
+<div class="bg-floaters" id="bg-floaters"></div>
+<div class="confetti-layer" id="confetti-layer"></div>
+
+<!-- Top bar -->
+<div id="voice-bar">
+  <div class="app-logo">🚒 <span>Азбука 01</span></div>
+  <div class="speak-waves" id="speak-waves">
+    <div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div>
+  </div>
+  <button id="voice-btn" onclick="toggleVoice()">
+    <span id="voice-icon">🔊</span>
+    <span id="voice-label">Звук</span>
+  </button>
+</div>
 
 <div id="app">
-  <!-- Progress bar -->
-  <div id="progress-bar">
-    <div class="prog-dot active" id="dot-1">1</div>
-    <div class="prog-dot" id="dot-2">2</div>
-    <div class="prog-dot" id="dot-3">3</div>
-    <div class="prog-dot" id="dot-4">4</div>
-    <div class="prog-dot" id="dot-5">5</div>
+  <!-- Progress -->
+  <div id="progress-wrap">
+    <div class="prog-step">
+      <div class="prog-dot active" id="dot-1">🔥</div>
+      <div class="prog-line" id="line-1"></div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-dot" id="dot-2">🚪</div>
+      <div class="prog-line" id="line-2"></div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-dot" id="dot-3">📱</div>
+      <div class="prog-line" id="line-3"></div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-dot" id="dot-4">👷</div>
+      <div class="prog-line" id="line-4"></div>
+    </div>
+    <div class="prog-step">
+      <div class="prog-dot" id="dot-5">💧</div>
+    </div>
   </div>
 
   <!-- ══ INTRO ══ -->
   <div id="intro-screen" class="screen active">
-    <div class="game-card intro-card">
-      <h1 class="game-title">🚒 Азбука 01</h1>
-      <p style="font-size:17px;color:#777;margin-top:4px;">Стань Юным Спасателем!</p>
-      <div class="intro-emoji">🧑‍🚒</div>
-      <div class="level-list">
-        <div class="level-list-item"><div class="li-num">1</div>🔥 Опасно или Безопасно — сортируй предметы</div>
-        <div class="level-list-item"><div class="li-num">2</div>🚪 Выход из ловушки — правила при пожаре</div>
-        <div class="level-list-item"><div class="li-num">3</div>📱 Вызови помощь — набери нужный номер</div>
-        <div class="level-list-item"><div class="li-num">4</div>👷 Экипировка пожарного — одень героя</div>
-        <div class="level-list-item"><div class="li-num">5</div>💧 Потуши искру — выбери способ тушения</div>
+    <div class="game-card" style="text-align:center;">
+      <div class="game-title" id="animated-title">🚒 Азбука 01</div>
+      <div style="font-size:clamp(15px,4vw,19px);color:#888;font-weight:800;margin:6px 0 4px;">Стань Юным Спасателем!</div>
+      <div class="mascot-big" id="intro-mascot">🧑‍🚒</div>
+      <div class="intro-features">
+        <div class="feat-card">
+          <div class="feat-icon">🔥</div>
+          <div class="feat-text">Опасно — Безопасно<span>Найди опасные предметы</span></div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🚪</div>
+          <div class="feat-text">Выход из ловушки<span>Правила при пожаре</span></div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📱</div>
+          <div class="feat-text">Вызови помощь<span>Нужный номер — 101!</span></div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">👷</div>
+          <div class="feat-text">Экипировка<span>Одень пожарного</span></div>
+        </div>
+        <div class="feat-card" style="grid-column:span 2 / span 2;">
+          <div class="feat-icon">💧</div>
+          <div class="feat-text">Потуши искру!<span>Выбери средство тушения</span></div>
+        </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-fire" onclick="startGame()">Начать игру! 🎮</button>
+        <button class="btn btn-fire" onclick="startGame()">
+          🎮 Начать игру!
+        </button>
       </div>
+      <p style="font-size:12px;color:#bbb;margin-top:14px;font-weight:700;">Для детей 3–7 лет • С озвучкой 🔊</p>
     </div>
   </div>
 
   <!-- ══ LEVEL 1 ══ -->
   <div id="level1-screen" class="screen">
     <div class="game-card">
-      <div class="level-badge">Уровень 1 из 5</div>
-      <h2 class="level-title">🔥 Опасно — Безопасно
-        <button class="read-btn" onclick="readLevelInstruction(1)" title="Прочитать задание вслух">🔊 Прочитать</button>
-      </h2>
-      <p class="desc">Нажимай только на те предметы, которые <strong>могут стать причиной пожара!</strong></p>
-      <div id="speaking-indicator-1" class="speaking-indicator">
-        <div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div>
-        <span style="margin-left:6px;">Читаю...</span>
+      <div class="level-badge">⭐ Уровень 1 из 5</div>
+      <h2 class="level-title">🔥 Опасно — Безопасно!</h2>
+      <p class="desc">Нажимай только на <strong>опасные</strong> предметы — те, которые могут загореться или взорваться!</p>
+      <div class="btn-row" style="margin:0 0 12px;">
+        <button class="read-btn" id="read-btn-1" onclick="readInstruction(1)">🔊 Читай вслух!</button>
       </div>
-      <div id="lvl1-score" class="mb-8">Найдено: <span id="found-count">0</span> из <span id="total-danger">0</span></div>
+      <div id="lvl1-counter">
+        Нашёл: <span class="counter-nums"><span id="found-count">0</span> из <span id="total-danger">?</span></span> 🔍
+      </div>
       <div id="items-grid"></div>
-      <div id="lvl1-feedback" class="feedback-box"></div>
+      <div id="lvl1-fb" class="feedback-box"></div>
       <div class="btn-row">
-        <button id="lvl1-next" class="btn btn-green hidden" onclick="goToLevel(2)">Дальше →</button>
+        <button id="lvl1-next" class="btn btn-green hidden" onclick="goToLevel(2)">Дальше! →</button>
       </div>
     </div>
   </div>
@@ -571,36 +861,40 @@
   <!-- ══ LEVEL 2 ══ -->
   <div id="level2-screen" class="screen">
     <div class="game-card">
-      <div class="level-badge">Уровень 2 из 5</div>
-      <h2 class="level-title">🚪 Выход из ловушки
-        <button class="read-btn" onclick="readLevelInstruction(2)" title="Прочитать задание вслух">🔊 Прочитать</button>
-      </h2>
-      <p class="desc">В комнате появился дым! Что нужно делать?</p>
-      <div id="speaking-indicator-2" class="speaking-indicator">
-        <div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div>
-        <span style="margin-left:6px;">Читаю...</span>
+      <div class="level-badge">⭐ Уровень 2 из 5</div>
+      <h2 class="level-title">🚪 Выход из ловушки!</h2>
+      <p class="desc">В комнате появился <strong>дым</strong>! Что нужно делать? Выбери правильный ответ!</p>
+      <div class="btn-row" style="margin:0 0 12px;">
+        <button class="read-btn" id="read-btn-2" onclick="readInstruction(2)">🔊 Читай вслух!</button>
       </div>
       <div class="room-scene" id="room-scene">
-        <div class="floor"></div>
-        <div class="window"></div>
-        <div class="door"></div>
-        <div class="smoke-cloud">💨💨</div>
-        <div class="character" id="character">🧒</div>
+        <div class="rs-floor"></div>
+        <div class="rs-window"></div>
+        <div class="rs-door"></div>
+        <div class="rs-smoke">
+          <div class="smoke-puff">💨</div>
+          <div class="smoke-puff">💨</div>
+          <div class="smoke-puff">💨</div>
+        </div>
+        <div class="rs-character" id="rs-char" style="left:38%;">🧒</div>
       </div>
-      <div id="choices-area">
-        <button class="choice-btn" onclick="checkChoice(this,false,'Прятаться под кроватью опасно! Там скапливается дым и тебя сложнее найти спасателям.')">
-          <span class="choice-num">1</span>Спрятаться под кровать
+      <div class="choice-grid" id="choices-area">
+        <button class="choice-card" onclick="checkChoice2(this,false,'Прятаться под кроватью очень опасно! Там скапливается дым, и тебя трудно найти спасателям!')">
+          <span class="choice-num">1</span>
+          <span>Спрятаться под кровать 🛏️</span>
         </button>
-        <button class="choice-btn" onclick="checkChoice(this,false,'На балконе можно оказаться в ловушке. Если огонь распространится — выхода не будет!')">
-          <span class="choice-num">2</span>Выбежать на балкон
+        <button class="choice-card" onclick="checkChoice2(this,false,'На балконе можно оказаться в ловушке. Если огонь разгорится — выхода не будет!')">
+          <span class="choice-num">2</span>
+          <span>Выбежать на балкон 🪟</span>
         </button>
-        <button class="choice-btn" onclick="checkChoice(this,true,'Правильно! Намоченная ткань фильтрует дым. Ползком — ниже дым, легче дышать. Двигайся к выходу!')">
-          <span class="choice-num">3</span>Намочить тряпочку, прикрыть нос и ползти к выходу
+        <button class="choice-card" onclick="checkChoice2(this,true,'Молодец! Намоченная тряпочка помогает дышать. Ползком — внизу меньше дыма! Двигайся к выходу!')">
+          <span class="choice-num">3</span>
+          <span>Намочить тряпочку 🧻 и ползти к выходу!</span>
         </button>
       </div>
-      <div id="lvl2-feedback" class="feedback-box"></div>
+      <div id="lvl2-fb" class="feedback-box"></div>
       <div class="btn-row">
-        <button id="lvl2-next" class="btn btn-green hidden" onclick="goToLevel(3)">Дальше →</button>
+        <button id="lvl2-next" class="btn btn-green hidden" onclick="goToLevel(3)">Дальше! →</button>
       </div>
     </div>
   </div>
@@ -608,51 +902,51 @@
   <!-- ══ LEVEL 3 ══ -->
   <div id="level3-screen" class="screen">
     <div class="game-card">
-      <div class="level-badge">Уровень 3 из 5</div>
-      <h2 class="level-title">📱 Вызови помощь
-        <button class="read-btn" onclick="readLevelInstruction(3)" title="Прочитать задание вслух">🔊 Прочитать</button>
-      </h2>
-      <p class="desc">Выбери правильный номер пожарной службы!</p>
-      <div id="speaking-indicator-3" class="speaking-indicator">
-        <div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div>
-        <span style="margin-left:6px;">Читаю...</span>
+      <div class="level-badge">⭐ Уровень 3 из 5</div>
+      <h2 class="level-title">📱 Вызови помощь!</h2>
+      <p class="desc">Если случился пожар — нужно срочно позвонить! Выбери <strong>правильный номер</strong> пожарных!</p>
+      <div class="btn-row" style="margin:0 0 12px;">
+        <button class="read-btn" id="read-btn-3" onclick="readInstruction(3)">🔊 Читай вслух!</button>
       </div>
-      <div class="num-options">
-        <button class="num-chip" onclick="checkNumber(this,'01')">01</button>
-        <button class="num-chip" onclick="checkNumber(this,'02')">02</button>
-        <button class="num-chip" onclick="checkNumber(this,'03')">03</button>
-        <button class="num-chip" onclick="checkNumber(this,'101')">101</button>
-        <button class="num-chip" onclick="checkNumber(this,'112')">112</button>
+
+      <div class="num-choices-big" id="num-choices">
+        <button class="num-chip-big" onclick="checkNum(this,'01')">01</button>
+        <button class="num-chip-big" onclick="checkNum(this,'02')">02</button>
+        <button class="num-chip-big" onclick="checkNum(this,'03')">03</button>
+        <button class="num-chip-big" onclick="checkNum(this,'101')">101</button>
+        <button class="num-chip-big" onclick="checkNum(this,'112')">112</button>
       </div>
-      <div id="lvl3-feedback" class="feedback-box"></div>
-      <div id="dispatcher-box" class="dispatcher-box">
-        <div class="dispatcher-icon">📞</div>
-        <p>🚒 <strong>«Пожарная служба слушает! Что у вас случилось?»</strong></p>
-        <p style="margin-top:10px;">🗣️ Проговори вслух свой адрес — улицу и номер дома!</p>
-        <p style="font-size:13px;color:#2e7d32;margin-top:6px;">Пример: «У нас пожар! Я живу на улице Ленина, дом 5»</p>
+      <div id="lvl3-fb" class="feedback-box"></div>
+
+      <div class="dispatcher-card" id="dispatcher-card">
+        <span class="dispatcher-icon">👩‍💼</span>
+        <p>📞 <strong>«Пожарная служба слушает! Что произошло?»</strong></p>
+        <p>🗣️ Проговори вслух свой адрес — улицу и номер дома!</p>
+        <p style="font-size:clamp(12px,3vw,14px);color:#2e7d32;margin-top:8px;">Например: «У нас пожар! Улица Ленина, дом 5!»</p>
       </div>
-      <div class="phone-wrap mt-16">
-        <div class="phone">
-          <div class="phone-screen" id="phone-display">_</div>
+
+      <div class="phone-container mt-12">
+        <div class="phone-outer">
+          <div class="phone-screen" id="phone-screen">_</div>
           <div class="phone-keys">
-            <button class="phone-key" onclick="phoneKey('1')">1</button>
-            <button class="phone-key" onclick="phoneKey('2')">2</button>
-            <button class="phone-key" onclick="phoneKey('3')">3</button>
-            <button class="phone-key" onclick="phoneKey('4')">4</button>
-            <button class="phone-key" onclick="phoneKey('5')">5</button>
-            <button class="phone-key" onclick="phoneKey('6')">6</button>
-            <button class="phone-key" onclick="phoneKey('7')">7</button>
-            <button class="phone-key" onclick="phoneKey('8')">8</button>
-            <button class="phone-key" onclick="phoneKey('9')">9</button>
-            <button class="phone-key red" onclick="phoneClear()">✕</button>
-            <button class="phone-key" onclick="phoneKey('0')">0</button>
-            <button class="phone-key green" onclick="phoneCall()">📞</button>
+            <button class="pkey" onclick="pKey('1')">1</button>
+            <button class="pkey" onclick="pKey('2')">2</button>
+            <button class="pkey" onclick="pKey('3')">3</button>
+            <button class="pkey" onclick="pKey('4')">4</button>
+            <button class="pkey" onclick="pKey('5')">5</button>
+            <button class="pkey" onclick="pKey('6')">6</button>
+            <button class="pkey" onclick="pKey('7')">7</button>
+            <button class="pkey" onclick="pKey('8')">8</button>
+            <button class="pkey" onclick="pKey('9')">9</button>
+            <button class="pkey red" onclick="pClear()">✕</button>
+            <button class="pkey" onclick="pKey('0')">0</button>
+            <button class="pkey green" onclick="pCall()">📞</button>
           </div>
         </div>
       </div>
-      <div id="phone-feedback" class="feedback-box mt-16"></div>
+      <div id="phone-fb" class="feedback-box mt-12"></div>
       <div class="btn-row">
-        <button id="lvl3-next" class="btn btn-green hidden" onclick="goToLevel(4)">Дальше →</button>
+        <button id="lvl3-next" class="btn btn-green hidden" onclick="goToLevel(4)">Дальше! →</button>
       </div>
     </div>
   </div>
@@ -660,32 +954,34 @@
   <!-- ══ LEVEL 4 ══ -->
   <div id="level4-screen" class="screen">
     <div class="game-card">
-      <div class="level-badge">Уровень 4 из 5</div>
-      <h2 class="level-title">👷 Экипировка пожарного
-        <button class="read-btn" onclick="readLevelInstruction(4)" title="Прочитать задание вслух">🔊 Прочитать</button>
-      </h2>
-      <p class="desc">Нажимай на предметы <strong>снаряжения</strong> (не лишние вещи!), чтобы одеть пожарного на вызов!</p>
-      <div id="speaking-indicator-4" class="speaking-indicator">
-        <div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div>
-        <span style="margin-left:6px;">Читаю...</span>
+      <div class="level-badge">⭐ Уровень 4 из 5</div>
+      <h2 class="level-title">👷 Одень пожарного!</h2>
+      <p class="desc">Нажимай на <strong>правильное снаряжение</strong>, чтобы пожарный Иван был готов к вызову!</p>
+      <div class="btn-row" style="margin:0 0 12px;">
+        <button class="read-btn" id="read-btn-4" onclick="readInstruction(4)">🔊 Читай вслух!</button>
       </div>
-      <div id="tooltip-bubble" class="tooltip-bubble"></div>
-      <div class="dressup-area">
-        <div class="firefighter-display" id="ff-display">
-          <div id="ff-layers" style="position:relative;font-size:90px;line-height:1;text-align:center;">
-            <span id="ff-base">👨</span>
-            <div id="ff-equipment" style="position:absolute;inset:0;pointer-events:none;"></div>
+      <div id="tooltip-pop" class="tooltip-pop"></div>
+      <div class="ff-arena">
+        <div class="ff-display" id="ff-display">
+          <div class="ff-bg-sky">
+            <div class="ff-cloud" style="top:15%;animation-duration:8s;">☁️</div>
+            <div class="ff-cloud" style="top:55%;animation-duration:11s;animation-delay:-4s;">☁️</div>
           </div>
-          <div id="ff-name" style="font-family:'Fredoka One',cursive;font-size:20px;color:#555;margin-top:8px;">Пожарный Иван</div>
-          <div id="siren-anim" class="siren-anim" style="display:none;font-size:28px;">🚨 ВЫ-У-У-У! 🚒</div>
+          <div class="ff-figure" id="ff-figure">
+            <span class="ff-body-emoji" id="ff-body">👨</span>
+            <div class="ff-gear-layer" id="ff-gear"></div>
+          </div>
+          <div class="ff-name" id="ff-name">Пожарный Иван</div>
+          <div class="ff-progress" id="ff-progress">Снаряжение: 0 / 6</div>
+          <div class="siren-glow" id="siren-glow">🚨 ВЫ — У — У — У! 🚒</div>
         </div>
         <div>
-          <div class="items-shelf" id="items-shelf"></div>
+          <div class="shelf-grid" id="shelf-grid"></div>
         </div>
       </div>
-      <div id="lvl4-feedback" class="feedback-box"></div>
+      <div id="lvl4-fb" class="feedback-box"></div>
       <div class="btn-row">
-        <button id="lvl4-next" class="btn btn-green hidden" onclick="goToLevel(5)">Дальше →</button>
+        <button id="lvl4-next" class="btn btn-green hidden" onclick="goToLevel(5)">Дальше! →</button>
       </div>
     </div>
   </div>
@@ -693,26 +989,28 @@
   <!-- ══ LEVEL 5 ══ -->
   <div id="level5-screen" class="screen">
     <div class="game-card">
-      <div class="level-badge">Уровень 5 из 5</div>
-      <h2 class="level-title">💧 Потуши искру!
-        <button class="read-btn" onclick="readLevelInstruction(5)" title="Прочитать задание вслух">🔊 Прочитать</button>
-      </h2>
-      <div id="fire-scenario-title" style="font-weight:700;color:#555;margin-bottom:8px;"></div>
-      <div id="speaking-indicator-5" class="speaking-indicator">
-        <div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div><div class="speak-bar"></div>
-        <span style="margin-left:6px;">Читаю...</span>
+      <div class="level-badge">⭐ Уровень 5 из 5</div>
+      <h2 class="level-title">💧 Потуши искру!</h2>
+      <div class="btn-row" style="margin:0 0 12px;">
+        <button class="read-btn" id="read-btn-5" onclick="readInstruction(5)">🔊 Читай вслух!</button>
       </div>
-      <div class="fire-scene" id="fire-scene">
-        <div id="fire-object" class="fire-object"></div>
-        <span id="fire-flame" class="fire-flame">🔥</span>
-        <div id="smoke-out" style="font-size:32px;display:none;">💨</div>
+      <div class="fire-scenario-label" id="fire-label">🔥 Загорелась занавеска!</div>
+      <div class="fire-stage" id="fire-stage">
+        <div class="fire-bg-glow"></div>
+        <div id="fire-obj" class="fire-obj"></div>
+        <div class="fire-flames" id="fire-flames">
+          <span class="flame">🔥</span>
+          <span class="flame">🔥</span>
+          <span class="flame">🔥</span>
+        </div>
+        <div id="fire-smoke" class="puff-smoke">💨💨</div>
       </div>
-      <p class="desc">Выбери правильное средство тушения:</p>
+      <p class="desc">Выбери правильное средство тушения! 👇</p>
       <div class="tools-grid" id="tools-grid"></div>
-      <div id="fire-warning" class="fire-warning"></div>
-      <div id="lvl5-feedback" class="feedback-box"></div>
-      <div id="final-lesson" style="display:none;background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:16px;padding:16px;margin-top:12px;font-weight:700;color:#e65100;font-size:15px;text-align:center;border:3px solid #ff9800;">
-        🧑‍🚒 «Ты молодец, но помни: если огонь стал большим — не туши его сам, а скорее беги на улицу и вызывай 101!»
+      <div class="danger-notice" id="danger-notice"></div>
+      <div id="lvl5-fb" class="feedback-box"></div>
+      <div class="final-tip" id="final-tip">
+        🧑‍🚒 Помни! Если огонь стал БОЛЬШИМ — не туши сам! Беги на улицу и кричи на помощь! Звони 101!
       </div>
       <div class="btn-row">
         <button id="lvl5-next" class="btn btn-green hidden" onclick="showDiploma()">🏆 Получить диплом!</button>
@@ -722,511 +1020,567 @@
 
   <!-- ══ DIPLOMA ══ -->
   <div id="diploma-screen" class="screen">
-    <div class="fireworks" id="fireworks"></div>
     <div class="game-card">
-      <div class="diploma-header">
-        <div class="diploma-stars">⭐⭐⭐⭐⭐</div>
-        <h1 class="diploma-title">🏆 ДИПЛОМ 🏆</h1>
-        <p class="diploma-subtitle">Юного Спасателя</p>
+      <div class="dip-header">
+        <div class="dip-stars">⭐⭐⭐⭐⭐</div>
+        <div class="dip-title">🏆 ДИПЛОМ 🏆</div>
+        <div class="dip-subtitle">Юного Спасателя</div>
       </div>
-      <div class="diploma-name-area">
-        <label>Введи своё имя:</label>
-        <input type="text" id="diploma-name-input" placeholder="Твоё имя" maxlength="30">
+      <div class="dip-name-area">
+        <label>✏️ Напиши своё имя:</label>
+        <input type="text" id="dip-name-input" placeholder="Твоё имя" maxlength="30">
       </div>
-      <div class="diploma-body">
+      <div class="dip-body">
         Настоящим удостоверяется, что<br>
-        <strong id="diploma-name-display">Юный Герой</strong><br>
-        успешно прошёл обучение по программе<br>
+        <strong id="dip-name-display">Юный Герой</strong><br>
+        успешно прошёл обучение<br>
         <strong>«Азбука 01 — Пожарная безопасность»</strong><br>
-        и теперь знает, как действовать при пожаре!
+        и знает, как действовать при пожаре!
       </div>
-      <div class="diploma-badges">
-        <div class="d-badge">🔥 Знает опасности</div>
-        <div class="d-badge">🚪 Умеет выбраться</div>
-        <div class="d-badge">📱 Знает 101</div>
-        <div class="d-badge">👷 Знает пожарного</div>
-        <div class="d-badge">💧 Умеет тушить</div>
+      <div class="dip-badges">
+        <div class="dip-badge">🔥 Знает опасности</div>
+        <div class="dip-badge">🚪 Умеет выбраться</div>
+        <div class="dip-badge">📱 Знает 101</div>
+        <div class="dip-badge">👷 Знает пожарного</div>
+        <div class="dip-badge">💧 Умеет тушить</div>
       </div>
       <div class="btn-row">
         <button class="btn btn-fire" onclick="printDiploma()">🖨️ Распечатать</button>
-        <button class="btn btn-green" onclick="restartGame()">🔄 Играть снова</button>
+        <button class="btn btn-green" onclick="restartGame()">🔄 Играть снова!</button>
       </div>
-      <div class="diploma-footer">🚒 Азбука 01 • Юный Спасатель • Береги себя и других!</div>
+      <div class="dip-footer">🚒 Азбука 01 · Юный Спасатель · Береги себя!</div>
     </div>
   </div>
 
 </div><!-- /app -->
 
 <script>
-// ════════════════════════════════════════════════
-//  WEB SPEECH API — ОЗВУЧКА
-// ════════════════════════════════════════════════
-
-let voiceEnabled = true;
-let currentUtterance = null;
-let speakQueue = [];
-let isSpeaking = false;
-let activeSpeakIndicator = null;
-
-// Русский голос (выбираем наилучший доступный)
-function getBestRuVoice() {
-  const voices = window.speechSynthesis.getVoices();
-  // Предпочитаем русский голос
-  const ruVoices = voices.filter(v => v.lang.startsWith('ru'));
-  if (ruVoices.length > 0) {
-    // Предпочитаем локальные (не online) если есть
-    const local = ruVoices.find(v => !v.localService === false);
-    return local || ruVoices[0];
+// ══════════════════════════════════════════════════════
+//  BACKGROUND FLOATERS
+// ══════════════════════════════════════════════════════
+(function(){
+  const emojis = ['🔥','⭐','🌟','✨','🚒','🚨','💧','❄️','🌈','🎉'];
+  const c = document.getElementById('bg-floaters');
+  for(let i=0;i<20;i++){
+    const d = document.createElement('div');
+    d.className = 'floater';
+    d.textContent = emojis[i % emojis.length];
+    d.style.left = (Math.random()*100)+'vw';
+    d.style.animationDuration = (12+Math.random()*18)+'s';
+    d.style.animationDelay = (Math.random()*18)+'s';
+    c.appendChild(d);
   }
-  // Fallback: любой доступный голос
-  return voices[0] || null;
+})();
+
+// ══════════════════════════════════════════════════════
+//  WEB AUDIO — fun sounds
+// ══════════════════════════════════════════════════════
+let audioCtx = null;
+function getAudio() {
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  return audioCtx;
+}
+function playTone(freq, dur, type='sine', vol=0.18) {
+  try {
+    const ctx = getAudio();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type; osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+dur);
+    osc.start(); osc.stop(ctx.currentTime+dur);
+  } catch(e){}
+}
+function playSuccess() {
+  [523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.22,'sine',.15),i*80));
+}
+function playError() {
+  [220,196].forEach((f,i)=>setTimeout(()=>playTone(f,.25,'sawtooth',.1),i*120));
+}
+function playClick() { playTone(440,.08,'sine',.08); }
+function playSiren() {
+  try{
+    const ctx=getAudio();
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type='sawtooth';
+    osc.frequency.setValueAtTime(600,ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(900,ctx.currentTime+0.5);
+    osc.frequency.linearRampToValueAtTime(600,ctx.currentTime+1.0);
+    gain.gain.setValueAtTime(0.12,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.2);
+    osc.start(); osc.stop(ctx.currentTime+1.2);
+  }catch(e){}
 }
 
-// Основная функция озвучки
-function speak(text, options = {}) {
-  if (!voiceEnabled) return;
-  if (!window.speechSynthesis) return;
+// ══════════════════════════════════════════════════════
+//  SPEECH
+// ══════════════════════════════════════════════════════
+let voiceOn = true;
+let synth = window.speechSynthesis;
+let waves = document.getElementById('speak-waves');
 
-  // Останавливаем текущее
-  window.speechSynthesis.cancel();
-  if (activeSpeakIndicator) {
-    activeSpeakIndicator.classList.remove('active');
-    activeSpeakIndicator = null;
+function getRuVoice() {
+  const voices = synth.getVoices();
+  // Prefer online high-quality Russian voice
+  const priority = [
+    v => v.lang==='ru-RU' && v.name.includes('Google'),
+    v => v.lang==='ru-RU' && !v.localService,
+    v => v.lang==='ru-RU',
+    v => v.lang.startsWith('ru'),
+    v => true
+  ];
+  for(const p of priority){
+    const found = voices.find(p);
+    if(found) return found;
   }
-
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = 'ru-RU';
-  utter.rate = options.rate || 0.88;
-  utter.pitch = options.pitch || 1.05;
-  utter.volume = options.volume || 1;
-
-  // Назначаем голос с задержкой (голоса могут загружаться)
-  const assignVoice = () => {
-    const v = getBestRuVoice();
-    if (v) utter.voice = v;
-  };
-  assignVoice();
-
-  // Показываем индикатор если указан
-  const indicator = options.indicator ? document.getElementById(options.indicator) : null;
-  if (indicator) {
-    indicator.classList.add('active');
-    activeSpeakIndicator = indicator;
-  }
-
-  // Обновляем кнопку read-btn если передана
-  const readBtn = options.readBtn || null;
-  if (readBtn) readBtn.classList.add('reading');
-
-  utter.onend = () => {
-    if (indicator) indicator.classList.remove('active');
-    if (readBtn) readBtn.classList.remove('reading');
-    activeSpeakIndicator = null;
-    isSpeaking = false;
-  };
-  utter.onerror = () => {
-    if (indicator) indicator.classList.remove('active');
-    if (readBtn) readBtn.classList.remove('reading');
-    activeSpeakIndicator = null;
-    isSpeaking = false;
-  };
-
-  isSpeaking = true;
-  currentUtterance = utter;
-  window.speechSynthesis.speak(utter);
+  return null;
 }
 
-function stopSpeaking() {
-  window.speechSynthesis.cancel();
-  if (activeSpeakIndicator) {
-    activeSpeakIndicator.classList.remove('active');
-    activeSpeakIndicator = null;
-  }
-  isSpeaking = false;
+let currentSpeak = null;
+function speak(text, opts={}) {
+  if(!voiceOn || !synth) return;
+  synth.cancel();
+  waves.classList.remove('active');
+
+  // Small pause so cancel takes effect
+  setTimeout(()=>{
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ru-RU';
+    u.rate = opts.rate || 0.82;
+    u.pitch = opts.pitch || 1.15;
+    u.volume = opts.volume || 1;
+
+    const v = getRuVoice();
+    if(v) u.voice = v;
+
+    const readBtn = opts.readBtn ? document.getElementById(opts.readBtn) : null;
+    if(readBtn) readBtn.classList.add('reading');
+
+    u.onstart = () => { waves.classList.add('active'); };
+    u.onend = u.onerror = () => {
+      waves.classList.remove('active');
+      if(readBtn) readBtn.classList.remove('reading');
+    };
+
+    currentSpeak = u;
+    synth.speak(u);
+  }, 80);
+}
+
+function stopSpeak() {
+  synth && synth.cancel();
+  waves.classList.remove('active');
 }
 
 function toggleVoice() {
-  voiceEnabled = !voiceEnabled;
-  const btn = document.getElementById('voice-toggle');
-  const icon = btn.querySelector('.voice-icon');
+  voiceOn = !voiceOn;
+  const btn = document.getElementById('voice-btn');
+  const icon = document.getElementById('voice-icon');
   const label = document.getElementById('voice-label');
-  if (voiceEnabled) {
-    icon.textContent = '🔊';
-    label.textContent = 'Озвучка';
-    btn.classList.remove('muted');
-    speak('Озвучка включена!');
+  if(voiceOn) {
+    btn.classList.remove('off');
+    icon.textContent = '🔊'; label.textContent = 'Звук';
+    speak('Звук включён! Привет!', {pitch:1.3,rate:0.9});
   } else {
-    stopSpeaking();
-    icon.textContent = '🔇';
-    label.textContent = 'Тихо';
-    btn.classList.add('muted');
+    stopSpeak();
+    btn.classList.add('off');
+    icon.textContent = '🔇'; label.textContent = 'Тихо';
   }
 }
 
-// Тексты для каждого уровня
-const LEVEL_INSTRUCTIONS = {
-  1: 'Уровень один. Опасно или безопасно. Нажимай только на те предметы, которые могут стать причиной пожара! Найди все опасные предметы.',
-  2: 'Уровень два. Выход из ловушки. В комнате появился дым! Выбери правильное действие — что нужно делать при пожаре.',
-  3: 'Уровень три. Вызови помощь. При пожаре нужно срочно звонить пожарным! Выбери правильный номер пожарной службы. Запомни: сто один — это пожарные!',
-  4: 'Уровень четыре. Экипировка пожарного. Помоги одеть пожарного Ивана! Нажимай на правильное снаряжение — каску, костюм, маску, сапоги и другое. Не выбирай лишние предметы!',
-  5: 'Уровень пять. Потуши искру! Посмотри на сцену и выбери правильное средство для тушения огня. Будь осторожен — не все инструменты подходят!'
-};
-
-function readLevelInstruction(level) {
-  const text = LEVEL_INSTRUCTIONS[level];
-  const indicatorId = 'speaking-indicator-' + level;
-  speak(text, {
-    indicator: indicatorId,
-    rate: 0.85,
-    pitch: 1.1
-  });
+// Load voices async
+if(synth) {
+  synth.onvoiceschanged = () => { getRuVoice(); };
+  // Trigger initial load
+  synth.getVoices();
 }
 
-// ════════════════════════════════════════════════
+// ── Level instruction texts (child-friendly, slow, warm) ──
+const INSTRUCTIONS = {
+  1: 'Смотри на картинки! Нажимай только на те предметы, которые ОПАСНЫ и могут вызвать пожар! Например, свечка или петарда — это опасно! Мячик или книжка — это безопасно. Найди все опасные предметы!',
+  2: 'Ой! В комнате появился дым! Что же делать? Подумай хорошенько и выбери правильный ответ! Помни: при пожаре нельзя прятаться и нельзя выбегать на балкон!',
+  3: 'Если случился пожар — нужно быстро позвонить пожарным! Запомни волшебный номер — СТО ОДИН! Это номер пожарной службы! Нажми на правильный номер!',
+  4: 'Помоги одеть пожарного Ивана! Нажимай на нужное снаряжение — каску, костюм, маску, сапоги и перчатки! Не нажимай на лишние предметы!',
+  5: 'Посмотри! Что-то загорелось! Выбери правильное средство, чтобы потушить огонь! Будь осторожен — водой нельзя тушить электричество!'
+};
+
+function readInstruction(lvl) {
+  playClick();
+  speak(INSTRUCTIONS[lvl], { readBtn: 'read-btn-'+lvl, rate: 0.78, pitch: 1.2 });
+}
+
+// ══════════════════════════════════════════════════════
 //  DATA
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 const ITEMS = [
-  { icon:'🧨', name:'Петарда',      danger:true,  msg:'Петарда очень опасна!' },
-  { icon:'🕯️', name:'Свеча',        danger:true,  msg:'Открытый огонь — источник пожара!' },
-  { icon:'🔌', name:'Утюг',          danger:true,  msg:'Забытый утюг может вызвать пожар!' },
-  { icon:'🪵', name:'Костёр',        danger:true,  msg:'Огонь в неположенном месте — опасно!' },
-  { icon:'🎇', name:'Бенгальский огонь', danger:true, msg:'Искры от него очень опасны!' },
-  { icon:'⚡', name:'Оголённый провод', danger:true, msg:'Искрящий провод — риск возгорания!' },
-  { icon:'🧸', name:'Мишка',         danger:false, msg:'Мишка безопасен! 🐻' },
-  { icon:'🏀', name:'Мяч',           danger:false, msg:'Мяч просто прыгает! 🏀' },
-  { icon:'📚', name:'Книга',          danger:false, msg:'Читать — полезно! 📖' },
-  { icon:'🎨', name:'Краски',         danger:false, msg:'Рисовать — весело! 🎨' },
-  { icon:'🪀', name:'Йо-йо',          danger:false, msg:'Отличная игрушка! 🪀' },
-  { icon:'🎮', name:'Геймпад',        danger:false, msg:'Игры — это круто! 🎮' },
+  { icon:'🧨', name:'Петарда',          danger:true,  msg:'Правильно! Петарды очень опасны! Они могут взорваться!' },
+  { icon:'🕯️', name:'Свеча',            danger:true,  msg:'Да! Открытый огонь свечи может вызвать пожар!' },
+  { icon:'🔌', name:'Забытый утюг',     danger:true,  msg:'Верно! Забытый утюг нагревается и может загореться!' },
+  { icon:'🎇', name:'Бенгальский огонь',danger:true,  msg:'Правильно! Искры от него очень горячие и опасные!' },
+  { icon:'⚡', name:'Оголённый провод', danger:true,  msg:'Да! Искрящий провод — это большая опасность!' },
+  { icon:'🪵', name:'Костёр в доме',    danger:true,  msg:'Верно! Огонь в доме — это очень опасно!' },
+  { icon:'🧸', name:'Мишка',            danger:false, msg:'Мишка безопасный! Ищи опасные предметы!' },
+  { icon:'🏀', name:'Мячик',            danger:false, msg:'Мячик просто прыгает! Это безопасно!' },
+  { icon:'📚', name:'Книжка',           danger:false, msg:'Читать — это полезно! Но ищи опасные предметы!' },
+  { icon:'🎨', name:'Краски',           danger:false, msg:'Рисовать — весело! Это безопасно!' },
+  { icon:'🪀', name:'Йо-йо',            danger:false, msg:'Отличная игрушка! Ищи опасные предметы!' },
+  { icon:'🎮', name:'Геймпад',          danger:false, msg:'Игры — это здорово! Но это не опасно!' },
 ];
 
 const FF_ITEMS = [
-  { icon:'⛑️',  name:'Каска',           correct:true,  info:'Каска защищает голову от ударов и падающих предметов!' },
-  { icon:'👢',  name:'Сапоги',           correct:true,  info:'Специальные сапоги защищают ноги от горячих предметов.' },
-  { icon:'🦺',  name:'Защитный костюм',  correct:true,  info:'Костюм не горит в огне и защищает от высоких температур!' },
-  { icon:'😷',  name:'Маска-противогаз', correct:true,  info:'Маска защищает лёгкие от дыма и ядовитых газов.' },
-  { icon:'🪂',  name:'Спасательный круг',correct:false, info:'Спасательный круг нужен на воде, не при пожаре.' },
-  { icon:'👨‍🍳', name:'Колпак повара',    correct:false, info:'Это колпак повара, пожарному он не нужен!' },
-  { icon:'🤿',  name:'Ласты',             correct:false, info:'Ласты для плавания, не для тушения пожара!' },
-  { icon:'🧤',  name:'Огнеупорные перчатки', correct:true, info:'Перчатки защищают руки от огня и горячих поверхностей!' },
-  { icon:'🔦',  name:'Фонарь',           correct:true,  info:'Фонарь помогает видеть в дыму и темноте.' },
+  { icon:'⛑️',  name:'Каска',            correct:true,  pos:'top:-30px;left:50%;transform:translateX(-50%)',    info:'Каска защищает голову от ударов! Очень важная вещь!' },
+  { icon:'👢',  name:'Сапоги',            correct:true,  pos:'bottom:-25px;left:50%;transform:translateX(-50%)', info:'Специальные сапоги защищают ноги от горячего!' },
+  { icon:'🦺',  name:'Костюм',            correct:true,  pos:'top:40%;left:-35px',                               info:'Огнеупорный костюм! В нём не страшен огонь!' },
+  { icon:'😷',  name:'Маска',             correct:true,  pos:'top:25%;right:-35px',                              info:'Маска защищает от дыма и газов! Можно дышать!' },
+  { icon:'🧤',  name:'Перчатки',          correct:true,  pos:'bottom:20%;left:-35px',                            info:'Перчатки защищают руки от огня и горячих вещей!' },
+  { icon:'🔦',  name:'Фонарь',            correct:true,  pos:'bottom:20%;right:-35px',                           info:'Фонарь помогает видеть в дыму и темноте!' },
+  { icon:'🎩',  name:'Шляпа повара',      correct:false, pos:null, info:'Это шляпа повара! Пожарному она не нужна!' },
+  { icon:'🏖️', name:'Ласты',             correct:false, pos:null, info:'Ласты для плавания, не для тушения пожара!' },
+  { icon:'🌂',  name:'Зонтик',            correct:false, pos:null, info:'Зонтик пожарному не поможет — это не снаряжение!' },
 ];
+const LVL4_CORRECT = FF_ITEMS.filter(i=>i.correct).length;
 
 const FIRE_SCENARIOS = [
   {
-    object:'🪟', flamePos:'left', label:'Загорелась занавеска',
+    obj:'🪟', label:'Загорелась занавеска!',
+    scenarioText:'Загорелась занавеска на окне! Как её потушить?',
     tools:[
-      { icon:'🪣', name:'Вода',          correct:true,   warn:null, okMsg:'Правильно! Водой можно потушить занавеску.' },
-      { icon:'🧯', name:'Огнетушитель',   correct:true,   warn:null, okMsg:'Отлично! Огнетушитель справится с этим.' },
-      { icon:'🛏️', name:'Плотное одеяло', correct:true,   warn:null, okMsg:'Верно! Одеяло перекрывает доступ воздуха.' },
-      { icon:'🏖️', name:'Песок',          correct:false,  warn:'Песком можно, но до него далеко. Есть лучший вариант!', okMsg:'' },
-    ],
-    scenarioText: 'Загорелась занавеска. Что нужно использовать для тушения?'
+      { icon:'🪣', name:'Вода',          ok:true,  warn:null, msg:'Правильно! Водой хорошо тушить занавеску! Молодец!' },
+      { icon:'🧯', name:'Огнетушитель',  ok:true,  warn:null, msg:'Отлично! Огнетушитель справится с этим пожаром!' },
+      { icon:'🛏️', name:'Одеяло',        ok:true,  warn:null, msg:'Верно! Плотное одеяло перекрывает кислород огню!' },
+      { icon:'🍭', name:'Конфета',       ok:false, warn:null, msg:'Конфета не поможет потушить огонь! Попробуй ещё!', bad:true },
+    ]
   },
   {
-    object:'🔌', flamePos:'right', label:'Загорелся электроприбор',
+    obj:'🔌', label:'Загорелся электроприбор!',
+    scenarioText:'Загорелся электроприбор! Осторожно — водой тушить опасно!',
     tools:[
-      { icon:'🪣', name:'Вода',          correct:false, warn:'⚠️ Стой! Водой нельзя тушить то, что включено в розетку — это опасно для жизни!' },
-      { icon:'🧯', name:'Огнетушитель',   correct:true,  warn:null, okMsg:'Правильно! Огнетушитель безопасен для электроприборов.' },
-      { icon:'🛏️', name:'Плотное одеяло', correct:true,  warn:null, okMsg:'Можно! Только сначала отключи прибор от розетки.' },
-      { icon:'🏖️', name:'Песок',          correct:true,  warn:null, okMsg:'Верно, песок не проводит ток. Молодец!' },
-    ],
-    scenarioText: 'Загорелся электроприбор. Осторожно — водой нельзя тушить электричество!'
-  },
+      { icon:'🪣', name:'Вода',          ok:false, warn:'⚠️ Стоп! Водой нельзя тушить то, что подключено к розетке — это опасно для жизни!', msg:'' },
+      { icon:'🧯', name:'Огнетушитель',  ok:true,  warn:null, msg:'Правильно! Огнетушитель безопасен для электроприборов!' },
+      { icon:'🛏️', name:'Одеяло',        ok:true,  warn:null, msg:'Можно! Сначала отключи от розетки, потом накрывай!' },
+      { icon:'🍭', name:'Конфета',       ok:false, warn:null, msg:'Конфета не поможет! Выбери другое средство!', bad:true },
+    ]
+  }
 ];
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  STATE
-// ════════════════════════════════════════════════
-let currentLevel = 0;
-let lvl1Found = 0, lvl1Total = 0;
-let lvl2Answered = false;
-let lvl3Done = false, phoneBuffer = '';
-let lvl4Equipped = [], lvl4CorrectCount = 0;
-const LVL4_NEEDED = FF_ITEMS.filter(i=>i.correct).length;
-let lvl5ScenarioIdx = 0, lvl5Answered = false;
-let currentFireScenario = 0;
+// ══════════════════════════════════════════════════════
+let lvl1Found=0, lvl1Total=0;
+let lvl2Done=false;
+let lvl3Done=false, phoneBuf='';
+let lvl4Correct=0;
+let lvl5Done=false;
+let fireScenarioIdx=0;
 
-// ════════════════════════════════════════════════
-//  NAVIGATION
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+//  NAVIGATION & PROGRESS
+// ══════════════════════════════════════════════════════
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function startGame() {
-  speak('Отлично! Начинаем игру! Уровень один — найди все опасные предметы!', { rate: 0.9, pitch: 1.15 });
-  showScreen('level1-screen');
-  updateProgress(1);
-  buildLevel1();
-}
-
-function goToLevel(n) {
-  currentLevel = n;
-  stopSpeaking();
-  updateProgress(n);
-  if(n===2){
-    showScreen('level2-screen');
-    buildLevel2();
-    setTimeout(() => speak('Уровень два! В комнате дым. Выбери правильное действие!', { rate: 0.88, pitch: 1.1 }), 500);
-  }
-  else if(n===3){
-    showScreen('level3-screen');
-    buildLevel3();
-    setTimeout(() => speak('Уровень три! Вызови пожарных. Запомни номер — сто один!', { rate: 0.88, pitch: 1.1 }), 500);
-  }
-  else if(n===4){
-    showScreen('level4-screen');
-    buildLevel4();
-    setTimeout(() => speak('Уровень четыре! Одень пожарного Ивана. Нажимай на нужное снаряжение!', { rate: 0.88, pitch: 1.1 }), 500);
-  }
-  else if(n===5){
-    showScreen('level5-screen');
-    buildLevel5();
-    setTimeout(() => speak('Последний уровень! Выбери правильное средство тушения огня!', { rate: 0.88, pitch: 1.1 }), 500);
-  }
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function updateProgress(active) {
+  const icons = ['🔥','🚪','📱','👷','💧'];
   for(let i=1;i<=5;i++){
-    const d = document.getElementById('dot-'+i);
-    d.className = 'prog-dot';
-    if(i<active) d.classList.add('done');
-    else if(i===active) d.classList.add('active');
+    const dot = document.getElementById('dot-'+i);
+    dot.className='prog-dot';
+    dot.textContent = i<active ? '✅' : icons[i-1];
+    if(i<active) dot.classList.add('done');
+    else if(i===active) dot.classList.add('active');
+    if(i<5){
+      const line=document.getElementById('line-'+i);
+      if(line) line.className='prog-line'+(i<active?' done':'');
+    }
   }
 }
 
+function startGame() {
+  playClick();
+  updateProgress(1);
+  showScreen('level1-screen');
+  buildLevel1();
+  setTimeout(()=>speak('Отлично! Начинаем! Найди все опасные предметы!',{rate:0.82,pitch:1.2}),500);
+}
+
+function goToLevel(n) {
+  playSuccess();
+  stopSpeak();
+  updateProgress(n);
+  const screens = {2:'level2-screen',3:'level3-screen',4:'level4-screen',5:'level5-screen'};
+  const builders = {2:buildLevel2,3:buildLevel3,4:buildLevel4,5:buildLevel5};
+  const msgs = {
+    2:'Отлично! Уровень два! В комнате появился дым. Что делать?',
+    3:'Молодец! Уровень три! Выбери правильный номер пожарной службы!',
+    4:'Здорово! Уровень четыре! Одень пожарного Ивана на вызов!',
+    5:'Почти готово! Последний уровень! Потуши огонь правильным способом!'
+  };
+  showScreen(screens[n]);
+  builders[n]();
+  setTimeout(()=>speak(msgs[n],{rate:0.8,pitch:1.15}),600);
+}
+
 function showDiploma() {
-  stopSpeaking();
+  playSuccess();
+  stopSpeak();
   showScreen('diploma-screen');
-  launchFireworks();
-  setTimeout(() => {
-    const name = document.getElementById('diploma-name-input').value.trim() || 'Юный Герой';
-    speak(`Поздравляем, ${name}! Ты успешно прошёл все уровни и стал настоящим Юным Спасателем! Ты знаешь, как действовать при пожаре. Молодец!`, {
-      rate: 0.85,
-      pitch: 1.1
-    });
-  }, 1000);
+  launchConfetti();
+  setTimeout(()=>{
+    const nm = document.getElementById('dip-name-input').value.trim()||'Юный Герой';
+    speak(`Ура! Поздравляем, ${nm}! Ты прошёл все уровни и стал настоящим Юным Спасателем! Ты умница! Молодец!`,{rate:0.78,pitch:1.15});
+  },1000);
 }
 
 function restartGame() {
-  stopSpeaking();
-  lvl1Found=0; lvl1Total=0; lvl2Answered=false;
-  lvl3Done=false; phoneBuffer='';
-  lvl4Equipped=[]; lvl4CorrectCount=0;
-  lvl5Answered=false; lvl5ScenarioIdx=0;
+  stopSpeak();
+  lvl1Found=0;lvl1Total=0;lvl2Done=false;lvl3Done=false;phoneBuf='';
+  lvl4Correct=0;lvl5Done=false;fireScenarioIdx=0;
   updateProgress(1);
   showScreen('intro-screen');
-  setTimeout(() => speak('Добро пожаловать в Азбуку ноль один! Стань Юным Спасателем!', { rate: 0.88, pitch: 1.1 }), 300);
+  setTimeout(()=>speak('Привет! Снова играть? Давай! Поехали!',{rate:0.82,pitch:1.2}),400);
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  LEVEL 1
-// ════════════════════════════════════════════════
-function buildLevel1() {
-  const grid = document.getElementById('items-grid');
+// ══════════════════════════════════════════════════════
+function buildLevel1(){
+  const grid=document.getElementById('items-grid');
   grid.innerHTML='';
   lvl1Found=0;
   const shuffled=[...ITEMS].sort(()=>Math.random()-.5);
-  lvl1Total = shuffled.filter(i=>i.danger).length;
+  lvl1Total=shuffled.filter(i=>i.danger).length;
   document.getElementById('found-count').textContent='0';
   document.getElementById('total-danger').textContent=lvl1Total;
-  document.getElementById('lvl1-feedback').className='feedback-box';
-  document.getElementById('lvl1-feedback').textContent='';
+  document.getElementById('lvl1-fb').className='feedback-box';
   document.getElementById('lvl1-next').classList.add('hidden');
 
-  shuffled.forEach(item=>{
-    const card = document.createElement('div');
-    card.className='item-card';
-    card.innerHTML=`<span class="item-icon">${item.icon}</span><span class="item-name">${item.name}</span>`;
+  shuffled.forEach((item,i)=>{
+    const card=document.createElement('div');
+    card.className='item-card'+(item.danger?' danger-border':'');
+    card.innerHTML=`
+      <span class="item-icon">${item.icon}</span>
+      <div class="item-name">${item.name}</div>
+      <div class="danger-badge">⚠️</div>
+    `;
+    card.style.animationDelay=(i*0.05)+'s';
+    card.style.animation='featPop .4s '+(i*0.05)+'s backwards';
     card.onclick=()=>handleItem1(card,item);
     grid.appendChild(card);
   });
 }
 
 function handleItem1(card,item){
-  if(card.dataset.clicked) return;
-  card.dataset.clicked='1';
-  const fb = document.getElementById('lvl1-feedback');
+  if(card.dataset.done) return;
+  card.dataset.done='1';
+  playClick();
+  const fb=document.getElementById('lvl1-fb');
+
   if(item.danger){
-    card.classList.add('correct-danger');
-    spawnSparks(card);
+    card.classList.remove('danger-border');
+    card.classList.add('correct-pick');
+    spawnBurst(card);
+    playSuccess();
     lvl1Found++;
     document.getElementById('found-count').textContent=lvl1Found;
     fb.className='feedback-box good';
-    fb.textContent='🔥 '+item.msg;
-    speak('Правильно! ' + item.msg, { rate: 0.9, pitch: 1.2 });
+    fb.textContent='🎉 '+item.msg;
+    speak(item.msg,{rate:0.82,pitch:1.25});
     if(lvl1Found===lvl1Total){
-      fb.className='feedback-box good';
-      fb.textContent='🎉 Отлично! Ты нашёл все опасные предметы!';
-      setTimeout(() => speak('Отлично! Ты нашёл все опасные предметы! Молодец!', { rate: 0.88, pitch: 1.15 }), 300);
+      setTimeout(()=>{
+        fb.textContent='🎉🎉 Отлично! Ты нашёл ВСЕ опасные предметы! Ты настоящий герой!';
+        speak('Ура! Ты нашёл все опасные предметы! Отличная работа! Ты настоящий герой!',{rate:0.78,pitch:1.2});
+        launchConfetti(40);
+      },300);
       document.getElementById('lvl1-next').classList.remove('hidden');
     }
   } else {
-    card.classList.add('safe-item');
-    card.classList.add('wrong');
+    card.classList.add('safe-pick');
+    playError();
     fb.className='feedback-box bad';
-    fb.textContent='😊 '+item.msg+' Ищи опасные предметы!';
-    speak(item.msg + ' Ищи опасные предметы!', { rate: 0.9, pitch: 0.95 });
-    setTimeout(()=>{card.classList.remove('wrong');},600);
-    card.style.transition='transform .3s';
-    card.style.transform='scale(1.15) rotate(5deg)';
-    setTimeout(()=>{card.style.transform='';},300);
+    fb.textContent='😊 '+item.msg;
+    speak(item.msg,{rate:0.82,pitch:1.0});
+    setTimeout(()=>{
+      card.classList.remove('safe-pick');
+      delete card.dataset.done;
+    },1000);
   }
 }
 
-function spawnSparks(card){
-  const s=document.createElement('div');
-  s.className='spark-anim'; card.appendChild(s);
-  for(let i=0;i<8;i++){
-    const sp=document.createElement('div');
-    sp.className='spark';
+function spawnBurst(card){
+  const b=document.createElement('div');
+  b.className='burst'; card.appendChild(b);
+  const stars=['⭐','✨','🌟','💫','🎉'];
+  for(let i=0;i<10;i++){
+    const s=document.createElement('div');
+    s.className='burst-star';
+    s.textContent=stars[i%stars.length];
     const angle=Math.random()*360;
-    const dist=30+Math.random()*40;
-    sp.style.setProperty('--sx','50%'); sp.style.setProperty('--sy','50%');
-    sp.style.setProperty('--ex',`${Math.cos(angle*Math.PI/180)*dist}px`);
-    sp.style.setProperty('--ey',`${Math.sin(angle*Math.PI/180)*dist}px`);
-    sp.style.left='50%'; sp.style.top='50%';
-    sp.style.background=['#FF4500','#FFD700','#FF6B35'][i%3];
-    s.appendChild(sp);
+    const r=50+Math.random()*50;
+    s.style.setProperty('--bx',`${Math.cos(angle*Math.PI/180)*r}px`);
+    s.style.setProperty('--by',`${Math.sin(angle*Math.PI/180)*r}px`);
+    s.style.animationDelay=(Math.random()*.15)+'s';
+    b.appendChild(s);
   }
-  setTimeout(()=>s.remove(),800);
+  setTimeout(()=>b.remove(),900);
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  LEVEL 2
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildLevel2(){
-  lvl2Answered=false;
-  document.querySelectorAll('.choice-btn').forEach(b=>{ b.className='choice-btn'; b.disabled=false; });
-  document.getElementById('lvl2-feedback').className='feedback-box';
-  document.getElementById('lvl2-feedback').textContent='';
+  lvl2Done=false;
+  document.querySelectorAll('.choice-card').forEach(b=>{ b.className='choice-card'; b.disabled=false; });
+  document.getElementById('lvl2-fb').className='feedback-box';
   document.getElementById('lvl2-next').classList.add('hidden');
-  document.getElementById('character').style.left='40%';
-  document.getElementById('character').style.bottom='52px';
-  document.getElementById('character').textContent='🧒';
+  const char=document.getElementById('rs-char');
+  char.style.left='38%'; char.textContent='🧒';
+  setTimeout(()=>speak('В комнате дым! Что нужно делать? Выбери правильный ответ!',{rate:0.8,pitch:1.15}),500);
 }
 
-function checkChoice(btn,correct,msg){
-  if(lvl2Answered) return;
-  lvl2Answered=true;
-  const fb=document.getElementById('lvl2-feedback');
-  document.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true);
+function checkChoice2(btn,correct,msg){
+  if(lvl2Done) return;
+  lvl2Done=true;
+  playClick();
+  document.querySelectorAll('.choice-card').forEach(b=>b.disabled=true);
+  const fb=document.getElementById('lvl2-fb');
   if(correct){
-    btn.classList.add('correct');
+    btn.classList.add('cc-correct');
     fb.className='feedback-box good'; fb.textContent='✅ '+msg;
-    speak(msg, { rate: 0.85, pitch: 1.05 });
-    const char=document.getElementById('character');
+    playSuccess();
+    speak(msg,{rate:0.78,pitch:1.15});
+    // Animate character escaping
+    const char=document.getElementById('rs-char');
     char.textContent='🏃';
-    setTimeout(()=>{ char.style.left='75%'; char.style.bottom='52px'; },200);
-    setTimeout(()=>{ char.textContent='😊'; },1600);
+    setTimeout(()=>{ char.style.left='80%'; },300);
+    setTimeout(()=>{ char.textContent='😊😊'; },1800);
+    launchConfetti(30);
     document.getElementById('lvl2-next').classList.remove('hidden');
   } else {
-    btn.classList.add('wrong');
-    fb.className='feedback-box bad'; fb.textContent='❌ '+msg;
-    speak(msg + ' Попробуй ещё раз!', { rate: 0.85, pitch: 0.95 });
+    btn.classList.add('cc-wrong');
+    fb.className='feedback-box bad'; fb.textContent='❌ '+msg+' Попробуй ещё раз!';
+    playError();
+    speak(msg+' Попробуй ещё раз!',{rate:0.78,pitch:1.0});
     setTimeout(()=>{
-      lvl2Answered=false;
-      document.querySelectorAll('.choice-btn').forEach(b=>{ b.classList.remove('wrong','correct'); b.disabled=false; });
-      fb.className='feedback-box'; fb.textContent='';
-    },3000);
+      lvl2Done=false;
+      document.querySelectorAll('.choice-card').forEach(b=>{ b.className='choice-card'; b.disabled=false; });
+      fb.className='feedback-box';
+    },3500);
   }
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  LEVEL 3
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildLevel3(){
-  lvl3Done=false; phoneBuffer='';
-  document.getElementById('phone-display').textContent='_';
-  document.getElementById('lvl3-feedback').className='feedback-box';
-  document.getElementById('lvl3-feedback').textContent='';
-  document.getElementById('dispatcher-box').style.display='none';
+  lvl3Done=false; phoneBuf='';
+  document.getElementById('phone-screen').textContent='_';
+  document.getElementById('phone-screen').className='phone-screen';
+  document.getElementById('lvl3-fb').className='feedback-box';
+  document.getElementById('phone-fb').className='feedback-box';
+  document.getElementById('dispatcher-card').style.display='none';
   document.getElementById('lvl3-next').classList.add('hidden');
-  document.querySelectorAll('.num-chip').forEach(c=>{c.className='num-chip';c.disabled=false;});
-  document.getElementById('phone-feedback').className='feedback-box';
-  document.getElementById('phone-feedback').textContent='';
+  document.querySelectorAll('.num-chip-big').forEach(c=>{ c.className='num-chip-big'; c.disabled=false; });
 }
 
-function checkNumber(btn,num){
+function checkNum(btn,num){
   if(lvl3Done) return;
-  document.querySelectorAll('.num-chip').forEach(c=>c.disabled=true);
-  const correct = (num==='101'||num==='112'||num==='01');
-  const fb=document.getElementById('lvl3-feedback');
+  playClick();
+  document.querySelectorAll('.num-chip-big').forEach(c=>c.disabled=true);
+  const correct=['01','101','112'].includes(num);
+  const fb=document.getElementById('lvl3-fb');
   if(correct){
-    btn.classList.add('correct-num');
+    btn.classList.add('ncb-correct');
     fb.className='feedback-box good';
-    fb.textContent=`✅ Правильно! ${num} — это пожарная служба!`;
-    speak(`Правильно! ${num} — это пожарная служба! Теперь назови свой адрес диспетчеру.`, { rate: 0.85, pitch: 1.1 });
+    fb.textContent=`✅ Правильно! ${num} — это пожарная служба! Умница!`;
+    playSuccess();
+    speak(`Правильно! Номер ${num} — это пожарные! Теперь скажи диспетчеру свой адрес!`,{rate:0.78,pitch:1.2});
     lvl3Done=true;
-    document.getElementById('dispatcher-box').style.display='block';
-    setTimeout(() => {
-      speak('Пожарная служба слушает! Что у вас случилось? Назови свою улицу и номер дома.', { rate: 0.82, pitch: 0.95 });
-    }, 2500);
+    document.getElementById('dispatcher-card').style.display='block';
+    setTimeout(()=>speak('Пожарная служба слушает! Что случилось? Скажи свой адрес — улицу и номер дома!',{rate:0.78,pitch:1.05}),3000);
+    launchConfetti(30);
     document.getElementById('lvl3-next').classList.remove('hidden');
   } else {
-    btn.classList.add('wrong-num');
+    btn.classList.add('ncb-wrong');
+    const hints={'02':'Ноль два — это полиция!','03':'Ноль три — это скорая помощь!'};
+    const hint=hints[num]||'Это не пожарная служба!';
     fb.className='feedback-box bad';
-    const hints={'02':'ноль два — это полиция.','03':'ноль три — это скорая помощь.'};
-    const hintText = hints[num] ? hints[num] : 'Это не пожарная!';
-    fb.textContent='❌ '+(hints[num]||'Это не пожарная!')+ ' Попробуй ещё раз!';
-    speak(hintText + ' Попробуй ещё раз! Пожарные — сто один!', { rate: 0.85, pitch: 0.95 });
+    fb.textContent='❌ '+hint+' Пожарные — это 101!';
+    playError();
+    speak(hint+' Пожарные — это сто один! Попробуй ещё раз!',{rate:0.78,pitch:1.0});
     setTimeout(()=>{
-      document.querySelectorAll('.num-chip').forEach(c=>{c.className='num-chip';c.disabled=false;});
-      fb.className='feedback-box'; fb.textContent='';
-    },2500);
+      document.querySelectorAll('.num-chip-big').forEach(c=>{ c.className='num-chip-big'; c.disabled=false; });
+      fb.className='feedback-box';
+    },2800);
   }
 }
 
-function phoneKey(d){
-  if(phoneBuffer.length>=3) return;
-  phoneBuffer+=d;
-  document.getElementById('phone-display').textContent=phoneBuffer||'_';
-  // Короткий звуковой отклик через речь (тихий, быстрый)
-  // Не озвучиваем каждую цифру — это было бы раздражающим
+function pKey(d){
+  if(phoneBuf.length>=3) return;
+  playClick();
+  phoneBuf+=d;
+  const s=document.getElementById('phone-screen');
+  s.textContent=phoneBuf||'_';
+  // Visual press anim
+  const allKeys=document.querySelectorAll('.pkey');
+  allKeys.forEach(k=>{ if(k.textContent.trim()===d){ k.classList.add('pressed'); setTimeout(()=>k.classList.remove('pressed'),150); } });
 }
-function phoneClear(){ phoneBuffer=''; document.getElementById('phone-display').textContent='_'; }
-function phoneCall(){
-  if(!phoneBuffer) return;
-  const fb=document.getElementById('phone-feedback');
-  const correct=['01','101','112'].includes(phoneBuffer);
+function pClear(){ phoneBuf=''; document.getElementById('phone-screen').textContent='_'; playClick(); }
+function pCall(){
+  if(!phoneBuf){ speak('Сначала набери номер!',{rate:0.82,pitch:1.2}); return; }
+  playClick();
+  const s=document.getElementById('phone-screen');
+  s.classList.add('ring');
+  setTimeout(()=>s.classList.remove('ring'),1000);
+  const fb=document.getElementById('phone-fb');
+  const correct=['01','101','112'].includes(phoneBuf);
   if(correct){
     fb.className='feedback-box good';
-    fb.textContent=`✅ Номер ${phoneBuffer} набран! Пожарные едут!`;
-    speak(`Номер ${phoneBuffer.split('').join(' ')} набран! Пожарные едут на помощь! Молодец!`, { rate: 0.85, pitch: 1.1 });
+    fb.textContent=`✅ Набрал ${phoneBuf}! Пожарные едут! Ты молодец!`;
+    playSuccess();
+    speak(`Номер ${phoneBuf.split('').join(' ')} набран! Пожарные едут на помощь! Молодец!`,{rate:0.78,pitch:1.2});
     lvl3Done=true;
-    document.getElementById('dispatcher-box').style.display='block';
+    document.getElementById('dispatcher-card').style.display='block';
+    launchConfetti(30);
     document.getElementById('lvl3-next').classList.remove('hidden');
   } else {
     fb.className='feedback-box bad';
-    fb.textContent=`❌ Номер ${phoneBuffer} неверный. Попробуй снова!`;
-    speak(`Номер неверный. Запомни — пожарные — сто один! Попробуй ещё раз.`, { rate: 0.85, pitch: 0.95 });
-    setTimeout(()=>{ phoneBuffer=''; document.getElementById('phone-display').textContent='_'; fb.className='feedback-box'; fb.textContent=''; },2500);
+    fb.textContent=`❌ Номер ${phoneBuf} неверный. Запомни — сто один!`;
+    playError();
+    speak('Неверный номер! Запомни — пожарные — сто один! Попробуй ещё раз!',{rate:0.78,pitch:1.0});
+    setTimeout(()=>{ phoneBuf=''; document.getElementById('phone-screen').textContent='_'; fb.className='feedback-box'; },2500);
   }
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  LEVEL 4
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildLevel4(){
-  lvl4Equipped=[]; lvl4CorrectCount=0;
-  document.getElementById('ff-base').textContent='👨';
-  document.getElementById('ff-equipment').innerHTML='';
-  document.getElementById('lvl4-feedback').className='feedback-box';
-  document.getElementById('lvl4-feedback').textContent='';
+  lvl4Correct=0;
+  document.getElementById('ff-body').textContent='👨';
+  document.getElementById('ff-gear').innerHTML='';
+  document.getElementById('ff-progress').textContent=`Снаряжение: 0 / ${LVL4_CORRECT}`;
+  document.getElementById('ff-name').textContent='Пожарный Иван';
+  document.getElementById('siren-glow').className='siren-glow';
+  document.getElementById('lvl4-fb').className='feedback-box';
+  document.getElementById('tooltip-pop').className='tooltip-pop';
   document.getElementById('lvl4-next').classList.add('hidden');
-  document.getElementById('siren-anim').style.display='none';
-  document.getElementById('tooltip-bubble').className='tooltip-bubble';
 
-  const shelf=document.getElementById('items-shelf');
+  const shelf=document.getElementById('shelf-grid');
   shelf.innerHTML='';
-  const shuffled=[...FF_ITEMS].sort(()=>Math.random()-.5);
-  shuffled.forEach((item,i)=>{
+  [...FF_ITEMS].sort(()=>Math.random()-.5).forEach((item,i)=>{
     const el=document.createElement('div');
-    el.className='shelf-item'+(item.correct?'':' wrong-item');
-    el.innerHTML=`<div class="s-icon">${item.icon}</div><div class="s-name">${item.name}</div>`;
+    el.className='shelf-card'+(item.correct?'':' wrong-shelf');
+    el.style.animation=`featPop .4s ${i*.06}s backwards`;
+    el.innerHTML=`
+      <div class="sc-icon">${item.icon}</div>
+      <div class="sc-name">${item.name}</div>
+      <div class="correct-stamp">✓</div>
+    `;
     el.onclick=()=>handleFF(el,item);
     shelf.appendChild(el);
   });
@@ -1234,182 +1588,171 @@ function buildLevel4(){
 
 function handleFF(el,item){
   if(el.classList.contains('used')) return;
-  const tip=document.getElementById('tooltip-bubble');
-  const fb=document.getElementById('lvl4-feedback');
-  tip.textContent=item.icon+' '+item.info;
-  tip.className='tooltip-bubble show';
-  speak(item.info, { rate: 0.85, pitch: item.correct ? 1.1 : 0.95 });
+  playClick();
+  const tip=document.getElementById('tooltip-pop');
+  const fb=document.getElementById('lvl4-fb');
+  tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;
+  tip.className='tooltip-pop show';
+  speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});
+
   if(item.correct){
     el.classList.add('used');
-    lvl4CorrectCount++;
-    const equip=document.getElementById('ff-equipment');
+    lvl4Correct++;
+    playSuccess();
+    document.getElementById('ff-progress').textContent=`Снаряжение: ${lvl4Correct} / ${LVL4_CORRECT}`;
+    // Add gear to figure
+    const gear=document.getElementById('ff-gear');
     const span=document.createElement('span');
-    const positions=[
-      'top:-20px;left:50%;transform:translateX(-50%)',
-      'bottom:-10px;left:50%;transform:translateX(-50%)',
-      'top:20px;left:-20px',
-      'top:10px;right:-20px',
-      'bottom:20px;left:-20px',
-      'bottom:20px;right:-20px',
-      'top:50%;left:-30px',
-      'top:50%;right:-30px',
-      'top:40px;left:40%'
-    ];
-    span.style.cssText='position:absolute;font-size:28px;'+positions[lvl4CorrectCount%positions.length];
+    span.className='ff-gear-item';
     span.textContent=item.icon;
-    span.style.animation='fadeIn .3s';
-    equip.appendChild(span);
-    fb.className='feedback-box good';
-    fb.textContent='✅ Молодец! '+item.info;
-    if(lvl4CorrectCount===LVL4_NEEDED){
+    span.style.cssText='position:absolute;'+item.pos;
+    gear.appendChild(span);
+    fb.className='feedback-box good'; fb.textContent='✅ '+item.info;
+
+    if(lvl4Correct===LVL4_CORRECT){
       setTimeout(()=>{
-        document.getElementById('ff-base').textContent='🧑‍🚒';
-        document.getElementById('siren-anim').style.display='block';
+        document.getElementById('ff-body').textContent='🧑‍🚒';
+        document.getElementById('ff-name').textContent='Пожарный Иван ГОТОВ!';
+        document.getElementById('siren-glow').className='siren-glow active';
         fb.className='feedback-box good';
-        fb.textContent='🎉 Пожарный готов к выезду! Сирена включена — УУУ! 🚨';
-        speak('Ура! Пожарный Иван полностью экипирован и готов к выезду! Сирена включена! Вы У У У!', { rate: 0.88, pitch: 1.2 });
+        fb.textContent='🎉 Пожарный Иван полностью экипирован! Сирена включена!';
+        playSiren();
+        speak('УРА! Пожарный Иван полностью одет и готов к выезду! Ты отлично справился! Вы у у у!',{rate:0.78,pitch:1.2});
+        launchConfetti(50);
         document.getElementById('lvl4-next').classList.remove('hidden');
       },400);
     }
   } else {
-    fb.className='feedback-box bad';
-    fb.textContent='❌ '+item.info;
-    el.style.animation='shake .4s';
+    playError();
+    fb.className='feedback-box bad'; fb.textContent='❌ '+item.info+' Ищи другое снаряжение!';
+    el.style.animation='wrongWobble .4s';
     setTimeout(()=>el.style.animation='',500);
   }
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  LEVEL 5
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function buildLevel5(){
-  lvl5Answered=false;
-  currentFireScenario=Math.floor(Math.random()*FIRE_SCENARIOS.length);
-  renderFireScenario();
+  lvl5Done=false;
+  fireScenarioIdx=Math.floor(Math.random()*FIRE_SCENARIOS.length);
+  renderFireScene();
 }
 
-function renderFireScenario(){
-  const sc=FIRE_SCENARIOS[currentFireScenario];
-  document.getElementById('fire-scenario-title').textContent='Сцена: '+sc.label;
-  document.getElementById('fire-object').textContent=sc.object;
-  const flame=document.getElementById('fire-flame');
-  flame.textContent='🔥'; flame.className='fire-flame';
-  flame.style.fontSize='';
-  document.getElementById('smoke-out').style.display='none';
-  document.getElementById('fire-warning').className='fire-warning';
-  document.getElementById('lvl5-feedback').className='feedback-box';
-  document.getElementById('lvl5-feedback').textContent='';
+function renderFireScene(){
+  const sc=FIRE_SCENARIOS[fireScenarioIdx];
+  document.getElementById('fire-label').textContent='🔥 '+sc.label;
+  document.getElementById('fire-obj').textContent=sc.obj;
+  // Reset flames
+  const flamesEl=document.getElementById('fire-flames');
+  flamesEl.innerHTML='<span class="flame">🔥</span><span class="flame">🔥</span><span class="flame">🔥</span>';
+  document.getElementById('fire-smoke').style.display='none';
+  document.getElementById('danger-notice').className='danger-notice';
+  document.getElementById('lvl5-fb').className='feedback-box';
+  document.getElementById('final-tip').style.display='none';
   document.getElementById('lvl5-next').classList.add('hidden');
-  document.getElementById('final-lesson').style.display='none';
 
-  setTimeout(() => speak(sc.scenarioText, { rate: 0.85, pitch: 1.0 }), 600);
+  setTimeout(()=>speak(sc.scenarioText,{rate:0.78,pitch:1.1}),600);
 
   const grid=document.getElementById('tools-grid');
   grid.innerHTML='';
   sc.tools.forEach((t,i)=>{
     const card=document.createElement('div');
     card.className='tool-card';
-    card.innerHTML=`<div class="t-icon">${t.icon}</div><div class="t-name">${t.name}</div>`;
+    card.style.animation=`featPop .4s ${i*.08}s backwards`;
+    card.innerHTML=`<div class="ti">${t.icon}</div><div class="tn">${t.name}</div>`;
     card.onclick=()=>handleTool(card,t);
     grid.appendChild(card);
   });
 }
 
 function handleTool(card,tool){
-  if(lvl5Answered) return;
-  const warn=document.getElementById('fire-warning');
-  const fb=document.getElementById('lvl5-feedback');
+  if(lvl5Done) return;
+  playClick();
+  const notice=document.getElementById('danger-notice');
+  const fb=document.getElementById('lvl5-fb');
+
   if(tool.warn){
-    warn.textContent=tool.warn;
-    warn.className='fire-warning show';
-    speak(tool.warn.replace('⚠️',''), { rate: 0.82, pitch: 0.9 });
-    card.classList.add('wrong-tool');
-    setTimeout(()=>{card.classList.remove('wrong-tool'); warn.className='fire-warning';},3000);
+    notice.textContent=tool.warn;
+    notice.className='danger-notice show';
+    card.classList.add('tool-warn');
+    playError();
+    speak(tool.warn.replace('⚠️',''),{rate:0.78,pitch:1.0});
+    setTimeout(()=>{ card.classList.remove('tool-warn'); notice.className='danger-notice'; },3000);
     return;
   }
-  if(tool.correct){
-    lvl5Answered=true;
-    card.classList.add('correct-tool');
-    fb.className='feedback-box good'; fb.textContent='✅ '+tool.okMsg;
-    speak(tool.okMsg, { rate: 0.85, pitch: 1.1 });
-    const flame=document.getElementById('fire-flame');
-    flame.style.transition='font-size .8s'; flame.style.fontSize='0';
-    setTimeout(()=>{ document.getElementById('smoke-out').style.display='block'; },600);
+  if(tool.bad){
+    card.classList.add('tool-no');
+    fb.className='feedback-box bad'; fb.textContent='❌ '+tool.msg;
+    playError();
+    speak(tool.msg,{rate:0.78,pitch:1.0});
+    setTimeout(()=>card.classList.remove('tool-no'),700);
+    return;
+  }
+  if(tool.ok){
+    lvl5Done=true;
+    card.classList.add('tool-ok');
+    fb.className='feedback-box good'; fb.textContent='✅ '+tool.msg;
+    playSuccess();
+    speak(tool.msg,{rate:0.78,pitch:1.2});
+    // Extinguish flames
+    const flames=document.querySelectorAll('.flame');
+    flames.forEach((f,i)=>setTimeout(()=>f.classList.add('out'),i*200));
     setTimeout(()=>{
-      document.getElementById('final-lesson').style.display='block';
-      speak('Ты молодец! Но помни: если огонь стал большим — не туши его сам! Скорее беги на улицу и вызывай сто один!', { rate: 0.83, pitch: 1.05 });
+      document.getElementById('fire-smoke').style.display='block';
+    },700);
+    setTimeout(()=>{
+      document.getElementById('final-tip').style.display='block';
+      speak('Молодец! Но запомни! Если огонь большой — никогда не туши сам! Беги на улицу и вызывай сто один!',{rate:0.78,pitch:1.1});
+      launchConfetti(50);
       document.getElementById('lvl5-next').classList.remove('hidden');
-    },1200);
-  } else {
-    card.classList.add('wrong-tool');
-    fb.className='feedback-box bad'; fb.textContent='❌ Это не поможет! Попробуй другое средство.';
-    speak('Это не поможет! Попробуй другое средство.', { rate: 0.85, pitch: 0.95 });
-    setTimeout(()=>card.classList.remove('wrong-tool'),600);
+    },1500);
   }
 }
 
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 //  DIPLOMA
-// ════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 document.addEventListener('DOMContentLoaded',()=>{
-  const inp=document.getElementById('diploma-name-input');
-  if(inp) inp.addEventListener('input',()=>{
-    const v=inp.value.trim();
-    document.getElementById('diploma-name-display').textContent=v||'Юный Герой';
+  const inp=document.getElementById('dip-name-input');
+  inp.addEventListener('input',()=>{
+    document.getElementById('dip-name-display').textContent=inp.value.trim()||'Юный Герой';
   });
 
-  // Голоса могут загружаться асинхронно в некоторых браузерах
-  if (window.speechSynthesis) {
-    window.speechSynthesis.onvoiceschanged = () => {
-      // Голоса загружены, ничего дополнительного не нужно
-    };
-  }
+  if(synth) { synth.onvoiceschanged=()=>{}; synth.getVoices(); }
 
-  // Приветствие при загрузке
-  setTimeout(() => {
-    speak('Привет! Добро пожаловать в Азбуку ноль один! Нажми «Начать игру», чтобы стать Юным Спасателем!', {
-      rate: 0.88,
-      pitch: 1.1
-    });
-  }, 800);
+  setTimeout(()=>{
+    speak('Привет, малыш! Добро пожаловать в Азбуку ноль один! Нажми большую кнопку, чтобы начать игру!',{rate:0.78,pitch:1.2});
+  },1000);
 });
 
 function printDiploma(){
-  const name=document.getElementById('diploma-name-input').value.trim()||'Юный Герой';
-  document.getElementById('diploma-name-display').textContent=name;
+  const nm=document.getElementById('dip-name-input').value.trim()||'Юный Герой';
+  document.getElementById('dip-name-display').textContent=nm;
   window.print();
 }
 
-// ════════════════════════════════════════════════
-//  FIREWORKS
-// ════════════════════════════════════════════════
-function launchFireworks(){
-  const container=document.getElementById('fireworks');
-  container.innerHTML='';
-  const colors=['#FF4500','#FFD700','#2ECC71','#3498DB','#9B59B6','#E91E63'];
-  for(let i=0;i<50;i++){
+// ══════════════════════════════════════════════════════
+//  CONFETTI
+// ══════════════════════════════════════════════════════
+function launchConfetti(count=60) {
+  const layer=document.getElementById('confetti-layer');
+  const colors=['#FF4500','#FFD700','#2ECC71','#3498DB','#E91E63','#9B59B6','#FF6B35','#00BCD4'];
+  for(let i=0;i<count;i++){
     const p=document.createElement('div');
-    const x=Math.random()*100, y=Math.random()*100;
-    const c=colors[Math.floor(Math.random()*colors.length)];
-    const size=4+Math.random()*8;
-    p.style.cssText=`
-      position:absolute; left:${x}vw; top:${y}vh;
-      width:${size}px; height:${size}px; border-radius:50%;
-      background:${c}; opacity:0;
-      animation: fw ${0.8+Math.random()*1.2}s ${Math.random()*1.5}s forwards;
-    `;
-    container.appendChild(p);
+    p.className='conf-piece';
+    p.style.left=(Math.random()*100)+'vw';
+    p.style.top='-20px';
+    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+    p.style.width=(6+Math.random()*10)+'px';
+    p.style.height=(6+Math.random()*10)+'px';
+    p.style.borderRadius=Math.random()>.5?'50%':'3px';
+    const dur=1.5+Math.random()*2;
+    p.style.animationDuration=dur+'s';
+    p.style.animationDelay=(Math.random()*.8)+'s';
+    layer.appendChild(p);
+    setTimeout(()=>p.remove(),(dur+1)*1000);
   }
-  if(!document.getElementById('fw-style')){
-    const st=document.createElement('style');
-    st.id='fw-style';
-    st.textContent=`@keyframes fw{
-      0%{opacity:1;transform:translate(0,0) scale(1)}
-      100%{opacity:0;transform:translate(${Math.random()>0.5?'':'-'}${20+Math.random()*60}px,${-30-Math.random()*80}px) scale(0)}
-    }`;
-    document.head.appendChild(st);
-  }
-  setTimeout(()=>container.innerHTML='',3000);
 }
 </script>
 </body>
