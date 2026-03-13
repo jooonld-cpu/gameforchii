@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🚒 Азбука 01 — Юный Спасатель</title>
+<title>🚒 Азбука 101 — Юный Спасатель</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -767,7 +767,7 @@ html, body {
 
 <!-- Top bar -->
 <div id="voice-bar">
-  <div class="app-logo">🚒 <span>Азбука 01</span></div>
+  <div class="app-logo">🚒 <span>Азбука 101</span></div>
   <div class="speak-waves" id="speak-waves">
     <div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div>
   </div>
@@ -804,7 +804,7 @@ html, body {
   <!-- ══ INTRO ══ -->
   <div id="intro-screen" class="screen active">
     <div class="game-card" style="text-align:center;">
-      <div class="game-title" id="animated-title">🚒 Азбука 01</div>
+      <div class="game-title" id="animated-title">🚒 Азбука 101</div>
       <div style="font-size:clamp(15px,4vw,19px);color:#888;font-weight:800;margin:6px 0 4px;">Стань Юным Спасателем!</div>
       <div class="mascot-big" id="intro-mascot">🧑‍🚒</div>
       <div class="intro-features">
@@ -910,7 +910,6 @@ html, body {
       </div>
 
       <div class="num-choices-big" id="num-choices">
-        <button class="num-chip-big" onclick="checkNum(this,'01')">01</button>
         <button class="num-chip-big" onclick="checkNum(this,'02')">02</button>
         <button class="num-chip-big" onclick="checkNum(this,'03')">03</button>
         <button class="num-chip-big" onclick="checkNum(this,'101')">101</button>
@@ -1034,7 +1033,7 @@ html, body {
         Настоящим удостоверяется, что<br>
         <strong id="dip-name-display">Юный Герой</strong><br>
         успешно прошёл обучение<br>
-        <strong>«Азбука 01 — Пожарная безопасность»</strong><br>
+        <strong>«Азбука 101 — Пожарная безопасность»</strong><br>
         и знает, как действовать при пожаре!
       </div>
       <div class="dip-badges">
@@ -1048,7 +1047,7 @@ html, body {
         <button class="btn btn-fire" onclick="printDiploma()">🖨️ Распечатать</button>
         <button class="btn btn-green" onclick="restartGame()">🔄 Играть снова!</button>
       </div>
-      <div class="dip-footer">🚒 Азбука 01 · Юный Спасатель · Береги себя!</div>
+      <div class="dip-footer">🚒 Азбука 101 · Юный Спасатель · Береги себя!</div>
     </div>
   </div>
 
@@ -1219,9 +1218,9 @@ const ITEMS = [
   { icon:'🧨', name:'Петарда',          danger:true,  msg:'Правильно! Петарды очень опасны! Они могут взорваться!' },
   { icon:'🕯️', name:'Свеча',            danger:true,  msg:'Да! Открытый огонь свечи может вызвать пожар!' },
   { icon:'🔌', name:'Забытый утюг',     danger:true,  msg:'Верно! Забытый утюг нагревается и может загореться!' },
-  { icon:'🎇', name:'Бенгальский огонь',danger:true,  msg:'Правильно! Искры от него очень горячие и опасные!' },
+  { icon:'🎇', name:'Бенгальский огонь',danger:true,  msg:'Правильно! Искры от бенгальского огня очень горячие и опасные!' },
   { icon:'⚡', name:'Оголённый провод', danger:true,  msg:'Да! Искрящий провод — это большая опасность!' },
-  { icon:'🪵', name:'Костёр в доме',    danger:true,  msg:'Верно! Огонь в доме — это очень опасно!' },
+  { icon:'🔥', name:'Огонь на плите',    danger:true,  msg:'Верно! Огонь в доме — это очень опасно!' },
   { icon:'🧸', name:'Мишка',            danger:false, msg:'Мишка безопасный! Ищи опасные предметы!' },
   { icon:'🏀', name:'Мячик',            danger:false, msg:'Мячик просто прыгает! Это безопасно!' },
   { icon:'📚', name:'Книжка',           danger:false, msg:'Читать — это полезно! Но ищи опасные предметы!' },
@@ -1438,7 +1437,7 @@ function buildLevel2(){
   document.getElementById('lvl2-fb').className='feedback-box';
   document.getElementById('lvl2-next').classList.add('hidden');
   const char=document.getElementById('rs-char');
-  char.style.left='38%'; char.textContent='🧒';
+  char.style.left='38%'; char.textContent='🧍';
   setTimeout(()=>speak('В комнате дым! Что нужно делать? Выбери правильный ответ!',{rate:0.8,pitch:1.15}),500);
 }
 
@@ -1491,7 +1490,7 @@ function checkNum(btn,num){
   if(lvl3Done) return;
   playClick();
   document.querySelectorAll('.num-chip-big').forEach(c=>c.disabled=true);
-  const correct=['01','101','112'].includes(num);
+  const correct=['101','101','112'].includes(num);
   const fb=document.getElementById('lvl3-fb');
   if(correct){
     btn.classList.add('ncb-correct');
@@ -1537,7 +1536,7 @@ function pCall(){
   s.classList.add('ring');
   setTimeout(()=>s.classList.remove('ring'),1000);
   const fb=document.getElementById('phone-fb');
-  const correct=['01','101','112'].includes(phoneBuf);
+  const correct=['101','101','112'].includes(phoneBuf);
   if(correct){
     fb.className='feedback-box good';
     fb.textContent=`✅ Набрал ${phoneBuf}! Пожарные едут! Ты молодец!`;
