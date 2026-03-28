@@ -308,8 +308,8 @@ html, body {
 .rs-floor{position:absolute;bottom:0;left:0;right:0;height:22%;background:repeating-linear-gradient(90deg,#8d6e63 0,#8d6e63 49%,#795548 49%,#795548 100%);background-size:56px 100%;}
 .rs-window{position:absolute;top:18px;left:22px;width:clamp(46px,11vw,68px);height:clamp(40px,9vw,58px);background:linear-gradient(135deg,#87CEEB,#b0e0f8);border:3px solid #795548;border-radius:4px 4px 0 0;}
 .rs-window::after{content:'';position:absolute;top:0;bottom:0;left:50%;width:2px;background:#795548;}
-.rs-door{position:absolute;bottom:22%;right:clamp(18px,5.5vw,40px);width:clamp(34px,8vw,50px);height:clamp(55px,13vw,78px);background:linear-gradient(to bottom,#d4a050,#a1887f);border:3px solid #795548;border-radius:5px 5px 0 0;}
-.rs-smoke{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;}
+.rs-door{position:absolute;bottom:22%;right: clamp(782px, 5.5vw, 56px);width:clamp(34px,8vw,50px);height:clamp(55px,13vw,78px);background:linear-gradient(to bottom,#d4a050,#a1887f);border:3px solid #795548;border-radius:5px 5px 0 0;}
+.rs-smoke{position:absolute;top:24px;left:52%;transform:translateX(-50%);display:flex;gap:26px;}
 .smoke-puff{font-size:clamp(26px,6vw,40px);animation:smokeDrift 1.8s ease-in-out infinite;}
 .smoke-puff:nth-child(2){animation-delay:.3s;font-size:clamp(20px,4.5vw,30px);}
 .smoke-puff:nth-child(3){animation-delay:.6s;font-size:clamp(16px,3.5vw,24px);}
@@ -373,7 +373,7 @@ html, body {
 .ff-gear-layer{position:absolute;inset:-18px;pointer-events:none;z-index:2;}
 .ff-gear-item{position:absolute;font-size:clamp(26px,6vw,38px);animation:gearPop .4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));}
 @keyframes gearPop{from{transform:scale(0) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
-.ff-name{font-family:'Baloo 2',sans-serif;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:#555;margin-top:7px;text-align:center;}
+.ff-name{font-family:'Baloo 2',sans-serif;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:#555;margin-top:57px;text-align:center;}
 .ff-progress{font-size:clamp(11px,2.5vw,13px);font-weight:800;color:#888;text-align:center;margin-top:3px;}
 .siren-glow{display:none;text-align:center;margin-top:10px;font-size:clamp(16px,3.5vw,22px);font-weight:900;}
 .siren-glow.active{display:block;animation:sirenColors .5s infinite alternate;}
@@ -442,8 +442,8 @@ html, body {
 /* Lvl 2 Med - suitcase */
 .suitcase-scene{display:flex;flex-direction:column;align-items:center;gap:16px;margin:16px 0;}
 .suitcase-outer{position:relative;width:clamp(200px,50vw,280px);}
-.suitcase-body{background:linear-gradient(145deg,#e67e22,#d35400);border-radius:18px;padding:20px;min-height:80px;border:4px solid #b7410e;box-shadow:0 8px 24px rgba(214,84,0,.4);position:relative;}
-.suitcase-handle{width:60px;height:20px;border:4px solid #8d4000;border-radius:12px 12px 0 0;margin:0 auto;position:absolute;top:-20px;left:50%;transform:translateX(-50%);}
+.suitcase-body{padding:20px;min-height:80px;position:relative;}
+.suitcase-handle{width:60px;height:20px;border-radius:12px 12px 0 0;margin:0 auto;position:absolute;top:-20px;left:50%;transform:translateX(-50%);}
 .suitcase-cross{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:28px;background:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);}
 .suitcase-items{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:40px;}
 .placed-item{font-size:28px;animation:gearPop .3s;}
@@ -623,7 +623,7 @@ html, body {
     </div>
     <div class="sector-card sector-pol" id="sec-pol" onclick="enterSector('pol')">
       <div class="sector-badge" id="badge-pol">✓</div>
-      <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="👮" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
+      <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" alt="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
       <div class="sector-name">Полицейский</div>
       <div class="sector-num">102</div>
       <div class="sector-desc">Охраняй порядок!<br>Стань полицейским!</div>
@@ -655,7 +655,7 @@ html, body {
     <h2 class="level-title">🚪 Выход из ловушки!</h2>
     <p class="desc">В комнате появился <strong>дым</strong>! Что нужно делать?</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" id="rb-f2" onclick="readLvl('f2')">🔊 Читай вслух!</button></div>
-    <div class="room-scene" id="room-scene"><div class="rs-floor"></div><div class="rs-window"></div><div class="rs-door"></div><div class="rs-smoke"><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div></div><div class="rs-character" id="rs-char" style="left:38%;">🧒</div></div>
+    <div class="room-scene" id="room-scene"><div class="rs-floor"></div><div class="rs-window"></div><div class="rs-door"></div><div class="rs-smoke"><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div></div><div class="rs-character" id="rs-char" style="left:83%;"></div></div>
     <div id="choices-area"></div>
     <div id="f2-fb" class="feedback-box"></div>
     <div class="btn-row"><button id="f2-next" class="btn btn-fire hidden" onclick="fireLvl(3)">Дальше! →</button></div>
@@ -748,7 +748,7 @@ html, body {
       <div class="suitcase-outer">
         <div class="suitcase-handle"></div>
         <div class="suitcase-body">
-          <div class="suitcase-cross">➕</div>
+          <img src="https://cdn-icons-png.flaticon.com/512/3302/3302185.png" alt="🚑" style="width: 237px;height: 241px;margin-left: 15px;/* margin: 38px; */">
           <div class="suitcase-items" id="m2-placed"></div>
         </div>
       </div>
@@ -1273,7 +1273,7 @@ function pCall(id){
 const FIRE_ITEMS=[
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e8.svg" alt="🧨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Петарда',danger:true,msg:'Правильно! Петарды могут взорваться!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f56f.svg" alt="🕯️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свеча',danger:true,msg:'Да! Открытый огонь опасен!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f50c.svg" alt="🔌" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Забытый утюг',danger:true,msg:'Верно! Забытый утюг загорается!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/2990/2990631.png" alt="https://cdn-icons-png.flaticon.com/512/2990/2990631.png" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Забытый утюг',danger:true,msg:'Верно! Забытый утюг загорается!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f387.svg" alt="🎇" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Бенгальский огонь',danger:true,msg:'Правильно! Искры очень горячие!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26a1.svg" alt="⚡" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Оголённый провод',danger:true,msg:'Да! Искрящий провод опасен!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f525.svg" alt="🔥" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огонь на плите',danger:true,msg:'Верно! Огонь дома — это опасно!'},
@@ -1285,15 +1285,15 @@ const FIRE_ITEMS=[
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ae.svg" alt="🎮" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Геймпад',danger:false,msg:'Игры — весело! Не опасно!'},
 ];
 const FF_ITEMS=[
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26d1.svg" alt="⛑️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Каска',correct:true,pos:'top:-28px;left:50%;transform:translateX(-50%)',info:'Каска защищает голову!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f462.svg" alt="👢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Сапоги',correct:true,pos:'bottom:-23px;left:50%;transform:translateX(-50%)',info:'Сапоги защищают ноги от огня!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Костюм',correct:true,pos:'top:40%;left:-33px',info:'Огнеупорный костюм — не страшен огонь!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f637.svg" alt="😷" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Маска',correct:true,pos:'top:25%;right:-33px',info:'Маска защищает от дыма!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e4.svg" alt="🧤" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Перчатки',correct:true,pos:'bottom:20%;left:-33px',info:'Перчатки защищают руки!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f526.svg" alt="🔦" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Фонарь',correct:true,pos:'bottom:20%;right:-33px',info:'Фонарь помогает видеть в темноте!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a9.svg" alt="🎩" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Шляпа',correct:false,info:'Это шляпа повара! Не нужна!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3d6.svg" alt="🏖️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Ласты',correct:false,info:'Ласты для плавания, не для пожара!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f302.svg" alt="🌂" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Зонтик',correct:false,info:'Зонтик пожарному не поможет!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26d1.svg" alt="⛑️" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Каска',correct:true,pos:'top:-28px;left:50%;transform:translateX(-50%)',info:'Каска защищает голову!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f462.svg" alt="👢" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Сапоги',correct:true,pos:'bottom:-50px;left:50%;transform:translateX(-50%)',info:'Сапоги защищают ноги от огня!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Костюм',correct:true,pos:'top:40%;left: 0px',info:'Огнеупорный костюм — не страшен огонь!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f637.svg" alt="😷" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Маска',correct:true,pos:'top:25%;right:-27px',info:'Маска защищает от дыма!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e4.svg" alt="🧤" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Перчатки',correct:true,pos:'bottom:30%;left:-33px',info:'Перчатки защищают руки!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f526.svg" alt="🔦" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Фонарь',correct:true,pos:'bottom:40%;right:-55px',info:'Фонарь помогает видеть в темноте!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a9.svg" alt="🎩" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Шляпа',correct:false,info:'Это шляпа повара! Не нужна!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/7868/7868861.png" alt="https://cdn-icons-png.flaticon.com/512/7868/7868861.png" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Ласты',correct:false,info:'Ласты для плавания, не для пожара!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f302.svg" alt="🌂" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Зонтик',correct:false,info:'Зонтик пожарному не поможет!'},
 ];
 const FIRE_SCENARIOS=[
   {obj:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa9f.svg" alt="🪟" style="width:70px;height:70px;" loading="lazy">',label:'Загорелась занавеска!',scenarioText:'Загорелась занавеска! Как потушить?',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:true,msg:'Правильно! Водой тушим занавеску!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Отлично! Огнетушитель справится!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Верно! Одеяло перекрывает кислород!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет потушить огонь!'}]},
@@ -1341,10 +1341,10 @@ function buildF2(){
   choices.forEach((c,i)=>{
     const btn=document.createElement('button');btn.className='choice-card';
     btn.innerHTML=`<span class="choice-num">${i+1}</span><span>${c.text}</span>`;
-    btn.onclick=()=>{if(f2Done)return;f2Done=true;playClick();document.querySelectorAll('.choice-card').forEach(b=>b.disabled=true);const fb=document.getElementById('f2-fb');if(c.correct){btn.classList.add('cc-correct');fb.className='feedback-box good';fb.textContent='✅ '+c.msg;playSuccess();speak(c.msg,{rate:0.78,pitch:1.15});const char=document.getElementById('rs-char');char.textContent='🏃';setTimeout(()=>{char.style.left='80%';},300);setTimeout(()=>{char.textContent='😊';},1800);launchConfetti(30);document.getElementById('f2-next').classList.remove('hidden');}else{btn.classList.add('cc-wrong');fb.className='feedback-box bad';fb.textContent='❌ '+c.msg+' Попробуй ещё!';playError();speak(c.msg+' Попробуй ещё раз!',{rate:0.78,pitch:1.0});setTimeout(()=>{f2Done=false;document.querySelectorAll('.choice-card').forEach(b=>{b.className='choice-card';b.disabled=false;});fb.className='feedback-box';},3500);}};
+    btn.onclick=()=>{if(f2Done)return;f2Done=true;playClick();document.querySelectorAll('.choice-card').forEach(b=>b.disabled=true);const fb=document.getElementById('f2-fb');if(c.correct){btn.classList.add('cc-correct');fb.className='feedback-box good';fb.textContent='✅ '+c.msg;playSuccess();speak(c.msg,{rate:0.78,pitch:1.15});const char=document.getElementById('rs-char');char.textContent='🏃';setTimeout(()=>{char.style.left='7%';},300);setTimeout(()=>{char.textContent='😊';},1800);launchConfetti(30);document.getElementById('f2-next').classList.remove('hidden');}else{btn.classList.add('cc-wrong');fb.className='feedback-box bad';fb.textContent='❌ '+c.msg+' Попробуй ещё!';playError();speak(c.msg+' Попробуй ещё раз!',{rate:0.78,pitch:1.0});setTimeout(()=>{f2Done=false;document.querySelectorAll('.choice-card').forEach(b=>{b.className='choice-card';b.disabled=false;});fb.className='feedback-box';},3500);}};
     area.appendChild(btn);
   });
-  document.getElementById('rs-char').style.left='38%';document.getElementById('rs-char').textContent='🧒';
+  document.getElementById('rs-char').style.left='88%';document.getElementById('rs-char').textContent='🧍‍♂️';
   document.getElementById('f2-fb').className='feedback-box';
   document.getElementById('f2-next').classList.add('hidden');
 }
@@ -1414,7 +1414,7 @@ const MED_TOOLS=[
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa79.svg" alt="🩹" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Бинт',correct:true,sound:'🩹',msg:'Бинт перевязывает раны!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f48a.svg" alt="💊" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Лекарство',correct:true,sound:'💊',msg:'Лекарство помогает выздоровлять!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f527.svg" alt="🔧" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Гаечный ключ',correct:false,msg:'Это инструмент слесаря, не доктора!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faae.svg" alt="🪮" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Расчёска',correct:false,msg:'Расчёска не нужна в чемоданчике!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/4617/4617762.png" alt="https://cdn-icons-png.flaticon.com/512/4617/4617762.png" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Расчёска',correct:false,msg:'Расчёска не нужна в чемоданчике!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f944.svg" alt="🥄" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Ложка',correct:false,msg:'Обычная ложка не нужна доктору!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9f8.svg" alt="🧸" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Игрушка',correct:false,msg:'Игрушка не медицинский инструмент!'},
 ];
@@ -1482,10 +1482,10 @@ function buildM4(){
   m4TotalCars=3;
   positions.forEach((pos,i)=>{
     const car=document.createElement('div');car.className='road-car road-car-blocker';car.textContent=carEmojis[i];car.style.left=pos.left;car.style.top=pos.top;
-    car.onclick=()=>{if(car.dataset.moved)return;car.dataset.moved='1';playClick();const tops=['10%','65%','10%'];car.style.top=tops[i]||'10%';m4CarsMoved++;speak(i===0?'Молодец! Убери все машины!':i===1?'Ещё одну!':'Отлично!',{rate:0.82,pitch:1.2});const fb=document.getElementById('m4-fb');fb.className='feedback-box med-good';fb.textContent='✅ Машинка убрана! Убирай все три!';if(m4CarsMoved>=m4TotalCars&&!m4Done){m4Done=true;setTimeout(()=>{const ambu=document.getElementById('m4-ambu');ambu.style.left='110%';playAmbulanceSiren();fb.textContent='🚑 Ура! Скорая проехала! Ты спас жизнь!';speak('Ура! Скорая помощь проехала! Ты помог спасти жизнь!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('m4-next').classList.remove('hidden');},500);}};
+    car.onclick=()=>{if(car.dataset.moved)return;car.dataset.moved='1';playClick();const tops=['10%','65%','10%'];car.style.top=tops[i]||'10%';m4CarsMoved++;speak(i===0?'Молодец! Убери все машины!':i===1?'Ещё одну!':'Отлично!',{rate:0.82,pitch:1.2});const fb=document.getElementById('m4-fb');fb.className='feedback-box med-good';fb.textContent='✅ Машинка убрана! Убирай все три!';if(m4CarsMoved>=m4TotalCars&&!m4Done){m4Done=true;setTimeout(()=>{const ambu=document.getElementById('m4-ambu');ambu.style.left='-110%';playAmbulanceSiren();fb.textContent='🚑 Ура! Скорая проехала! Ты спас жизнь!';speak('Ура! Скорая помощь проехала! Ты помог спасти жизнь!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('m4-next').classList.remove('hidden');},500);}};
     carsDiv.appendChild(car);
   });
-  document.getElementById('m4-ambu').style.left='-15%';
+  document.getElementById('m4-ambu').style.left='93%';
   document.getElementById('m4-fb').className='feedback-box';
   document.getElementById('m4-hint').style.display='block';
   document.getElementById('m4-next').classList.add('hidden');
@@ -1580,7 +1580,7 @@ const SITUATIONS=[
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f528.svg" alt="🔨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Кто-то ломает скамейку',needsPol:true,msg:'Правильно! Портить городсую собственность нельзя — нужно вызвать полицию!'},
 ];
 const POL_ITEMS=[
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="https://w7.pngwing.com/pngs/766/27/png-transparent-police-officer-law-enforcement-policeman-hat-police-officer-hat-computer.png" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Фуражка',correct:true,pos:'top:-28px;left:50%;transform:translateX(-50%)',info:'Фуражка — головной убор полицейского!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" alt="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Фуражка',correct:true,pos:'top:-28px;left:50%;transform:translateX(-50%)',info:'Фуражка — головной убор полицейского!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4df.svg" alt="📟" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Рация',correct:true,pos:'top:30%;right:-33px',info:'Рация для связи! Приём, патруль на связи!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f694.svg" alt="🚔" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жезл',correct:true,pos:'bottom:20%;right:-33px',info:'Жезл регулировщика для управления движением!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4e2.svg" alt="📢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свисток',correct:true,pos:'top:50%;left:-33px',info:'Свисток привлекает внимание!'},
@@ -1594,8 +1594,8 @@ const PARK_PEOPLE=[
   {
     isTarget:true,
     style:'left:52%;top:28%;',
-    render:'<div style="text-align:center;line-height:1.2;"><div style="font-size:clamp(26px,6vw,36px);">🧒</div><div style="font-size:clamp(14px,3vw,20px);">🧢</div><div style="background:#1565C0;color:#fff;border-radius:8px;padding:2px 6px;font-size:clamp(8px,1.8vw,11px);font-weight:900;margin-top:2px;">синяя</div></div>',
-    label:'мальчик в синей кепке 🧒🧢'
+    render:'<div style="text-align:center;line-height:1.2;"><div style="font-size:clamp(26px,6vw,36px);">🧍‍♂️</div><div style="font-size:clamp(14px,3vw,20px);">🧢</div><div style="background:#1565C0;color:#fff;border-radius:8px;padding:2px 6px;font-size:clamp(8px,1.8vw,11px);font-weight:900;margin-top:2px;">синяя</div></div>',
+    label:'мальчик в синей кепке 🧍‍♂️🧢'
   },
   {
     isTarget:false,
@@ -1620,7 +1620,7 @@ const PARK_PEOPLE=[
   {
     isTarget:false,
     style:'left:38%;top:18%;',
-    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);">🧒</div><div style="font-size:clamp(14px,3vw,20px);">🧢</div><div style="background:#FF5722;color:#fff;border-radius:8px;padding:2px 6px;font-size:clamp(8px,1.8vw,11px);font-weight:900;margin-top:2px;">красная</div></div>'
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);">🧍‍♂️</div><div style="font-size:clamp(14px,3vw,20px);">🧢</div><div style="background:#FF5722;color:#fff;border-radius:8px;padding:2px 6px;font-size:clamp(8px,1.8vw,11px);font-weight:900;margin-top:2px;">красная</div></div>'
   },
   {
     isTarget:false,
@@ -1750,7 +1750,7 @@ function spawnP4Scene(ents,stepIdx){
     const ped1=document.createElement('div');
     ped1.id='p4-ped1';
     ped1.style.cssText='position:absolute;font-size:clamp(24px,5.5vw,36px);left:39%;top:6%;transition:top 1.5s ease-in-out;';
-    ped1.textContent='🧒';
+    ped1.textContent='🧍‍♂️';
     ents.appendChild(ped1);
     const ped2=document.createElement('div');
     ped2.id='p4-ped2';
