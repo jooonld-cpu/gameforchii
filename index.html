@@ -304,11 +304,9 @@ html, body {
 /* ══════════════════════════════════
    LEVEL 2 - FIRE (existing adapted)
 ══════════════════════════════════ */
-.room-scene{position:relative;height:clamp(170px,33vw,250px);background:linear-gradient(to bottom,#c8e6f9 0%,#e8f4fd 35%,#f5deb3 70%,#8d6e63 100%);border-radius:22px;overflow:hidden;border:3px solid #b0c8e0;margin:14px 0;}
-.rs-floor{position:absolute;bottom:0;left:0;right:0;height:22%;background:repeating-linear-gradient(90deg,#8d6e63 0,#8d6e63 49%,#795548 49%,#795548 100%);background-size:56px 100%;}
-.rs-window{position:absolute;top:18px;left:22px;width:clamp(46px,11vw,68px);height:clamp(40px,9vw,58px);background:linear-gradient(135deg,#87CEEB,#b0e0f8);border:3px solid #795548;border-radius:4px 4px 0 0;}
-.rs-window::after{content:'';position:absolute;top:0;bottom:0;left:50%;width:2px;background:#795548;}
-.rs-door{position:absolute;bottom:22%;right: clamp(782px, 5.5vw, 56px);width:clamp(34px,8vw,50px);height:clamp(55px,13vw,78px);background:linear-gradient(to bottom,#d4a050,#a1887f);border:3px solid #795548;border-radius:5px 5px 0 0;}
+.room-scene{position:relative;height:clamp(170px,33vw,250px);background: url(https://i.ibb.co/gqpQmfp/image.png);background-position: center;background-size: cover;border-radius:22px;overflow:hidden;border:3px solid #b0c8e0;margin:14px 0;}
+
+
 .rs-smoke{position:absolute;top:24px;left:52%;transform:translateX(-50%);display:flex;gap:26px;}
 .smoke-puff{font-size:clamp(26px,6vw,40px);animation:smokeDrift 1.8s ease-in-out infinite;}
 .smoke-puff:nth-child(2){animation-delay:.3s;font-size:clamp(20px,4.5vw,30px);}
@@ -671,7 +669,10 @@ html, body {
     <h2 class="level-title">🚪 Выход из ловушки!</h2>
     <p class="desc">В комнате появился <strong>дым</strong>! Что нужно делать?</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" data-speak="Прочитать задание вслух" id="rb-f2" onclick="readLvl('f2')">🔊 Читай вслух!</button></div>
-    <div class="room-scene" id="room-scene"><div class="rs-floor"></div><div class="rs-window"></div><div class="rs-door"></div><div class="rs-smoke"><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div></div><div class="rs-character" id="rs-char" style="left:83%;"></div></div>
+    <div class="room-scene" id="room-scene"><div class="rs-floor"></div><div class="rs-window"></div><div class="rs-door"></div><div class="rs-smoke"><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div>
+    <div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div>
+    <div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div>
+  </div><div class="rs-character" id="rs-char" style="left:83%;"></div></div>
     <div id="choices-area"></div>
     <div id="f2-fb" class="feedback-box"></div>
     <div class="btn-row"><button id="f2-next" class="btn btn-fire hidden" onclick="fireLvl(3)">Дальше! →</button></div>
@@ -903,7 +904,7 @@ html, body {
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p5" onclick="readLvl('p5')">🔊 Читай вслух!</button></div>
     <div class="num-choices-big" id="p5-nums"></div>
     <div id="p5-fb" class="feedback-box"></div>
-    <div class="dispatcher-card pol" id="p5-dispatcher"><span class="dispatcher-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e-200d-2642.svg" alt="👮‍♂️" style="width:80px;height:80px;" loading="lazy"></span><p>📞 <strong>«Дежурная часть слушает! Что произошло?»</strong></p><p>🗣️ Скажи своё имя и где ты находишься!</p></div>
+    <div class="dispatcher-card pol" id="p5-dispatcher"><span class="dispatcher-icon"><img src="   https://cdn-icons-png.flaticon.com/512/1022/1022331.png " alt="👮‍♂️" style="width:80px;height:80px;" loading="lazy"></span><p>📞 <strong>«Дежурная часть слушает! Что произошло?»</strong></p><p>🗣️ Скажи своё имя и где ты находишься!</p></div>
     <div class="phone-container mt-12">
       <div class="phone-outer pol-phone">
         <div class="phone-screen pol-screen" id="p5-screen">_</div>
@@ -1360,7 +1361,7 @@ function buildF2(){
     btn.onclick=()=>{if(f2Done)return;f2Done=true;playClick();document.querySelectorAll('.choice-card').forEach(b=>b.disabled=true);const fb=document.getElementById('f2-fb');if(c.correct){btn.classList.add('cc-correct');fb.className='feedback-box good';fb.textContent='✅ '+c.msg;playSuccess();speak(c.msg,{rate:0.78,pitch:1.15});const char=document.getElementById('rs-char');char.textContent='🏃';setTimeout(()=>{char.style.left='7%';},300);setTimeout(()=>{char.textContent='😊';},1800);launchConfetti(30);document.getElementById('f2-next').classList.remove('hidden');}else{btn.classList.add('cc-wrong');fb.className='feedback-box bad';fb.textContent='❌ '+c.msg+' Попробуй ещё!';playError();speak(c.msg+' Попробуй ещё раз!',{rate:0.78,pitch:1.0});setTimeout(()=>{f2Done=false;document.querySelectorAll('.choice-card').forEach(b=>{b.className='choice-card';b.disabled=false;});fb.className='feedback-box';},3500);}};
     area.appendChild(btn);
   });
-  document.getElementById('rs-char').style.left='88%';document.getElementById('rs-char').textContent='🧍‍♂️';
+  document.getElementById('rs-char').style.left='88%';document.getElementById('rs-char').style.bottom='1%';document.getElementById('rs-char').textContent='🧍‍♂️';
   document.getElementById('f2-fb').className='feedback-box';
   document.getElementById('f2-next').classList.add('hidden');
 }
@@ -1600,7 +1601,7 @@ const POL_ITEMS=[
   {icon:'<img src="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" alt="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" style="width:45px;height:45px;object-fit:contain;" loading="lazy">',name:'Фуражка',correct:true,pos:'top:-15px;left:50%;transform:translateX(-50%)',info:'Фуражка — головной убор полицейского!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4df.svg" alt="📟" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Рация',correct:true,pos:'bottom:20%;right:-50px;;',info:'Рация для связи! Приём, патруль на связи!'},
   {icon:'<img src="https://i.ibb.co/6cNMq6vf/png-klev-club-zf5o-p-zhezl-png-11-Photoroom.png" alt="🚔" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жезл',correct:true,pos:'top:64%;right:-50px;',info:'Жезл регулировщика для управления движением!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4e2.svg" alt="📢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свисток',correct:true,pos:'top:64%;left:-50px',info:'Свисток привлекает внимание!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/2656/2656074.png" alt="📢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свисток',correct:true,pos:'top:64%;left:-50px',info:'Свисток привлекает внимание!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жилет',correct:true,pos:'top:19%;left:-48px',info:'Светоотражающий жилет — полицейского видно!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a9.svg" alt="🎩" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Цилиндр',correct:false,info:'Это нарядная шляпа! Полицейскому не нужна!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a3.svg" alt="🎣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Удочка',correct:false,info:'Удочка для рыбалки, а не для патруля!'},
@@ -1612,7 +1613,7 @@ const PARK_PEOPLE=[
     isTarget:true,
     style:'left:52%;top:28%;',
     render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/PBdRt5W/image-1-Photoroom-1.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">мальчик в синей кепке</div></div>',
-    label:'мальчик в синей кепке 🧍‍♂️🧢'
+    label:'мальчик в синей кепке'
   },
   {
     isTarget:false,
