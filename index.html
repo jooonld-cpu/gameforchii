@@ -65,6 +65,14 @@ html, body {
   display: flex; align-items: center; justify-content: space-between;
   padding: 8px 16px; gap: 12px;
 }
+
+#rs-char > img{
+
+   height: 100%;
+    width: 100%;
+
+}
+
 #voice-bar .app-logo { font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 1px; }
 #voice-bar .app-logo span { color: var(--fire3); }
 .speak-waves { display: flex; align-items: center; gap: 3px; opacity: 0; transition: opacity .3s; }
@@ -294,7 +302,6 @@ html, body {
 .item-card:hover .item-icon{transform:scale(1.15) rotate(-5deg);}
 .item-name{font-size:clamp(10px,2.5vw,12px);font-weight:800;color:#888;margin-top:7px;}
 .item-card.correct-pick{border-color:var(--safe);background:linear-gradient(160deg,#f0fff4,#d4edda);animation:correctBounce .5s cubic-bezier(.34,1.56,.64,1);}
-.item-card.danger-border{background:linear-gradient(160deg,#fff5f0,#fde8e8);}
 .item-card.safe-pick{border-color:#c0c0c0;background:#f0f0f0;animation:wrongWobble .4s;}
 .danger-badge{position:absolute;top:5px;right:5px;background:var(--fire);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:900;opacity:0;transition:opacity .3s;}
 .item-card.correct-pick .danger-badge{opacity:1;}
@@ -323,7 +330,7 @@ html, body {
 .choice-num{width:clamp(36px,6.5vw,44px);height:clamp(36px,6.5vw,44px);border-radius:50%;background:linear-gradient(135deg,#e0e0e0,#ccc);display:flex;align-items:center;justify-content:center;font-size:clamp(15px,3vw,19px);font-weight:900;flex-shrink:0;color:#333;}
 .choice-card.cc-correct{border:3px solid var(--safe)!important;background:linear-gradient(135deg,#f0fff4,#d4edda)!important;animation:correctBounce .5s;}
 .choice-card.cc-correct .choice-num{background:var(--safe);color:#fff;}
-.choice-card.cc-wrong{border:3px solid var(--fire)!important;background:linear-gradient(135deg,#fff3f0,#fde8e8)!important;animation:wrongWobble .4s;}
+.choice-card.cc-wrong{border:3px solid var(--fire)!important;background:linear-gradient(135deg,#fff3f8)!important;animation:wrongWobble .4s;}
 .choice-card.cc-wrong .choice-num{background:var(--fire);color:#fff;}
 
 /* ══════════════════════════════════
@@ -350,7 +357,7 @@ html, body {
 .num-chip-big.med-chip:hover{border-color:var(--med);color:var(--med2);}
 .num-chip-big.pol-chip:hover{border-color:var(--pol);color:var(--pol2);}
 .num-chip-big.ncb-correct{border-color:var(--safe);background:linear-gradient(135deg,#f0fff4,#d4edda);color:var(--safe2);box-shadow:0 4px 20px rgba(46,204,113,.4);animation:correctBounce .5s;}
-.num-chip-big.ncb-wrong{border-color:var(--fire);background:linear-gradient(135deg,#fff3f0,#fde8e8);color:var(--fire);animation:wrongWobble .4s;}
+.num-chip-big.ncb-wrong{border-color:var(--fire);background:linear-gradient(135deg,#fff3f0);color:var(--fire);animation:wrongWobble .4s;}
 
 .dispatcher-card{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:3px solid var(--safe);border-radius:22px;padding:clamp(14px,3.5vw,22px);text-align:center;display:none;margin-top:14px;animation:feedIn .5s cubic-bezier(.34,1.56,.64,1);}
 .dispatcher-card.med{background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-color:var(--med);}
@@ -399,7 +406,7 @@ html, body {
 /* ══════════════════════════════════
    LEVEL 5 - FIRE (extinguish)
 ══════════════════════════════════ */
-.fire-stage{background:linear-gradient(to bottom,#fff3e0,#ffe0b2);border-radius:22px;padding:clamp(18px,4.5vw,32px) 18px;text-align:center;margin:14px 0;position:relative;border:3px solid #ffcc80;min-height:clamp(140px,24vw,190px);overflow:hidden;}
+.fire-stage{background: url(https://i.ibb.co/VpYKXdk2/abandoned-living-room-dusty-sunlight-600nw-2547882133.webp);background-position: right;background-size: contain;border-radius:22px;padding:clamp(18px,4.5vw,32px) 18px;text-align:center;margin:14px 0;position:relative;border:3px solid #ffcc80;min-height:clamp(140px,24vw,190px);overflow:hidden;}
 .fire-obj{font-size:clamp(50px,11vw,75px);display:inline-flex;align-items:center;justify-content:center;position:relative;z-index:1;min-height:75px;min-width:75px;}
 .fire-obj img{width:clamp(50px,11vw,75px);height:clamp(50px,11vw,75px);object-fit:contain;}
 .fire-flames{display:inline-block;position:relative;z-index:2;vertical-align:bottom;}
@@ -421,7 +428,6 @@ html, body {
 .tool-card:hover .ti{transform:scale(1.2);}
 .tool-card .tn{font-size:clamp(9px,2.2vw,12px);font-weight:800;color:#888;margin-top:5px;}
 .tool-card.tool-ok{border-color:var(--safe);background:linear-gradient(160deg,#f0fff4,#d4edda);animation:correctBounce .5s;}
-.tool-card.tool-no{border-color:var(--fire);background:linear-gradient(160deg,#fff3f0,#fde8e8);animation:wrongWobble .4s;}
 .tool-card.tool-warn{border-color:#f39c12;background:linear-gradient(160deg,#fffbf0,#fef3d0);animation:wrongWobble .4s;}
 .danger-notice{background:linear-gradient(135deg,#fff3cd,#fde8b0);border:3px solid #ffc107;border-radius:18px;padding:12px 16px;margin:10px 0;font-size:clamp(12px,3vw,14px);font-weight:800;color:#856404;display:none;animation:feedIn .3s;}
 .danger-notice.show{display:block;}
@@ -438,7 +444,6 @@ html, body {
 .patient-icon{font-size:clamp(44px,10vw,62px);display:flex;align-items:center;justify-content:center;min-height:62px;}
 .patient-icon img{width:clamp(44px,10vw,62px);height:clamp(44px,10vw,62px);object-fit:contain;display:block;}
 .patient-name{font-size:clamp(10px,2.5vw,12px);font-weight:800;color:#888;margin-top:7px;}
-.patient-card.needs-doc{background:linear-gradient(160deg,#fff5f5,#fde8e8);}
 .patient-card.correct-pick{border-color:var(--med);background:linear-gradient(160deg,#e0f7fa,#b2ebf2);animation:correctBounce .5s;}
 .patient-card.wrong-pick{border-color:#bbb;background:#f5f5f5;animation:wrongWobble .4s;}
 
@@ -491,7 +496,6 @@ html, body {
 .situation-icon{font-size:clamp(44px,10vw,62px);display:flex;align-items:center;justify-content:center;min-height:62px;}
 .situation-icon img{width:clamp(44px,10vw,62px);height:clamp(44px,10vw,62px);object-fit:contain;display:block;}
 .situation-label{font-size:clamp(10px,2.2vw,12px);font-weight:800;color:#666;margin-top:7px;line-height:1.3;}
-.situation-card.needs-pol{background:linear-gradient(160deg,#fff5f5,#fce4e4);}
 .situation-card.correct-pick{border-color:var(--pol);background:linear-gradient(160deg,#e3f2fd,#bbdefb);animation:correctBounce .5s;}
 .situation-card.wrong-pick{border-color:#ccc;background:#f5f5f5;animation:wrongWobble .4s;}
 
@@ -1313,8 +1317,9 @@ const FF_ITEMS=[
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f302.svg" alt="🌂" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Зонтик',correct:false,info:'Зонтик пожарному не поможет!'},
 ];
 const FIRE_SCENARIOS=[
-  {obj:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa9f.svg" alt="🪟" style="width:70px;height:70px;" loading="lazy">',label:'Загорелась занавеска!',scenarioText:'Загорелась занавеска! Как потушить?',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:true,msg:'Правильно! Водой тушим занавеску!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Отлично! Огнетушитель справится!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Верно! Одеяло перекрывает кислород!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет потушить огонь!'}]},
-  {obj:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f50c.svg" alt="🔌" style="width:70px;height:70px;" loading="lazy">',label:'Загорелся электроприбор!',scenarioText:'Загорелся электроприбор! Водой нельзя!',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:false,warn:'⚠️ Водой нельзя тушить электроприборы — опасно для жизни!',msg:''},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Правильно! Огнетушитель безопасен!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Можно! Сначала отключи от розетки!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет! Выбери другое!'}]},
+  {obj:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa9f.svg" alt="🪟" style="width:70px;height:70px;" loading="lazy">',label:'Загорелась занавеска!',scenarioText:'Загорелась занавеска! Как потушить?',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:true,msg:'Правильно! Водой тушим занавеску!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Отлично! Огнетушитель справится!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Верно! Одеяло перекрывает кислород!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет потушить огонь!'}]},
+  {obj:'<img src="https://cdn-icons-png.flaticon.com/512/6113/6113986.png" alt="🔌" style="width:70px;height:70px;" loading="lazy">',label:'Загорелся электроприбор!',scenarioText:'Загорелся электроприбор! Водой нельзя!',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:false,warn:'⚠️ Водой нельзя тушить электроприборы — опасно для жизни!',msg:''},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Правильно! Огнетушитель безопасен!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Можно! Сначала отключи от розетки!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет! Выбери другое!'}]},
 ];
 
 let f1Found=0,f1Total=0,f2Done=false,f3Done=false,f4Correct=0,f5Done=false;
@@ -1361,7 +1366,7 @@ function buildF2(){
     btn.onclick=()=>{if(f2Done)return;f2Done=true;playClick();document.querySelectorAll('.choice-card').forEach(b=>b.disabled=true);const fb=document.getElementById('f2-fb');if(c.correct){btn.classList.add('cc-correct');fb.className='feedback-box good';fb.textContent='✅ '+c.msg;playSuccess();speak(c.msg,{rate:0.78,pitch:1.15});const char=document.getElementById('rs-char');char.textContent='🏃';setTimeout(()=>{char.style.left='7%';},300);setTimeout(()=>{char.textContent='😊';},1800);launchConfetti(30);document.getElementById('f2-next').classList.remove('hidden');}else{btn.classList.add('cc-wrong');fb.className='feedback-box bad';fb.textContent='❌ '+c.msg+' Попробуй ещё!';playError();speak(c.msg+' Попробуй ещё раз!',{rate:0.78,pitch:1.0});setTimeout(()=>{f2Done=false;document.querySelectorAll('.choice-card').forEach(b=>{b.className='choice-card';b.disabled=false;});fb.className='feedback-box';},3500);}};
     area.appendChild(btn);
   });
-  document.getElementById('rs-char').style.left='88%';document.getElementById('rs-char').style.bottom='1%';document.getElementById('rs-char').textContent='🧍‍♂️';
+  document.getElementById('rs-char').style.left='88%';document.getElementById('rs-char').style.bottom='1%';document.getElementById('rs-char').style.height='102px';document.getElementById('rs-char').style.width='142px';document.getElementById('rs-char').textContent='🧍‍♂️';
   document.getElementById('f2-fb').className='feedback-box';
   document.getElementById('f2-next').classList.add('hidden');
 }
