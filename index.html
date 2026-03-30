@@ -639,10 +639,10 @@ html, body {
       <div class="sector-num">103</div>
       <div class="sector-desc">Лечи людей!<br>Стань доктором!</div>
     </div>
-    <div class="sector-card sector-pol" id="sec-pol" onclick="enterSector('pol')" data-speak="Полицейский! Номер сто два. Охраняй порядок и стань полицейским!">
+    <div class="sector-card sector-pol" id="sec-pol" onclick="enterSector('pol')" data-speak="Милиционер! Номер сто два. Охраняй порядок и стань полицейским!">
       <div class="sector-badge" id="badge-pol">✓</div>
       <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" alt="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
-      <div class="sector-name">Полицейский</div>
+      <div class="sector-name">Милиционер</div>
       <div class="sector-num">102</div>
       <div class="sector-desc">Охраняй порядок!<br>Стань полицейским!</div>
     </div>
@@ -781,13 +781,13 @@ html, body {
   </div>
   <!-- Level 3 -->
   <div id="med-l3" class="game-card med-card" style="display:none;">
-    <div class="level-badge med">⭐ Уровень 3 из 5 — 🚑 Доктор</div>
-    <h2 class="level-title">📱 Алло, Скорая!</h2>
+    <div class="level-badge med"> Уровень 3 из 5 —  Доктор</div>
+    <h2 class="level-title"> Алло, Скорая!</h2>
     <p class="desc">Набери <strong class="med">ДВА</strong> правильных номера скорой: <strong class="med">103</strong> и <strong class="med">112</strong>!</p>
-    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m3" onclick="readLvl('m3')">🔊 Читай вслух!</button></div>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m3" onclick="readLvl('m3')"> Читай вслух!</button></div>
     <div class="num-choices-big" id="m3-nums"></div>
     <div id="m3-fb" class="feedback-box"></div>
-    <div class="dispatcher-card med" id="m3-dispatcher"><span class="dispatcher-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f469-200d-2695-fe0f.svg" alt="👩‍⚕️" style="width:80px;height:80px;" loading="lazy"></span><p>📞 <strong>«Скорая помощь слушает! Что случилось?»</strong></p><p>🗣️ Назови своё имя и адрес! Что болит?</p></div>
+    <div class="dispatcher-card med" id="m3-dispatcher"><span class="dispatcher-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f469-200d-2695-fe0f.svg" alt="" style="width:80px;height:80px;" loading="lazy"></span><p> <strong>«Скорая помощь слушает! Что случилось?»</strong></p><p> Назови своё имя и адрес! Что болит?</p></div>
     <div class="phone-container mt-12">
       <div class="phone-outer med-phone">
         <div class="phone-screen med-screen" id="m3-screen">_</div>
@@ -795,7 +795,7 @@ html, body {
           <button class="pkey" onclick="pKey('m3','1')">1</button><button class="pkey" onclick="pKey('m3','2')">2</button><button class="pkey" onclick="pKey('m3','3')">3</button>
           <button class="pkey" onclick="pKey('m3','4')">4</button><button class="pkey" onclick="pKey('m3','5')">5</button><button class="pkey" onclick="pKey('m3','6')">6</button>
           <button class="pkey" onclick="pKey('m3','7')">7</button><button class="pkey" onclick="pKey('m3','8')">8</button><button class="pkey" onclick="pKey('m3','9')">9</button>
-          <button class="pkey red" onclick="pClear('m3')">✕</button><button class="pkey" onclick="pKey('m3','0')">0</button><button class="pkey green" onclick="pCall('m3')">📞</button>
+          <button class="pkey red" onclick="pClear('m3')">✕</button><button class="pkey" onclick="pKey('m3','0')">0</button><button class="pkey green" onclick="pCall('m3')"></button>
         </div>
       </div>
     </div>
@@ -804,30 +804,30 @@ html, body {
   </div>
   <!-- Level 4 -->
   <div id="med-l4" class="game-card med-card" style="display:none;">
-    <div class="level-badge med">⭐ Уровень 4 из 5 — 🚑 Доктор</div>
-    <h2 class="level-title">🚑 Дорогу скорой!</h2>
+    <div class="level-badge med"> Уровень 4 из 5 —  Доктор</div>
+    <h2 class="level-title"> Дорогу скорой!</h2>
     <p class="desc">Нажимай на машинки, чтобы освободить <strong class="med">путь скорой помощи!</strong></p>
-    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m4" onclick="readLvl('m4')">🔊 Читай вслух!</button></div>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m4" onclick="readLvl('m4')"> Читай вслух!</button></div>
     <div class="road-scene" id="m4-road">
       <div class="road-lane"><div class="road-marking"></div></div>
       <div id="m4-cars"></div>
-      <div class="road-car ambu-car" id="m4-ambu" style="left:-15%;top:38%;" data-speak="Скорая помощь! Освободи ей дорогу!">🚑</div>
+      <div class="road-car ambu-car" id="m4-ambu" style="left:-15%;top:38%;" data-speak="Скорая помощь! Освободи ей дорогу!"></div>
     </div>
-    <div class="move-hint" id="m4-hint">👆 Нажми на машины, чтобы убрать их с дороги!</div>
+    <div class="move-hint" id="m4-hint"> Нажми на машины, чтобы убрать их с дороги!</div>
     <div id="m4-fb" class="feedback-box"></div>
     <div class="btn-row"><button id="m4-next" class="btn btn-med hidden" onclick="medLvl(5)">Дальше! →</button></div>
   </div>
   <!-- Level 5 -->
   <div id="med-l5" class="game-card med-card" style="display:none;">
-    <div class="level-badge med">⭐ Уровень 5 из 5 — 🚑 Доктор</div>
-    <h2 class="level-title">🥦 Витаминная подзарядка!</h2>
+    <div class="level-badge med"> Уровень 5 из 5 —  Доктор</div>
+    <h2 class="level-title"> Витаминная подзарядка!</h2>
     <p class="desc">Лови <strong class="med">полезные предметы</strong> в корзинку! Двигай мышкой или пальцем!</p>
-    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m5" onclick="readLvl('m5')">🔊 Читай вслух!</button></div>
-    <div class="catch-score-bar"><span>🌟 Поймано: <span id="m5-score">0</span></span><span id="m5-lives">❤️❤️❤️</span><span id="m5-timer">⏱️ 30с</span></div>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m5" onclick="readLvl('m5')"> Читай вслух!</button></div>
+    <div class="catch-score-bar"><span> Поймано: <span id="m5-score">0</span></span><span id="m5-lives"></span><span id="m5-timer"> 30с</span></div>
     <div class="catch-arena" id="m5-arena"></div>
-    <span class="hero-display" id="m5-hero"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f912.svg" alt="🤒" style="width:72px;height:72px;" loading="lazy"></span>
+    <span class="hero-display" id="m5-hero"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f912.svg" alt="" style="width:72px;height:72px;" loading="lazy"></span>
     <div id="m5-fb" class="feedback-box"></div>
-    <div class="btn-row"><button id="m5-next" class="btn btn-med hidden" onclick="completeSector('med')">🏅 Уровень пройден!</button></div>
+    <div class="btn-row"><button id="m5-next" class="btn btn-med hidden" onclick="completeSector('med')"> Уровень пройден!</button></div>
   </div>
   <!-- Med diploma -->
   <div id="med-diploma" class="game-card med-card" style="display:none;">
@@ -846,7 +846,7 @@ html, body {
 <div id="pol-sector" class="screen">
   <!-- Level 1 -->
   <div id="pol-l1" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol"> Уровень 1 из 5 —  Детектив</div>
+    <div class="level-badge pol"> Уровень 1 из 5 —  Милиционер</div>
     <h2 class="level-title"> Школа порядка!</h2>
     <p class="desc">Нажимай на ситуации, где <strong class="pol">нужна помощь полицейского!</strong></p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p1" onclick="readLvl('p1')"> Читай вслух!</button></div>
@@ -857,13 +857,13 @@ html, body {
   </div>
   <!-- Level 2 -->
   <div id="pol-l2" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol"> Уровень 2 из 5 —  Детектив</div>
+    <div class="level-badge pol"> Уровень 2 из 5 —  Милиционер</div>
     <h2 class="level-title"> Собери патрульного!</h2>
     <p class="desc">Нажимай на <strong class="pol">нужное снаряжение</strong> полицейского!</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p2" onclick="readLvl('p2')"> Читай вслух!</button></div>
     <div id="p2-tooltip" class="tooltip-pop"></div>
     <div class="ff-arena">
-      <div class="pol-display ff-display"><div class="ff-figure" id="p2-figure"><span class="ff-body-emoji" id="p2-body"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f464.svg" alt="" style="width:100px;height:100px;" loading="lazy"></span><div class="ff-gear-layer" id="p2-gear"></div></div><div class="ff-name" id="p2-name">Полицейский Максим</div><div class="ff-progress" id="p2-progress">Снаряжение: 0 / 5</div><div class="siren-glow" id="p2-siren"> ПРИЁМ! ПАТРУЛЬ НА СВЯЗИ! </div></div>
+      <div class="pol-display ff-display"><div class="ff-figure" id="p2-figure"><span class="ff-body-emoji" id="p2-body"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f464.svg" alt="" style="width:100px;height:100px;" loading="lazy"></span><div class="ff-gear-layer" id="p2-gear"></div></div><div class="ff-name" id="p2-name">Милиционер Максим</div><div class="ff-progress" id="p2-progress">Снаряжение: 0 / 5</div><div class="siren-glow" id="p2-siren"> ПРИЁМ! ПАТРУЛЬ НА СВЯЗИ! </div></div>
       <div><div class="shelf-grid" id="p2-shelf"></div></div>
     </div>
     <div id="p2-fb" class="feedback-box"></div>
@@ -871,7 +871,7 @@ html, body {
   </div>
   <!-- Level 3 -->
   <div id="pol-l3" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol"> Уровень 3 из 5 —  Детектив</div>
+    <div class="level-badge pol"> Уровень 3 из 5 —  Милиционер</div>
     <h2 class="level-title"> Найди потеряшку!</h2>
     <p class="desc">В парке потерялся ребёнок! Внимательно прочитай приметы и <strong class="pol">найди его!</strong></p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p3" onclick="readLvl('p3')"> Читай вслух!</button></div>
@@ -882,7 +882,7 @@ html, body {
   </div>
   <!-- Level 4 -->
   <div id="pol-l4" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol"> Уровень 4 из 5 —  Детектив</div>
+    <div class="level-badge pol"> Уровень 4 из 5 —  Милиционер</div>
     <h2 class="level-title"> Дорожный инспектор!</h2>
     <p class="desc">Нажимай на <strong class="pol">светофор</strong>, чтобы безопасно пропустить всех!</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p4" onclick="readLvl('p4')"> Читай вслух!</button></div>
@@ -902,7 +902,7 @@ html, body {
   </div>
   <!-- Level 5 -->
   <div id="pol-l5" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol"> Уровень 5 из 5 —  Детектив</div>
+    <div class="level-badge pol"> Уровень 5 из 5 —  Милиционер</div>
     <h2 class="level-title"> Спецсвязь!</h2>
     <p class="desc">Набери <strong class="pol">ДВА</strong> правильных номера полиции: <strong class="pol">102</strong> и <strong class="pol">112</strong>!</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p5" onclick="readLvl('p5')"> Читай вслух!</button></div>
@@ -927,9 +927,9 @@ html, body {
   <div id="pol-diploma" class="game-card pol-card" style="display:none;">
     <div style="text-align:center;">
       <div class="dip-stars"></div>
-      <div class="dip-title" style="color:var(--pol);"> Юный Детектив!</div>
+      <div class="dip-title" style="color:var(--pol);"> Юный Милиционер!</div>
       <div style="font-size:clamp(80px,18vw,120px);animation:mascotBounce 2s infinite;display:block;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f575.svg" alt="" style="width:120px;height:120px;" loading="lazy"></div>
-      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты умеешь охранять порядок!<br>Значок <strong style="color:var(--pol);">Юного Детектива</strong> — твой!</p>
+      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты умеешь охранять порядок!<br>Значок <strong style="color:var(--pol);">Юного Милиционера</strong> — твой!</p>
       <div class="dip-badges"><div class="dip-badge"> Знает, когда звать полицию</div><div class="dip-badge"> Собрал снаряжение</div><div class="dip-badge"> Знает 102</div><div class="dip-badge"> Знает правила дороги</div></div>
     </div>
     <div class="btn-row"><button class="btn btn-pol" onclick="backToCity()">← Город героев</button></div>
@@ -971,7 +971,7 @@ html, body {
     <div class="dip-badges">
       <div class="dip-badge"> Огнеборец</div>
       <div class="dip-badge"> Друг доктора</div>
-      <div class="dip-badge"> Детектив</div>
+      <div class="dip-badge"> Милиционер</div>
       <div class="dip-badge"> Герой города</div>
     </div>
     <div class="btn-row">
@@ -1155,7 +1155,7 @@ function completeSector(sector){
   const msgs={
     fire:'УРА! УРА! Ты прошёл все уровни пожарного! Значок Огнеборца теперь твой! Через несколько секунд мы вернёмся в Город Героев!',
     med:'ЗАМЕЧАТЕЛЬНО! Ты прошёл все уровни доктора! Значок Друга Доктора теперь твой! Сейчас вернёмся в Город Героев!',
-    pol:'МОЛОДЕЦ! Ты прошёл все уровни детектива! Значок Юного Детектива теперь твой! Возвращаемся в Город Героев!'
+    pol:'МОЛОДЕЦ! Ты прошёл все уровни Милиционера! Значок Юного Милиционера теперь твой! Возвращаемся в Город Героев!'
   };
   setTimeout(()=>speak(msgs[sector],{rate:0.78,pitch:1.3}),600);
   // Auto-return to city after 5 seconds
@@ -1690,7 +1690,7 @@ function buildP2(){
   p2Correct=0;
   document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/4440/4440953.png" alt="👤" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-gear').innerHTML='';
   document.getElementById('p2-progress').textContent=`Снаряжение: 0 / ${POL_CORRECT}`;
-  document.getElementById('p2-name').textContent='Полицейский Максим';
+  document.getElementById('p2-name').textContent='Милиционер Максим';
   document.getElementById('p2-siren').className='siren-glow';
   document.getElementById('p2-fb').className='feedback-box';document.getElementById('p2-tooltip').className='tooltip-pop';
   document.getElementById('p2-next').classList.add('hidden');
@@ -1699,7 +1699,7 @@ function buildP2(){
     const el=document.createElement('div');el.className='shelf-card'+(item.correct?'':' wrong-shelf');
     el.style.animation=`featPop .4s ${i*.06}s backwards`;
     el.innerHTML=`<div class="sc-icon">${item.icon}</div><div class="sc-name">${item.name}</div><div class="correct-stamp">✓</div>`;
-    el.onclick=()=>{if(el.classList.contains('used'))return;playClick();const tip=document.getElementById('p2-tooltip');const fb=document.getElementById('p2-fb');tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;tip.className='tooltip-pop show';speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});if(item.correct){el.classList.add('used');p2Correct++;playSuccess();document.getElementById('p2-progress').textContent=`Снаряжение: ${p2Correct} / ${POL_CORRECT}`;const gear=document.getElementById('p2-gear');const span=document.createElement('span');span.className='ff-gear-item';span.innerHTML=item.icon;span.style.cssText='position:absolute;'+item.pos;gear.appendChild(span);fb.className='feedback-box pol-good';fb.textContent='✅ '+item.info;if(p2Correct===POL_CORRECT){setTimeout(()=>{document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/6704/6704995.png" alt="👮" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-name').textContent='Полицейский Максим ГОТОВ!';document.getElementById('p2-siren').className='siren-glow active';fb.textContent='🎉 Патруль готов к выезду!';playPoliceSiren();speak('Внимание! Полицейский Максим готов к патрулю! Приём, патруль на связи!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('p2-next').classList.remove('hidden');},400);}}else{playError();fb.className='feedback-box bad';fb.textContent='❌ '+item.info;el.style.animation='wrongWobble .4s';setTimeout(()=>el.style.animation='',500);}};
+    el.onclick=()=>{if(el.classList.contains('used'))return;playClick();const tip=document.getElementById('p2-tooltip');const fb=document.getElementById('p2-fb');tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;tip.className='tooltip-pop show';speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});if(item.correct){el.classList.add('used');p2Correct++;playSuccess();document.getElementById('p2-progress').textContent=`Снаряжение: ${p2Correct} / ${POL_CORRECT}`;const gear=document.getElementById('p2-gear');const span=document.createElement('span');span.className='ff-gear-item';span.innerHTML=item.icon;span.style.cssText='position:absolute;'+item.pos;gear.appendChild(span);fb.className='feedback-box pol-good';fb.textContent='✅ '+item.info;if(p2Correct===POL_CORRECT){setTimeout(()=>{document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/6704/6704995.png" alt="👮" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-name').textContent='Милиционер Максим ГОТОВ!';document.getElementById('p2-siren').className='siren-glow active';fb.textContent='🎉 Патруль готов к выезду!';playPoliceSiren();speak('Внимание! Милиционер Максим готов к патрулю! Приём, патруль на связи!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('p2-next').classList.remove('hidden');},400);}}else{playError();fb.className='feedback-box bad';fb.textContent='❌ '+item.info;el.style.animation='wrongWobble .4s';setTimeout(()=>el.style.animation='',500);}};
     shelf.appendChild(el);
   });
 }
@@ -1728,8 +1728,8 @@ function buildP3(){
         el.style.boxShadow='0 0 20px rgba(255,215,0,.8)';
         playSuccess();
         fb.className='feedback-box pol-good';
-        fb.textContent='✅ Нашёл! Если ты потерялся — стой на месте и жди! Полицейский обязательно найдёт тебя!';
-        speak('Нашёл! Умница! Запомни: если ты сам потерялся — стой на месте и жди! Полицейский обязательно придёт!',{rate:0.78,pitch:1.3});
+        fb.textContent='✅ Нашёл! Если ты потерялся — стой на месте и жди! Милиционер обязательно найдёт тебя!';
+        speak('Нашёл! Умница! Запомни: если ты сам потерялся — стой на месте и жди! Милиционер обязательно придёт!',{rate:0.78,pitch:1.3});
         launchConfetti(40);
         document.getElementById('p3-next').classList.remove('hidden');
       } else {
@@ -2060,9 +2060,9 @@ const EDITOR_FIELDS = [
   { group: '🚑 Доктор — секторная карточка', key: 'med_desc', label: 'Описание', default: 'Лечи людей!\nСтань доктором!' },
   { group: '🚑 Доктор — секторная карточка', key: 'med_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!', multiline: true },
 
-  { group: '👮 Полицейский — секторная карточка', key: 'pol_name', label: 'Название', default: 'Полицейский' },
-  { group: '👮 Полицейский — секторная карточка', key: 'pol_desc', label: 'Описание', default: 'Охраняй порядок!\nСтань полицейским!' },
-  { group: '👮 Полицейский — секторная карточка', key: 'pol_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!', multiline: true },
+  { group: '👮 Милиционер — секторная карточка', key: 'pol_name', label: 'Название', default: 'Милиционер' },
+  { group: '👮 Милиционер — секторная карточка', key: 'pol_desc', label: 'Описание', default: 'Охраняй порядок!\nСтань полицейским!' },
+  { group: '👮 Милиционер — секторная карточка', key: 'pol_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!', multiline: true },
 
   { group: '📋 Задания — Пожарный', key: 'instr_f1', label: 'Уровень 1 — Опасно/Безопасно', default: INSTRUCTIONS.f1, multiline: true },
   { group: '📋 Задания — Пожарный', key: 'instr_f2', label: 'Уровень 2 — Выход из ловушки', default: INSTRUCTIONS.f2, multiline: true },
@@ -2076,11 +2076,11 @@ const EDITOR_FIELDS = [
   { group: '📋 Задания — Доктор', key: 'instr_m4', label: 'Уровень 4 — Дай проехать', default: INSTRUCTIONS.m4, multiline: true },
   { group: '📋 Задания — Доктор', key: 'instr_m5', label: 'Уровень 5 — Полезные предметы', default: INSTRUCTIONS.m5, multiline: true },
 
-  { group: '📋 Задания — Полицейский', key: 'instr_p1', label: 'Уровень 1 — Найди ситуацию', default: INSTRUCTIONS.p1, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p2', label: 'Уровень 2 — Одень полицейского', default: INSTRUCTIONS.p2, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p3', label: 'Уровень 3 — Найди ребёнка', default: INSTRUCTIONS.p3, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p4', label: 'Уровень 4 — Светофор', default: INSTRUCTIONS.p4, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p5', label: 'Уровень 5 — Вызови полицию', default: INSTRUCTIONS.p5, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p1', label: 'Уровень 1 — Найди ситуацию', default: INSTRUCTIONS.p1, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p2', label: 'Уровень 2 — Одень полицейского', default: INSTRUCTIONS.p2, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p3', label: 'Уровень 3 — Найди ребёнка', default: INSTRUCTIONS.p3, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p4', label: 'Уровень 4 — Светофор', default: INSTRUCTIONS.p4, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p5', label: 'Уровень 5 — Вызови полицию', default: INSTRUCTIONS.p5, multiline: true },
 ];
 
 const EDITOR_STORAGE_KEY = 'gorod_heroev_editor_v1';
