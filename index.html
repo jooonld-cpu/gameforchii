@@ -639,12 +639,12 @@ html, body {
       <div class="sector-num">103</div>
       <div class="sector-desc">Лечи людей!<br>Стань доктором!</div>
     </div>
-    <div class="sector-card sector-pol" id="sec-pol" onclick="enterSector('pol')" data-speak="Полицейский! Номер сто два. Охраняй порядок и стань полицейским!">
+    <div class="sector-card sector-pol" id="sec-pol" onclick="enterSector('pol')" data-speak="Милиционер! Номер сто два. Охраняй порядок и стань милиционером!">
       <div class="sector-badge" id="badge-pol">✓</div>
       <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" alt="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
-      <div class="sector-name">Полицейский</div>
+      <div class="sector-name">Милиционер</div>
       <div class="sector-num">102</div>
-      <div class="sector-desc">Охраняй порядок!<br>Стань полицейским!</div>
+      <div class="sector-desc">Охраняй порядок!<br>Стань милиционером!</div>
     </div>
   </div>
   <div class="city-tip">🌟 Пройди все три игры и стань Почётным Жителем Города Героев!</div>
@@ -846,9 +846,9 @@ html, body {
 <div id="pol-sector" class="screen">
   <!-- Level 1 -->
   <div id="pol-l1" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol">⭐ Уровень 1 из 5 — 👮 Детектив</div>
+    <div class="level-badge pol">⭐ Уровень 1 из 5 — 👮 Милиционер</div>
     <h2 class="level-title">🏫 Школа порядка!</h2>
-    <p class="desc">Нажимай на ситуации, где <strong class="pol">нужна помощь полицейского!</strong></p>
+    <p class="desc">Нажимай на ситуации, где <strong class="pol">нужна помощь милиционера!</strong></p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p1" onclick="readLvl('p1')">🔊 Читай вслух!</button></div>
     <div id="p1-counter" style="text-align:center;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:#555;margin-bottom:8px;">Нашёл: <span style="font-size:clamp(20px,5vw,28px);font-weight:900;color:var(--pol);"><span id="p1-found">0</span> из <span id="p1-total">?</span></span> 🔍</div>
     <div class="situation-grid" id="p1-grid"></div>
@@ -857,13 +857,13 @@ html, body {
   </div>
   <!-- Level 2 -->
   <div id="pol-l2" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol">⭐ Уровень 2 из 5 — 👮 Детектив</div>
+    <div class="level-badge pol">⭐ Уровень 2 из 5 — 👮 Милиционер</div>
     <h2 class="level-title">👮 Собери патрульного!</h2>
-    <p class="desc">Нажимай на <strong class="pol">нужное снаряжение</strong> полицейского!</p>
+    <p class="desc">Нажимай на <strong class="pol">нужное снаряжение</strong> милиционера!</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p2" onclick="readLvl('p2')">🔊 Читай вслух!</button></div>
     <div id="p2-tooltip" class="tooltip-pop"></div>
     <div class="ff-arena">
-      <div class="pol-display ff-display"><div class="ff-figure" id="p2-figure"><span class="ff-body-emoji" id="p2-body"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f464.svg" alt="👤" style="width:100px;height:100px;" loading="lazy"></span><div class="ff-gear-layer" id="p2-gear"></div></div><div class="ff-name" id="p2-name">Полицейский Максим</div><div class="ff-progress" id="p2-progress">Снаряжение: 0 / 5</div><div class="siren-glow" id="p2-siren">🚨 ПРИЁМ! ПАТРУЛЬ НА СВЯЗИ! 👮</div></div>
+      <div class="pol-display ff-display"><div class="ff-figure" id="p2-figure"><span class="ff-body-emoji" id="p2-body"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f464.svg" alt="👤" style="width:100px;height:100px;" loading="lazy"></span><div class="ff-gear-layer" id="p2-gear"></div></div><div class="ff-name" id="p2-name">Милиционер Максим</div><div class="ff-progress" id="p2-progress">Снаряжение: 0 / 5</div><div class="siren-glow" id="p2-siren">🚨 ПРИЁМ! ПАТРУЛЬ НА СВЯЗИ! 👮</div></div>
       <div><div class="shelf-grid" id="p2-shelf"></div></div>
     </div>
     <div id="p2-fb" class="feedback-box"></div>
@@ -871,7 +871,7 @@ html, body {
   </div>
   <!-- Level 3 -->
   <div id="pol-l3" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol">⭐ Уровень 3 из 5 — 👮 Детектив</div>
+    <div class="level-badge pol">⭐ Уровень 3 из 5 — 👮 Милиционер</div>
     <h2 class="level-title">👀 Найди потеряшку!</h2>
     <p class="desc">В парке потерялся ребёнок! Внимательно прочитай приметы и <strong class="pol">найди его!</strong></p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p3" onclick="readLvl('p3')">🔊 Читай вслух!</button></div>
@@ -882,7 +882,7 @@ html, body {
   </div>
   <!-- Level 4 -->
   <div id="pol-l4" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol">⭐ Уровень 4 из 5 — 👮 Детектив</div>
+    <div class="level-badge pol">⭐ Уровень 4 из 5 — 👮 Милиционер</div>
     <h2 class="level-title">🚦 Дорожный инспектор!</h2>
     <p class="desc">Нажимай на <strong class="pol">светофор</strong>, чтобы безопасно пропустить всех!</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p4" onclick="readLvl('p4')">🔊 Читай вслух!</button></div>
@@ -902,9 +902,9 @@ html, body {
   </div>
   <!-- Level 5 -->
   <div id="pol-l5" class="game-card pol-card" style="display:none;">
-    <div class="level-badge pol">⭐ Уровень 5 из 5 — 👮 Детектив</div>
+    <div class="level-badge pol">⭐ Уровень 5 из 5 — 👮 Милиционер</div>
     <h2 class="level-title">📡 Спецсвязь!</h2>
-    <p class="desc">Набери <strong class="pol">ДВА</strong> правильных номера полиции: <strong class="pol">102</strong> и <strong class="pol">112</strong>!</p>
+    <p class="desc">Набери <strong class="pol">ДВА</strong> правильных номера милиции: <strong class="pol">102</strong> и <strong class="pol">112</strong>!</p>
     <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p5" onclick="readLvl('p5')">🔊 Читай вслух!</button></div>
     <div class="num-choices-big" id="p5-nums"></div>
     <div id="p5-fb" class="feedback-box"></div>
@@ -927,10 +927,10 @@ html, body {
   <div id="pol-diploma" class="game-card pol-card" style="display:none;">
     <div style="text-align:center;">
       <div class="dip-stars">⭐⭐⭐</div>
-      <div class="dip-title" style="color:var(--pol);">👮 Юный Детектив!</div>
+      <div class="dip-title" style="color:var(--pol);">👮 Юный Милиционер!</div>
       <div style="font-size:clamp(80px,18vw,120px);animation:mascotBounce 2s infinite;display:block;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f575.svg" alt="🕵️" style="width:120px;height:120px;" loading="lazy"></div>
-      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты умеешь охранять порядок!<br>Значок <strong style="color:var(--pol);">Юного Детектива</strong> — твой!</p>
-      <div class="dip-badges"><div class="dip-badge">🏫 Знает, когда звать полицию</div><div class="dip-badge">👮 Собрал снаряжение</div><div class="dip-badge">📱 Знает 102</div><div class="dip-badge">🚦 Знает правила дороги</div></div>
+      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты умеешь охранять порядок!<br>Значок <strong style="color:var(--pol);">Юного Милиционера</strong> — твой!</p>
+      <div class="dip-badges"><div class="dip-badge">🏫 Знает, когда звать милицию</div><div class="dip-badge">👮 Собрал снаряжение</div><div class="dip-badge">📱 Знает 102</div><div class="dip-badge">🚦 Знает правила дороги</div></div>
     </div>
     <div class="btn-row"><button class="btn btn-pol" onclick="backToCity()">← Город героев</button></div>
   </div>
@@ -963,7 +963,7 @@ html, body {
       <div style="text-align:center;color:rgba(255,255,255,.7);font-size:clamp(12px,3vw,15px);font-weight:800;margin-bottom:12px;">Нажми на номер — узнай, когда звонить!</div>
       <div class="map-numbers">
         <button class="map-num-btn" onclick="tellNumber('101')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f692.svg" alt="🚒" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>101<span class="map-num-label">Пожарные</span></button>
-        <button class="map-num-btn" onclick="tellNumber('102')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="👮" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>102<span class="map-num-label">Полиция</span></button>
+        <button class="map-num-btn" onclick="tellNumber('102')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="👮" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>102<span class="map-num-label">Милиция</span></button>
         <button class="map-num-btn" onclick="tellNumber('103')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f691.svg" alt="🚑" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>103<span class="map-num-label">Скорая</span></button>
         <button class="map-num-btn" onclick="tellNumber('112')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4de.svg" alt="📞" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>112<span class="map-num-label">Все службы</span></button>
       </div>
@@ -971,7 +971,7 @@ html, body {
     <div class="dip-badges">
       <div class="dip-badge">🧑‍🚒 Огнеборец</div>
       <div class="dip-badge">👨‍⚕️ Друг доктора</div>
-      <div class="dip-badge">🕵️ Детектив</div>
+      <div class="dip-badge">🕵️ Милиционер</div>
       <div class="dip-badge">🏙️ Герой города</div>
     </div>
     <div class="btn-row">
@@ -1062,11 +1062,11 @@ const INSTRUCTIONS={
   m3:'Запомни! Скорую помощь вызывают по номерам: сто три и сто двенадцать! Нажми оба правильных номера!',
   m4:'Скорой помощи нужно срочно проехать! Нажимай на машины, чтобы освободить им дорогу!',
   m5:'Лови полезные предметы — овощи, фрукты!',
-  p1:'Посмотри на картинки! В каких ситуациях нужна помощь полицейского? Нажимай на тревожные ситуации!',
-  p2:'Одень полицейского Максима! Нажимай только на нужное снаряжение: фуражка, рация, жезл, свисток, жилет!',
+  p1:'Посмотри на картинки! В каких ситуациях нужна помощь милиционера? Нажимай на тревожные ситуации!',
+  p2:'Одень милиционера Максима! Нажимай только на нужное снаряжение: фуражка, рация, жезл, свисток, жилет!',
   p3:'В парке потерялся ребёнок! Внимательно прочитай его приметы и найди его среди людей!',
   p4:'Ты дорожный инспектор! Нажимай на светофор, чтобы машины и пешеходы могли безопасно ехать!',
-  p5:'Запомни! Полицию вызывают по номерам: сто два и сто двенадцать! Нажми оба правильных номера!'
+  p5:'Запомни! Милицию вызывают по номерам: сто два и сто двенадцать! Нажми оба правильных номера!'
 };
 function readLvl(key){playClick();speak(INSTRUCTIONS[key],{readBtn:'rb-'+key,rate:0.78,pitch:1.2});}
 
@@ -1105,7 +1105,7 @@ function enterSector(sector){
   const greetings={
     fire:'Отлично! Добро пожаловать в пожарную службу! Пять уровней, и ты станешь другом пожарного!',
     med:'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!',
-    pol:'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!'
+    pol:'Добро пожаловать в милицию! Пять уровней, и ты станешь другом милиционера!'
   };
   const builders={fire:()=>buildF1(),med:()=>buildM1(),pol:()=>buildP1()};
   builders[sector]();
@@ -1155,7 +1155,7 @@ function completeSector(sector){
   const msgs={
     fire:'УРА! УРА! Ты прошёл все уровни пожарного! Значок Огнеборца теперь твой! Через несколько секунд мы вернёмся в Город Героев!',
     med:'ЗАМЕЧАТЕЛЬНО! Ты прошёл все уровни доктора! Значок Друга Доктора теперь твой! Сейчас вернёмся в Город Героев!',
-    pol:'МОЛОДЕЦ! Ты прошёл все уровни детектива! Значок Юного Детектива теперь твой! Возвращаемся в Город Героев!'
+    pol:'МОЛОДЕЦ! Ты прошёл все уровни милиционера! Значок Юного Милиционера теперь твой! Возвращаемся в Город Героев!'
   };
   setTimeout(()=>speak(msgs[sector],{rate:0.78,pitch:1.3}),600);
   // Auto-return to city after 5 seconds
@@ -1180,7 +1180,7 @@ function restartAll(){
 
 function tellNumber(num){
   playClick();
-  const msgs={'101':'Сто один — это пожарные! Звони сюда, если случился пожар!','102':'Сто два — это полиция! Звони сюда, если кто-то в опасности или ты потерялся!','103':'Сто три — это скорая помощь! Звони сюда, если кто-то заболел или получил травму!','112':'Сто двенадцать — это единый номер экстренных служб! Можно звонить в любой ситуации!'};
+  const msgs={'101':'Сто один — это пожарные! Звони сюда, если случился пожар!','102':'Сто два — это милиция! Звони сюда, если кто-то в опасности или ты потерялся!','103':'Сто три — это скорая помощь! Звони сюда, если кто-то заболел или получил травму!','112':'Сто двенадцать — это единый номер экстренных служб! Можно звонить в любой ситуации!'};
   speak(msgs[num]||num,{rate:0.78,pitch:1.1});
 }
 
@@ -1200,9 +1200,9 @@ const CORRECT_PAIRS={
   p5:['102','112']
 };
 const NUM_CHOICES={
-  f3:[{n:'102',hint:'Сто два — это полиция!'},{n:'101',hint:'Правильно! 101 — пожарные!'},{n:'103',hint:'Сто три — это скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'104',hint:'Сто четыре — это газовая служба!'}],
-  m3:[{n:'101',hint:'Сто один — это пожарные!'},{n:'102',hint:'Сто два — это полиция!'},{n:'103',hint:'Правильно! 103 — скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'105',hint:'Это неверный номер!'}],
-  p5:[{n:'101',hint:'Сто один — это пожарные!'},{n:'102',hint:'Правильно! 102 — полиция!'},{n:'103',hint:'Сто три — это скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'999',hint:'Это не наш номер!'}]
+  f3:[{n:'102',hint:'Сто два — это милиция!'},{n:'101',hint:'Правильно! 101 — пожарные!'},{n:'103',hint:'Сто три — это скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'104',hint:'Сто четыре — это газовая служба!'}],
+  m3:[{n:'101',hint:'Сто один — это пожарные!'},{n:'102',hint:'Сто два — это милиция!'},{n:'103',hint:'Правильно! 103 — скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'105',hint:'Это неверный номер!'}],
+  p5:[{n:'101',hint:'Сто один — это пожарные!'},{n:'102',hint:'Правильно! 102 — милиция!'},{n:'103',hint:'Сто три — это скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'999',hint:'Это не наш номер!'}]
 };
 
 function initNumPanel(id){
@@ -1244,7 +1244,7 @@ function handleNumSelect(id,btn,item,correct){
         if(id==='f3')nid='f3';else if(id==='m3')nid='m3';else if(id==='p5')nid='p5';
         const nb=document.getElementById(nid+'-next');if(nb)nb.classList.remove('hidden');
       },1000);
-      const dispMsg={f3:'Молодец! Ты знаешь оба номера пожарных! Алло, Пожарная служба слушает! Что произошло? Назови свой адрес вслух - улицу и номер дома!',m3:'Молодец! Ты знаешь оба номера скорой! Скорая помощь слушает! Что случилось? Назови своё имя и адрес! Что случилось!',p5:'Молодец! Ты знаешь оба номера полиции! Скажи где ты и что случилось!'};
+      const dispMsg={f3:'Молодец! Ты знаешь оба номера пожарных! Алло, Пожарная служба слушает! Что произошло? Назови свой адрес вслух - улицу и номер дома!',m3:'Молодец! Ты знаешь оба номера скорой! Скорая помощь слушает! Что случилось? Назови своё имя и адрес! Что случилось!',p5:'Молодец! Ты знаешь оба номера милиции! Скажи где ты и что случилось!'};
       setTimeout(()=>speak(dispMsg[id]||'Молодец! Ты нашёл оба номера!',{rate:0.78,pitch:1.2}),1200);
     }
   } else {
@@ -1281,7 +1281,7 @@ function pCall(id){
     const nb=document.getElementById(id+'-next');if(nb)nb.classList.remove('hidden');
   } else {
     fb.className='feedback-box bad';
-    const hint={f3:'Пожарные — 101 или 112!',m3:'Скорая — 103 или 112!',p5:'Полиция — 102 или 112!'};
+    const hint={f3:'Пожарные — 101 или 112!',m3:'Скорая — 103 или 112!',p5:'Милиция — 102 или 112!'};
     fb.textContent=`❌ Номер ${buf} неверный. ${hint[id]||'Попробуй ещё!'}`; 
     playError();speak(hint[id]||'Неверный номер! Попробуй ещё раз!',{rate:0.78,pitch:1.0});
     setTimeout(()=>{phoneBufs[id]='';const s=document.getElementById(id+'-screen');if(s)s.textContent='_';fb.className='feedback-box';},2500);
@@ -1594,21 +1594,21 @@ function endM5(win=false){
 //  ██ POLICE LEVELS ██
 // ══════════════════════════════════
 const SITUATIONS=[
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6b2.svg" alt="🚲" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Уводят чужой велосипед',needsPol:true,msg:'Правильно! Это кража — нужно вызвать полициию!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f476.svg" alt="👶" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Потерялся малыш',needsPol:true,msg:'Правильно! — звони 102! И полицейские помогут ему вернуться домой.'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6b2.svg" alt="🚲" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Уводят чужой велосипед',needsPol:true,msg:'Правильно! Это кража — нужно вызвать милицию!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f476.svg" alt="👶" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Потерялся малыш',needsPol:true,msg:'Правильно! — звони 102! И милиционеры помогут ему вернуться домой.'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6a6.svg" alt="🚦" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Сломан светофор',needsPol:true,msg:'Верно! Без светофора может случится авария — нужен регулировщик!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f338.svg" alt="🌸" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Люди гуляют в парке',needsPol:false,msg:'Это просто прогулка! Полиция не нужна!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26bd.svg" alt="⚽" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Дети играют в мяч',needsPol:false,msg:'Играть в мяч безопасно! Полиция не нужна!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f366.svg" alt="🍦" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Дети едят мороженое',needsPol:false,msg:'Мороженое — это вкусно! Полиция не нужна!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f528.svg" alt="🔨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Кто-то ломает скамейку',needsPol:true,msg:'Правильно! Портить городсую собственность нельзя — нужно вызвать полицию!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f338.svg" alt="🌸" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Люди гуляют в парке',needsPol:false,msg:'Это просто прогулка! Милиция не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26bd.svg" alt="⚽" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Дети играют в мяч',needsPol:false,msg:'Играть в мяч безопасно! Милиция не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f366.svg" alt="🍦" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Дети едят мороженое',needsPol:false,msg:'Мороженое — это вкусно! Милиция не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f528.svg" alt="🔨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Кто-то ломает скамейку',needsPol:true,msg:'Правильно! Портить городсую собственность нельзя — нужно вызвать милицию!'},
 ];
 const POL_ITEMS=[
-  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" alt="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" style="width:45px;height:45px;object-fit:contain;" loading="lazy">',name:'Фуражка',correct:true,pos:'top:-15px;left:50%;transform:translateX(-50%)',info:'Фуражка — головной убор полицейского!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" alt="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" style="width:45px;height:45px;object-fit:contain;" loading="lazy">',name:'Фуражка',correct:true,pos:'top:-15px;left:50%;transform:translateX(-50%)',info:'Фуражка — головной убор милиционера!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4df.svg" alt="📟" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Рация',correct:true,pos:'bottom:20%;right:-50px;;',info:'Рация для связи! Приём, патруль на связи!'},
   {icon:'<img src="https://i.ibb.co/6cNMq6vf/png-klev-club-zf5o-p-zhezl-png-11-Photoroom.png" alt="🚔" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жезл',correct:true,pos:'top:64%;right:-50px;',info:'Жезл регулировщика для управления движением!'},
   {icon:'<img src="https://cdn-icons-png.flaticon.com/512/2656/2656074.png" alt="📢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свисток',correct:true,pos:'top:64%;left:-50px',info:'Свисток привлекает внимание!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жилет',correct:true,pos:'top:19%;left:-48px',info:'Светоотражающий жилет — полицейского видно!'},
-  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a9.svg" alt="🎩" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Цилиндр',correct:false,info:'Это нарядная шляпа! Полицейскому не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жилет',correct:true,pos:'top:19%;left:-48px',info:'Светоотражающий жилет — милиционера видно!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a9.svg" alt="🎩" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Цилиндр',correct:false,info:'Это нарядная шляпа! Милиционеру не нужна!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a3.svg" alt="🎣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Удочка',correct:false,info:'Удочка для рыбалки, а не для патруля!'},
   {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26bd.svg" alt="⚽" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Мяч',correct:false,info:'Мяч не нужен на службе! Это не снаряжение!'},
 ];
@@ -1663,7 +1663,7 @@ function polLvl(n){
   playSuccess();stopSpeak();
   showSectorLevel('pol',n);
   const builders={1:buildP1,2:buildP2,3:buildP3,4:buildP4,5:buildP5};
-  const msgs={1:'Уровень один!',2:'Уровень два! Одень полицейского!',3:'Уровень три! Найди потеряшку!',4:'Уровень четыре! Управляй светофором!',5:'Уровень пять! Набери номер полиции!'};
+  const msgs={1:'Уровень один!',2:'Уровень два! Одень милиционера!',3:'Уровень три! Найди потеряшку!',4:'Уровень четыре! Управляй светофором!',5:'Уровень пять! Набери номер милиции!'};
   if(builders[n])builders[n]();
   if(window._twemojiRefresh) setTimeout(window._twemojiRefresh, 150);
   setTimeout(()=>speak(msgs[n]||'',{rate:0.8,pitch:1.15}),500);
@@ -1682,7 +1682,7 @@ function buildP1(){
     const card=document.createElement('div');card.className='situation-card'+(sit.needsPol?' needs-pol':'');
     card.style.animation=`featPop .4s ${i*.06}s backwards`;
     card.innerHTML=`<span class="situation-icon">${sit.icon}</span><div class="situation-label">${sit.label}</div>`;
-    card.onclick=()=>{if(card.dataset.done)return;card.dataset.done='1';playClick();const fb=document.getElementById('p1-fb');if(sit.needsPol){card.classList.add('correct-pick');spawnBurst(card);playSuccess();p1Found++;document.getElementById('p1-found').textContent=p1Found;fb.className='feedback-box pol-good';fb.textContent='✅ '+sit.msg;speak(sit.msg,{rate:0.82,pitch:1.25});if(p1Found===p1Total){setTimeout(()=>{fb.textContent='🎉 Молодец! Ты нашёл все опасные ситуации!';speak('Отлично! Ты знаешь, когда нужна полиция!',{rate:0.78,pitch:1.2});launchConfetti(40);},300);document.getElementById('p1-next').classList.remove('hidden');}}else{card.classList.add('wrong-pick');playError();fb.className='feedback-box bad';fb.textContent='😊 '+sit.msg;speak(sit.msg,{rate:0.82,pitch:1.0});setTimeout(()=>{card.classList.remove('wrong-pick');delete card.dataset.done;},1000);}};
+    card.onclick=()=>{if(card.dataset.done)return;card.dataset.done='1';playClick();const fb=document.getElementById('p1-fb');if(sit.needsPol){card.classList.add('correct-pick');spawnBurst(card);playSuccess();p1Found++;document.getElementById('p1-found').textContent=p1Found;fb.className='feedback-box pol-good';fb.textContent='✅ '+sit.msg;speak(sit.msg,{rate:0.82,pitch:1.25});if(p1Found===p1Total){setTimeout(()=>{fb.textContent='🎉 Молодец! Ты нашёл все опасные ситуации!';speak('Отлично! Ты знаешь, когда нужна милиция!',{rate:0.78,pitch:1.2});launchConfetti(40);},300);document.getElementById('p1-next').classList.remove('hidden');}}else{card.classList.add('wrong-pick');playError();fb.className='feedback-box bad';fb.textContent='😊 '+sit.msg;speak(sit.msg,{rate:0.82,pitch:1.0});setTimeout(()=>{card.classList.remove('wrong-pick');delete card.dataset.done;},1000);}};
     grid.appendChild(card);
   });
 }
@@ -1690,7 +1690,7 @@ function buildP2(){
   p2Correct=0;
   document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/4440/4440953.png" alt="👤" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-gear').innerHTML='';
   document.getElementById('p2-progress').textContent=`Снаряжение: 0 / ${POL_CORRECT}`;
-  document.getElementById('p2-name').textContent='Полицейский Максим';
+  document.getElementById('p2-name').textContent='Милиционер Максим';
   document.getElementById('p2-siren').className='siren-glow';
   document.getElementById('p2-fb').className='feedback-box';document.getElementById('p2-tooltip').className='tooltip-pop';
   document.getElementById('p2-next').classList.add('hidden');
@@ -1699,7 +1699,7 @@ function buildP2(){
     const el=document.createElement('div');el.className='shelf-card'+(item.correct?'':' wrong-shelf');
     el.style.animation=`featPop .4s ${i*.06}s backwards`;
     el.innerHTML=`<div class="sc-icon">${item.icon}</div><div class="sc-name">${item.name}</div><div class="correct-stamp">✓</div>`;
-    el.onclick=()=>{if(el.classList.contains('used'))return;playClick();const tip=document.getElementById('p2-tooltip');const fb=document.getElementById('p2-fb');tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;tip.className='tooltip-pop show';speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});if(item.correct){el.classList.add('used');p2Correct++;playSuccess();document.getElementById('p2-progress').textContent=`Снаряжение: ${p2Correct} / ${POL_CORRECT}`;const gear=document.getElementById('p2-gear');const span=document.createElement('span');span.className='ff-gear-item';span.innerHTML=item.icon;span.style.cssText='position:absolute;'+item.pos;gear.appendChild(span);fb.className='feedback-box pol-good';fb.textContent='✅ '+item.info;if(p2Correct===POL_CORRECT){setTimeout(()=>{document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/6704/6704995.png" alt="👮" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-name').textContent='Полицейский Максим ГОТОВ!';document.getElementById('p2-siren').className='siren-glow active';fb.textContent='🎉 Патруль готов к выезду!';playPoliceSiren();speak('Внимание! Полицейский Максим готов к патрулю! Приём, патруль на связи!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('p2-next').classList.remove('hidden');},400);}}else{playError();fb.className='feedback-box bad';fb.textContent='❌ '+item.info;el.style.animation='wrongWobble .4s';setTimeout(()=>el.style.animation='',500);}};
+    el.onclick=()=>{if(el.classList.contains('used'))return;playClick();const tip=document.getElementById('p2-tooltip');const fb=document.getElementById('p2-fb');tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;tip.className='tooltip-pop show';speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});if(item.correct){el.classList.add('used');p2Correct++;playSuccess();document.getElementById('p2-progress').textContent=`Снаряжение: ${p2Correct} / ${POL_CORRECT}`;const gear=document.getElementById('p2-gear');const span=document.createElement('span');span.className='ff-gear-item';span.innerHTML=item.icon;span.style.cssText='position:absolute;'+item.pos;gear.appendChild(span);fb.className='feedback-box pol-good';fb.textContent='✅ '+item.info;if(p2Correct===POL_CORRECT){setTimeout(()=>{document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/6704/6704995.png" alt="👮" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-name').textContent='Милиционер Максим ГОТОВ!';document.getElementById('p2-siren').className='siren-glow active';fb.textContent='🎉 Патруль готов к выезду!';playPoliceSiren();speak('Внимание! Милиционер Максим готов к патрулю! Приём, патруль на связи!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('p2-next').classList.remove('hidden');},400);}}else{playError();fb.className='feedback-box bad';fb.textContent='❌ '+item.info;el.style.animation='wrongWobble .4s';setTimeout(()=>el.style.animation='',500);}};
     shelf.appendChild(el);
   });
 }
@@ -1728,8 +1728,8 @@ function buildP3(){
         el.style.boxShadow='0 0 20px rgba(255,215,0,.8)';
         playSuccess();
         fb.className='feedback-box pol-good';
-        fb.textContent='✅ Нашёл! Если ты потерялся — стой на месте и жди! Полицейский обязательно найдёт тебя!';
-        speak('Нашёл! Умница! Запомни: если ты сам потерялся — стой на месте и жди! Полицейский обязательно придёт!',{rate:0.78,pitch:1.3});
+        fb.textContent='✅ Нашёл! Если ты потерялся — стой на месте и жди! Милиционер обязательно найдёт тебя!';
+        speak('Нашёл! Умница! Запомни: если ты сам потерялся — стой на месте и жди! Милиционер обязательно придёт!',{rate:0.78,pitch:1.3});
         launchConfetti(40);
         document.getElementById('p3-next').classList.remove('hidden');
       } else {
@@ -1909,7 +1909,7 @@ function buildP5(){
   document.getElementById('p5-dispatcher').style.display='none';
   document.getElementById('p5-next').classList.add('hidden');
   initNumPanel('p5');
-  setTimeout(()=>speak('Полицию вызывают по двум номерам: сто два и сто двенадцать! Нажми оба!',{rate:0.78,pitch:1.1}),600);
+  setTimeout(()=>speak('Милицию вызывают по двум номерам: сто два и сто двенадцать! Нажми оба!',{rate:0.78,pitch:1.1}),600);
 }
 
 // ══════════════════════════════════
@@ -1921,7 +1921,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(synth){synth.onvoiceschanged=()=>{};synth.getVoices();}
   setTimeout(()=>speak(
     'Привет, привет, привет! Добро пожаловать в Город Героев! ' +
-    'Здесь живут три супер-команды: пожарные, доктора и полицейские! ' +
+    'Здесь живут три супер-команды: пожарные, доктора и милиционеры! ' +
     'В каждой команде пять весёлых заданий! ' +
     'Выбирай любой сектор и становись настоящим героем! ' +
     'Ты готов? Тогда вперёд!',
@@ -2050,7 +2050,7 @@ function speakHover(text) {
 const EDITOR_FIELDS = [
   { group: '🌆 Главная страница', key: 'welcome_title', label: 'Заголовок', default: 'Город Героев' },
   { group: '🌆 Главная страница', key: 'welcome_sub', label: 'Подзаголовок', default: 'Три команды спасателей ждут тебя!' },
-  { group: '🌆 Главная страница', key: 'welcome_speech', label: 'Приветственная речь', default: 'Привет, привет, привет! Добро пожаловать в Город Героев! Здесь живут три супер-команды: пожарные, доктора и полицейские! В каждой команде пять весёлых заданий! Выбирай любой сектор и становись настоящим героем! Ты готов? Тогда вперёд!', multiline: true },
+  { group: '🌆 Главная страница', key: 'welcome_speech', label: 'Приветственная речь', default: 'Привет, привет, привет! Добро пожаловать в Город Героев! Здесь живут три супер-команды: пожарные, доктора и милиционеры! В каждой команде пять весёлых заданий! Выбирай любой сектор и становись настоящим героем! Ты готов? Тогда вперёд!', multiline: true },
 
   { group: '🚒 Пожарный — секторная карточка', key: 'fire_name', label: 'Название', default: 'Пожарный' },
   { group: '🚒 Пожарный — секторная карточка', key: 'fire_desc', label: 'Описание', default: 'Туши огонь!\nСтань пожарным!' },
@@ -2060,9 +2060,9 @@ const EDITOR_FIELDS = [
   { group: '🚑 Доктор — секторная карточка', key: 'med_desc', label: 'Описание', default: 'Лечи людей!\nСтань доктором!' },
   { group: '🚑 Доктор — секторная карточка', key: 'med_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!', multiline: true },
 
-  { group: '👮 Полицейский — секторная карточка', key: 'pol_name', label: 'Название', default: 'Полицейский' },
-  { group: '👮 Полицейский — секторная карточка', key: 'pol_desc', label: 'Описание', default: 'Охраняй порядок!\nСтань полицейским!' },
-  { group: '👮 Полицейский — секторная карточка', key: 'pol_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!', multiline: true },
+  { group: '👮 Милиционер — секторная карточка', key: 'pol_name', label: 'Название', default: 'Милиционер' },
+  { group: '👮 Милиционер — секторная карточка', key: 'pol_desc', label: 'Описание', default: 'Охраняй порядок!\nСтань милиционером!' },
+  { group: '👮 Милиционер — секторная карточка', key: 'pol_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в милицию! Пять уровней, и ты станешь другом милиционера!', multiline: true },
 
   { group: '📋 Задания — Пожарный', key: 'instr_f1', label: 'Уровень 1 — Опасно/Безопасно', default: INSTRUCTIONS.f1, multiline: true },
   { group: '📋 Задания — Пожарный', key: 'instr_f2', label: 'Уровень 2 — Выход из ловушки', default: INSTRUCTIONS.f2, multiline: true },
@@ -2076,11 +2076,11 @@ const EDITOR_FIELDS = [
   { group: '📋 Задания — Доктор', key: 'instr_m4', label: 'Уровень 4 — Дай проехать', default: INSTRUCTIONS.m4, multiline: true },
   { group: '📋 Задания — Доктор', key: 'instr_m5', label: 'Уровень 5 — Полезные предметы', default: INSTRUCTIONS.m5, multiline: true },
 
-  { group: '📋 Задания — Полицейский', key: 'instr_p1', label: 'Уровень 1 — Найди ситуацию', default: INSTRUCTIONS.p1, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p2', label: 'Уровень 2 — Одень полицейского', default: INSTRUCTIONS.p2, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p3', label: 'Уровень 3 — Найди ребёнка', default: INSTRUCTIONS.p3, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p4', label: 'Уровень 4 — Светофор', default: INSTRUCTIONS.p4, multiline: true },
-  { group: '📋 Задания — Полицейский', key: 'instr_p5', label: 'Уровень 5 — Вызови полицию', default: INSTRUCTIONS.p5, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p1', label: 'Уровень 1 — Найди ситуацию', default: INSTRUCTIONS.p1, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p2', label: 'Уровень 2 — Одень милиционера', default: INSTRUCTIONS.p2, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p3', label: 'Уровень 3 — Найди ребёнка', default: INSTRUCTIONS.p3, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p4', label: 'Уровень 4 — Светофор', default: INSTRUCTIONS.p4, multiline: true },
+  { group: '📋 Задания — Милиционер', key: 'instr_p5', label: 'Уровень 5 — Вызови милицию', default: INSTRUCTIONS.p5, multiline: true },
 ];
 
 const EDITOR_STORAGE_KEY = 'gorod_heroev_editor_v1';
@@ -2130,7 +2130,7 @@ window.enterSector = function(sector) {
   const greetings = {
     fire: data.fire_greet || 'Отлично! Добро пожаловать в пожарную службу! Пять уровней, и ты станешь другом пожарного!',
     med:  data.med_greet  || 'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!',
-    pol:  data.pol_greet  || 'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!'
+    pol:  data.pol_greet  || 'Добро пожаловать в милицию! Пять уровней, и ты станешь другом милиционера!'
   };
   const builders = {fire:()=>buildF1(), med:()=>buildM1(), pol:()=>buildP1()};
   builders[sector]();
