@@ -1,0 +1,2253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🏙️ Город Героев</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+<style>
+:root {
+  --fire: #FF4500; --fire2: #FF6B35; --fire3: #FFD700;
+  --safe: #2ECC71; --safe2: #27ae60;
+  --med: #00BCD4; --med2: #0097A7; --med3: #E0F7FA;
+  --pol: #1565C0; --pol2: #0D47A1; --pol3: #E3F2FD;
+  --bg1: #0a0a1a; --bg2: #0d1b4b;
+  --card: #fff9f0; --accent: #FFD700;
+  --r: 28px;
+}
+img.twemoji {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  vertical-align: -0.15em;
+}
+/* Large twemoji for sector icons, mascots, etc */
+.sector-icon img.twemoji { height: 1em; width: 1em; }
+.twemoji-lg { display: inline-block; }
+.twemoji-lg img.twemoji { height: 1em; width: 1em; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  font-family: 'Baloo 2', 'Nunito', sans-serif;
+  background: radial-gradient(ellipse at 30% 20%, #1a1a3e 0%, #0a0a1a 60%, #0d1b2e 100%);
+  min-height: 100vh; overflow-x: hidden; touch-action: manipulation;
+}
+.stars-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 10% 15%, #fff, transparent),
+    radial-gradient(2px 2px at 25% 8%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 30%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 60% 5%, #fff, transparent),
+    radial-gradient(2px 2px at 75% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 85% 35%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 92% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 15% 50%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1.5px 1.5px at 70% 70%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 80% 85%, rgba(255,255,255,.3), transparent);
+}
+.bg-floaters { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.floater { position: absolute; font-size: clamp(18px,3.5vw,32px); opacity: 0.07; animation: floatUp linear infinite; }
+@keyframes floatUp {
+  0%{transform:translateY(110vh) rotate(0deg);opacity:0} 10%{opacity:0.07} 90%{opacity:0.07} 100%{transform:translateY(-20vh) rotate(360deg);opacity:0}
+}
+.confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
+.conf-piece { position: absolute; width: 10px; height: 10px; border-radius: 2px; animation: confFall linear forwards; }
+@keyframes confFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1} 100%{transform:translateY(105vh) rotate(720deg);opacity:.3} }
+
+/* ── Voice bar ── */
+#voice-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(0,0,0,.65); backdrop-filter: blur(16px);
+  border-bottom: 2px solid rgba(255,215,0,.25);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; gap: 12px;
+}
+
+#rs-char > img{
+
+   height: 100%;
+    width: 100%;
+
+}
+
+#voice-bar .app-logo { font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 1px; }
+#voice-bar .app-logo span { color: var(--fire3); }
+.speak-waves { display: flex; align-items: center; gap: 3px; opacity: 0; transition: opacity .3s; }
+.speak-waves.active { opacity: 1; }
+.sw { width: 4px; border-radius: 3px; background: var(--fire3); animation: sw .5s infinite alternate; }
+.sw:nth-child(1){height:6px;animation-delay:0s} .sw:nth-child(2){height:14px;animation-delay:.1s}
+.sw:nth-child(3){height:20px;animation-delay:.05s} .sw:nth-child(4){height:12px;animation-delay:.15s} .sw:nth-child(5){height:8px;animation-delay:.2s}
+@keyframes sw { from{transform:scaleY(.3)} to{transform:scaleY(1)} }
+#voice-btn {
+  background: linear-gradient(135deg,#FF4500,#FFD700); border: none; border-radius: 50px;
+  padding: 7px 16px; font-family: 'Baloo 2',sans-serif; font-size: 14px; font-weight: 800;
+  color: #fff; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 4px 14px rgba(255,69,0,.45); transition: all .2s; touch-action: manipulation;
+}
+#voice-btn:active { transform: scale(.95); }
+#voice-btn.off { background: #555; box-shadow: none; }
+
+/* ── App wrapper ── */
+#app { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 72px 14px 32px; }
+.screen { display: none; }
+.screen.active { display: block; animation: screenIn .5s cubic-bezier(.34,1.56,.64,1); }
+@keyframes screenIn { from{opacity:0;transform:translateY(40px) scale(.95)} to{opacity:1;transform:none} }
+
+/* ── Game card ── */
+.game-card {
+  background: linear-gradient(160deg,#fffef8 0%,#fff8f0 100%);
+  border-radius: 32px; padding: clamp(18px,4vw,34px);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 4px rgba(255,215,0,.25), inset 0 1px 0 rgba(255,255,255,.9);
+  position: relative; overflow: hidden;
+}
+.game-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 10px;
+  background: linear-gradient(90deg,#FF4500,#FFD700,#FF6B35,#FFD700,#FF4500);
+  background-size: 200% 100%; animation: shimmerBar 2s linear infinite;
+}
+@keyframes shimmerBar { from{background-position:0%} to{background-position:200%} }
+.game-card.med-card::before { background: linear-gradient(90deg,#00BCD4,#4DD0E1,#0097A7,#4DD0E1,#00BCD4); background-size:200% 100%; animation:shimmerBar 2s linear infinite; }
+.game-card.pol-card::before { background: linear-gradient(90deg,#1565C0,#42A5F5,#0D47A1,#42A5F5,#1565C0); background-size:200% 100%; animation:shimmerBar 2s linear infinite; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: clamp(12px,3vw,18px) clamp(22px,5vw,42px);
+  border: none; border-radius: 60px; cursor: pointer;
+  font-family: 'Baloo 2',sans-serif; font-size: clamp(16px,4vw,22px);
+  font-weight: 900; transition: all .15s; touch-action: manipulation; white-space: nowrap;
+}
+.btn-fire { background: linear-gradient(135deg,#FF4500,#FF6B35,#FFD700); color: #fff; box-shadow: 0 8px 0 #b83200,0 12px 30px rgba(255,69,0,.4); }
+.btn-fire:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #b83200,0 16px 40px rgba(255,69,0,.5); }
+.btn-fire:active { transform: translateY(4px); box-shadow: 0 4px 0 #b83200; }
+.btn-green { background: linear-gradient(135deg,#2ECC71,#27ae60); color: #fff; box-shadow: 0 8px 0 #1a6e3b,0 12px 30px rgba(46,204,113,.4); }
+.btn-green:hover { transform: translateY(-4px); } .btn-green:active { transform: translateY(4px); box-shadow: 0 4px 0 #1a6e3b; }
+.btn-med { background: linear-gradient(135deg,#00BCD4,#0097A7); color: #fff; box-shadow: 0 8px 0 #006064,0 12px 30px rgba(0,188,212,.4); }
+.btn-med:hover { transform: translateY(-4px); } .btn-med:active { transform: translateY(4px); box-shadow: 0 4px 0 #006064; }
+.btn-pol { background: linear-gradient(135deg,#1565C0,#0D47A1); color: #fff; box-shadow: 0 8px 0 #0a2a6e,0 12px 30px rgba(21,101,192,.4); }
+.btn-pol:hover { transform: translateY(-4px); } .btn-pol:active { transform: translateY(4px); box-shadow: 0 4px 0 #0a2a6e; }
+.btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+
+/* ── Feedback ── */
+.feedback-box {
+  border-radius: 20px; padding: 16px 18px; font-size: clamp(14px,3.5vw,17px); font-weight: 800;
+  margin: 12px 0; display: none; line-height: 1.5;
+  animation: feedIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes feedIn { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+.feedback-box.good { background:linear-gradient(135deg,#d4edda,#a8e6c0);color:#0d4a22;border:3px solid var(--safe);display:block; }
+.feedback-box.bad  { background:linear-gradient(135deg,#fde8e8,#fcc8c8);color:#7b1f1f;border:3px solid var(--fire);display:block; }
+.feedback-box.med-good { background:linear-gradient(135deg,#e0f7fa,#b2ebf2);color:#006064;border:3px solid var(--med);display:block; }
+.feedback-box.pol-good { background:linear-gradient(135deg,#e3f2fd,#bbdefb);color:#0d47a1;border:3px solid var(--pol);display:block; }
+
+/* ── Level badge ── */
+.level-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg,var(--fire),var(--fire2));
+  color: #fff; font-size: 13px; font-weight: 800;
+  padding: 5px 16px; border-radius: 50px; margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(255,69,0,.35);
+}
+.level-badge.med { background: linear-gradient(135deg,#00BCD4,#0097A7); box-shadow: 0 4px 12px rgba(0,188,212,.35); }
+.level-badge.pol { background: linear-gradient(135deg,#1565C0,#0D47A1); box-shadow: 0 4px 12px rgba(21,101,192,.35); }
+.level-title { font-size: clamp(1.4rem,4.5vw,2.2rem); font-weight: 900; color: #1a1a2e; margin-bottom: 6px; line-height: 1.1; }
+.desc { font-size: clamp(14px,3.5vw,17px); color: #555; font-weight: 700; line-height: 1.6; margin-bottom: 14px; }
+.desc strong { color: var(--fire); font-size: 1.1em; }
+.desc strong.med { color: var(--med2); } .desc strong.pol { color: var(--pol); }
+
+/* Read button */
+.read-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg,rgba(255,69,0,.1),rgba(255,165,0,.1));
+  border: 2.5px solid rgba(255,100,0,.3); border-radius: 50px; padding: 7px 16px;
+  font-family: 'Baloo 2',sans-serif; font-size: 13px; font-weight: 800;
+  color: var(--fire); cursor: pointer; transition: all .2s; touch-action: manipulation;
+}
+.read-btn.med-read { background:linear-gradient(135deg,rgba(0,188,212,.1),rgba(0,151,167,.1));border-color:rgba(0,188,212,.4);color:var(--med2); }
+.read-btn.pol-read { background:linear-gradient(135deg,rgba(21,101,192,.1),rgba(13,71,161,.1));border-color:rgba(21,101,192,.4);color:var(--pol); }
+.read-btn:active { transform: scale(.95); }
+.read-btn.reading { background:linear-gradient(135deg,rgba(46,204,113,.15),rgba(39,174,96,.15));border-color:var(--safe);color:var(--safe2);animation:readPulse .8s infinite; }
+@keyframes readPulse { 0%,100%{box-shadow:0 2px 10px rgba(46,204,113,.2)} 50%{box-shadow:0 2px 20px rgba(46,204,113,.5)} }
+
+/* ── Progress ── */
+#progress-wrap { display:flex;gap:5px;align-items:center;justify-content:center;margin-bottom:18px; }
+.prog-step { display:flex;align-items:center;gap:5px; }
+.prog-dot {
+  width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.1);
+  border:3px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:all .5s cubic-bezier(.34,1.56,.64,1);
+}
+.prog-dot.done { background:var(--safe);border-color:var(--safe2);box-shadow:0 0 20px rgba(46,204,113,.5);transform:scale(1.1); }
+.prog-dot.active { background:linear-gradient(135deg,var(--fire),var(--fire3));border-color:var(--fire3);box-shadow:0 0 30px rgba(255,215,0,.6);transform:scale(1.25);animation:pulseProg 1.2s infinite; }
+.prog-dot.active.med { background:linear-gradient(135deg,#00BCD4,#4DD0E1);border-color:#4DD0E1;box-shadow:0 0 30px rgba(0,188,212,.6); }
+.prog-dot.active.pol { background:linear-gradient(135deg,#1565C0,#42A5F5);border-color:#42A5F5;box-shadow:0 0 30px rgba(66,165,245,.6); }
+@keyframes pulseProg { 0%,100%{box-shadow:0 0 30px rgba(255,215,0,.6)} 50%{box-shadow:0 0 50px rgba(255,215,0,.9),0 0 80px rgba(255,100,0,.4)} }
+.prog-line { width:18px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);transition:background .5s; }
+.prog-line.done { background:var(--safe); }
+
+.mascot-big { text-align:center;font-size:clamp(72px,16vw,120px);animation:mascotBounce 2s ease-in-out infinite;filter:drop-shadow(0 10px 28px rgba(0,0,0,.25));display:block;margin:6px auto; }
+@keyframes mascotBounce { 0%,100%{transform:translateY(0) scale(1)} 30%{transform:translateY(-16px) scale(1.05)} 60%{transform:translateY(-7px) scale(1.02)} }
+
+/* Misc helpers */
+
+/* Twemoji gear layer items */
+.ff-gear-item img.twemoji { width:1em; height:1em; }
+/* Ensure img twemoji in ff-gear-layer are sized properly */
+.ff-gear-layer .ff-gear-item img { width:clamp(26px,6vw,38px); height:clamp(26px,6vw,38px); }
+/* Nice shadow for sector images */
+.sector-icon img { filter:drop-shadow(0 4px 8px rgba(0,0,0,.3)); }
+/* Item card img centering */
+.item-card .item-icon img, .situation-card .situation-icon img { display:block; margin:0 auto; }
+/* Suitcase placed items */
+#m2-placed img { width:32px; height:32px; }
+.hidden { display:none!important; }
+.mt-12{margin-top:12px;} .mt-20{margin-top:20px;} .text-center{text-align:center;}
+@keyframes correctBounce { 0%{transform:scale(1)} 30%{transform:scale(1.25) rotate(-5deg)} 60%{transform:scale(1.1) rotate(3deg)} 100%{transform:scale(1)} }
+@keyframes wrongWobble { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+@keyframes featPop { from{opacity:0;transform:scale(.8) translateY(20px)} to{opacity:1;transform:none} }
+
+/* ══════════════════════════════════
+   CITY MENU
+══════════════════════════════════ */
+.city-title {
+  text-align:center;font-size:clamp(2rem,7vw,3.6rem);font-weight:900;
+  background:linear-gradient(135deg,#FF6B35,#FFD700,#fff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-shadow:none;line-height:1.1;
+}
+.city-subtitle { text-align:center;font-size:clamp(14px,3.5vw,19px);color:rgba(255,255,255,.7);font-weight:800;margin:8px 0 24px; }
+
+.city-sectors { display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,2.5vw,20px);margin:20px 0; }
+@media(max-width:540px){ .city-sectors{grid-template-columns:1fr;} }
+
+.sector-card {
+  border-radius:28px;padding:clamp(20px, 4vw, 45px) 12px;;text-align:center;cursor:pointer;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;
+  border:4px solid transparent;animation:featPop .6s backwards;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+.sector-card::before { content:'';position:absolute;inset:0;opacity:.15;transition:opacity .3s; }
+.sector-card:hover { transform:translateY(-10px) scale(1.04); }
+.sector-card:active { transform:scale(.96); }
+
+.sector-fire { background:linear-gradient(160deg,#2d0a00,#4a1200);border-color:rgba(255,100,0,.5); }
+.sector-fire::before { background:radial-gradient(circle at 50% 100%,#FF4500,transparent); }
+.sector-fire:hover { border-color:rgba(255,150,0,.8);box-shadow:0 25px 60px rgba(255,69,0,.4); }
+
+.sector-med { background:linear-gradient(160deg,#001a1e,#002d33);border-color:rgba(0,188,212,.4); }
+.sector-med::before { background:radial-gradient(circle at 50% 100%,#00BCD4,transparent); }
+.sector-med:hover { border-color:rgba(0,220,240,.7);box-shadow:0 25px 60px rgba(0,188,212,.4); }
+
+.sector-pol { background:linear-gradient(160deg,#000d1a,#001433);border-color:rgba(21,101,192,.4); }
+.sector-pol::before { background:radial-gradient(circle at 50% 100%,#1565C0,transparent); }
+.sector-pol:hover { border-color:rgba(66,165,245,.7);box-shadow:0 25px 60px rgba(21,101,192,.4); }
+
+.sector-icon { font-size:clamp(56px,13vw,88px);display:flex;align-items:center;justify-content:center;margin-bottom:12px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.4));animation:mascotBounce 2s ease-in-out infinite; }
+.sector-icon img { width:clamp(56px,13vw,88px);height:clamp(56px,13vw,88px);object-fit:contain; }
+.sector-fire .sector-icon { animation-delay:.0s; }
+.sector-med .sector-icon { animation-delay:.3s; }
+.sector-pol .sector-icon { animation-delay:.6s; }
+.sector-name { font-size:clamp(15px,4vw,21px);font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);margin-bottom:4px; }
+.sector-num { font-size:clamp(22px,5vw,30px);font-weight:900;margin-bottom:8px;text-shadow:0 0 20px currentColor; }
+.sector-fire .sector-num{color:#FFD700;} .sector-med .sector-num{color:#4DD0E1;} .sector-pol .sector-num{color:#90CAF9;}
+.sector-desc { font-size:clamp(11px,2.5vw,13px);font-weight:700;color:rgba(255,255,255,.6);line-height:1.4; }
+.sector-badge {
+  position:absolute;top:10px;right:10px;background:var(--safe);color:#fff;
+  border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;box-shadow:0 2px 8px rgba(46,204,113,.5);opacity:0;transition:opacity .3s;
+}
+.sector-card.completed .sector-badge{opacity:1;}
+.sector-card.completed {
+  position: relative;
+}
+.sector-card.completed::after {
+  content: '✅ Пройдено!';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(46, 204, 113, 0.92);
+  color: #fff;
+  font-size: clamp(12px, 2.8vw, 15px);
+  font-weight: 900;
+  padding: 8px;
+  border-radius: 0 0 22px 22px;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+.sector-card.completed.sector-fire { border-color: rgba(46,204,113,.9) !important; box-shadow: 0 20px 50px rgba(46,204,113,.3), 0 0 0 3px rgba(46,204,113,.4) !important; }
+.sector-card.completed.sector-med  { border-color: rgba(46,204,113,.9) !important; box-shadow: 0 20px 50px rgba(46,204,113,.3), 0 0 0 3px rgba(46,204,113,.4) !important; }
+.sector-card.completed.sector-pol  { border-color: rgba(46,204,113,.9) !important; box-shadow: 0 20px 50px rgba(46,204,113,.3), 0 0 0 3px rgba(46,204,113,.4) !important; }
+
+.city-bg-city {
+  text-align:center;font-size:clamp(28px,7vw,50px);letter-spacing:2px;
+  margin:16px 0 8px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.4));
+  line-height:1.3;
+}
+.city-tip { text-align:center;font-size:clamp(12px,3vw,14px);color:rgba(255,255,255,.45);font-weight:700;margin-top:10px; }
+
+/* ══════════════════════════════════
+   LEVEL 1 - FIRE (existing adapted)
+══════════════════════════════════ */
+#items-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(90px,20vw,120px),1fr));gap:12px;margin:18px 0; }
+.item-card {
+  background:linear-gradient(160deg,#fff,#fafafa);border:3.5px solid #e8e0d8;border-radius:22px;
+  padding:16px 8px;text-align:center;cursor:pointer;transition:all .2s;user-select:none;position:relative;overflow:hidden;
+}
+.item-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 10px 28px rgba(0,0,0,.1);}
+.item-card:active{transform:scale(.93);}
+.item-icon{font-size:clamp(40px,9vw,58px);display:flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.34,1.56,.64,1);min-height:58px;}
+.item-icon img{width:clamp(40px,9vw,58px);height:clamp(40px,9vw,58px);object-fit:contain;display:block;}
+.item-card:hover .item-icon{transform:scale(1.15) rotate(-5deg);}
+.item-name{font-size:clamp(10px,2.5vw,12px);font-weight:800;color:#888;margin-top:7px;}
+.item-card.correct-pick{border-color:var(--safe);background:linear-gradient(160deg,#f0fff4,#d4edda);animation:correctBounce .5s cubic-bezier(.34,1.56,.64,1);}
+.item-card.safe-pick{border-color:#c0c0c0;background:#f0f0f0;animation:wrongWobble .4s;}
+.danger-badge{position:absolute;top:5px;right:5px;background:var(--fire);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:900;opacity:0;transition:opacity .3s;}
+.item-card.correct-pick .danger-badge{opacity:1;}
+#lvl1-counter{text-align:center;font-size:clamp(15px,3.5vw,19px);font-weight:900;color:#555;margin-bottom:8px;}
+.counter-nums{font-size:clamp(22px,5vw,30px);font-weight:900;color:var(--fire);}
+
+/* ══════════════════════════════════
+   LEVEL 2 - FIRE (existing adapted)
+══════════════════════════════════ */
+.room-scene{position:relative;height:clamp(170px,33vw,250px);background: url(https://i.ibb.co/gqpQmfp/image.png);background-position: center;background-size: cover;border-radius:22px;overflow:hidden;border:3px solid #b0c8e0;margin:14px 0;}
+
+
+.rs-smoke{position:absolute;top:24px;left:52%;transform:translateX(-50%);display:flex;gap:26px;}
+.smoke-puff{font-size:clamp(26px,6vw,40px);animation:smokeDrift 1.8s ease-in-out infinite;}
+.smoke-puff:nth-child(2){animation-delay:.3s;font-size:clamp(20px,4.5vw,30px);}
+.smoke-puff:nth-child(3){animation-delay:.6s;font-size:clamp(20px,4.5vw,30px);}
+.smoke-puff:nth-child(4){animation-delay:.6s;font-size:clamp(20px,4.5vw,30px);}
+.smoke-puff:nth-child(5){animation-delay:.6s;font-size:clamp(20px,4.5vw,30px);}
+.smoke-puff:nth-child(6){animation-delay:.6s;font-size:clamp(13px,3.5vw,20px);}
+.smoke-puff:nth-child(7){animation-delay:.6s;font-size:clamp(13px,3.5vw,20px);}
+.smoke-puff:nth-child(8){animation-delay:.6s;font-size:clamp(13px,3.5vw,20px);}
+@keyframes smokeDrift{0%{transform:translateY(0) scale(1);opacity:.9}50%{transform:translateY(-10px) scale(1.1) rotate(5deg);opacity:.6}100%{transform:translateY(0) scale(1);opacity:.9}}
+.rs-character{position:absolute;bottom:22%;font-size:clamp(34px,7.5vw,50px);transition:left 1.8s cubic-bezier(.25,.46,.45,.94),bottom 1.5s;filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));}
+.choice-card{background:#fff;border:3px solid #e0d8d0;border-radius:18px;padding:clamp(12px,3vw,17px) 18px;cursor:pointer;display:flex;align-items:center;gap:12px;font-family:'Baloo 2',sans-serif;font-size:clamp(13px,3.5vw,16px);font-weight:800;color:#333;transition:all .2s;text-align:left;touch-action:manipulation;width:100%;border:none;margin-bottom:10px;}
+.choice-card:hover{transform:translateX(5px);background:#fafafa;}
+.choice-num{width:clamp(36px,6.5vw,44px);height:clamp(36px,6.5vw,44px);border-radius:50%;background:linear-gradient(135deg,#e0e0e0,#ccc);display:flex;align-items:center;justify-content:center;font-size:clamp(15px,3vw,19px);font-weight:900;flex-shrink:0;color:#333;}
+.choice-card.cc-correct{border:3px solid var(--safe)!important;background:linear-gradient(135deg,#f0fff4,#d4edda)!important;animation:correctBounce .5s;}
+.choice-card.cc-correct .choice-num{background:var(--safe);color:#fff;}
+.choice-card.cc-wrong{border:3px solid var(--fire)!important;background:linear-gradient(135deg,#fff3f8)!important;animation:wrongWobble .4s;}
+.choice-card.cc-wrong .choice-num{background:var(--fire);color:#fff;}
+
+/* ══════════════════════════════════
+   PHONE (Level 3 fire + lvl3+5 others)
+══════════════════════════════════ */
+.phone-container{display:flex;justify-content:center;align-items:flex-start;gap:20px;flex-wrap:wrap;margin:14px 0;}
+.phone-outer{background:linear-gradient(145deg,#2d2d3a,#1a1a28);border-radius:34px;padding:clamp(14px,3.5vw,22px);width:clamp(190px,48vw,240px);flex-shrink:0;box-shadow:0 28px 56px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07),0 0 0 2px rgba(255,255,255,.04);border:2px solid #444;}
+.phone-outer.med-phone{background:linear-gradient(145deg,#001a1e,#002d33);border-color:#004d5a;}
+.phone-outer.pol-phone{background:linear-gradient(145deg,#000d1a,#001433);border-color:#0d2a5e;}
+.phone-screen{background:#071a07;border:2px solid #1a3a1a;border-radius:14px;height:clamp(50px,11vw,66px);display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:clamp(26px,5.5vw,35px);font-weight:900;letter-spacing:8px;color:#00ff41;margin-bottom:clamp(10px,2.5vw,16px);box-shadow:inset 0 2px 10px rgba(0,0,0,.8),0 0 18px rgba(0,255,65,.08);transition:all .3s;}
+.phone-screen.med-screen{background:#071a1a;border-color:#1a3a3a;color:#4DD0E1;}
+.phone-screen.pol-screen{background:#07071a;border-color:#1a1a3a;color:#90CAF9;}
+.phone-screen.ring{animation:phoneRing .3s 3 alternate;}
+@keyframes phoneRing{from{box-shadow:inset 0 2px 10px rgba(0,0,0,.8)}to{box-shadow:inset 0 2px 10px rgba(0,0,0,.8),0 0 38px rgba(255,215,0,.5)}}
+.phone-keys{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(5px,1.5vw,9px);}
+.pkey{background:linear-gradient(145deg,#3a3a4a,#2a2a3a);color:#fff;border:none;border-radius:clamp(9px,2vw,13px);padding:clamp(9px,2.5vw,14px) 0;font-family:'Baloo 2',sans-serif;font-size:clamp(16px,4vw,22px);font-weight:900;cursor:pointer;transition:all .1s;box-shadow:0 4px 0 #111,inset 0 1px 0 rgba(255,255,255,.07);touch-action:manipulation;}
+.pkey:active,.pkey.pressed{transform:translateY(3px);box-shadow:0 1px 0 #111;background:linear-gradient(145deg,#555,#444);}
+.pkey.red{background:linear-gradient(145deg,#c0392b,#922b21);box-shadow:0 4px 0 #5a1414;} .pkey.red:active{box-shadow:0 1px 0 #5a1414;}
+.pkey.green{background:linear-gradient(145deg,#27ae60,#1e8449);box-shadow:0 4px 0 #0d4a26;} .pkey.green:active{box-shadow:0 1px 0 #0d4a26;}
+
+.num-choices-big{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:18px 0;}
+.num-chip-big{background:#fff;border:4px solid #e0d8d0;border-radius:22px;padding:clamp(10px,2.5vw,15px) clamp(20px,5vw,30px);font-family:'Baloo 2',sans-serif;font-size:clamp(22px,5vw,32px);font-weight:900;cursor:pointer;transition:all .2s;color:#333;box-shadow:0 4px 0 #bbb;touch-action:manipulation;}
+.num-chip-big:hover{transform:translateY(-4px) scale(1.05);border-color:var(--fire);color:var(--fire);box-shadow:0 8px 0 rgba(255,69,0,.3);}
+.num-chip-big.med-chip:hover{border-color:var(--med);color:var(--med2);}
+.num-chip-big.pol-chip:hover{border-color:var(--pol);color:var(--pol2);}
+.num-chip-big.ncb-correct{border-color:var(--safe);background:linear-gradient(135deg,#f0fff4,#d4edda);color:var(--safe2);box-shadow:0 4px 20px rgba(46,204,113,.4);animation:correctBounce .5s;}
+.num-chip-big.ncb-wrong{border-color:var(--fire);background:linear-gradient(135deg,#fff3f0);color:var(--fire);animation:wrongWobble .4s;}
+
+.dispatcher-card{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:3px solid var(--safe);border-radius:22px;padding:clamp(14px,3.5vw,22px);text-align:center;display:none;margin-top:14px;animation:feedIn .5s cubic-bezier(.34,1.56,.64,1);}
+.dispatcher-card.med{background:linear-gradient(135deg,#e0f7fa,#b2ebf2);border-color:var(--med);}
+.dispatcher-card.pol{background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-color:var(--pol);}
+.dispatcher-icon{font-size:clamp(44px,9vw,66px);animation:mascotBounce 2s infinite;display:flex;align-items:center;justify-content:center;margin:0 auto;}
+.dispatcher-icon img{width:clamp(60px,12vw,90px);height:clamp(60px,12vw,90px);object-fit:contain;}
+.dispatcher-card p{font-size:clamp(13px,3.5vw,16px);font-weight:800;color:#1b5e20;margin:7px 0;line-height:1.5;}
+.dispatcher-card.med p{color:#006064;} .dispatcher-card.pol p{color:#0d47a1;}
+
+/* ══════════════════════════════════
+   LEVEL 4 - FIRE (equipment)
+══════════════════════════════════ */
+.ff-arena{display:grid;grid-template-columns:1fr 1.4fr;gap:18px;margin:14px 0;}
+@media(max-width:540px){.ff-arena{grid-template-columns:1fr;}}
+.ff-display{background:linear-gradient(to bottom,#e3f2fd 0%,#c8e6c9 100%);border-radius:22px;min-height:clamp(260px,46vw,360px);border:3px solid #90caf9;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.ff-bg-sky{position:absolute;inset:0;overflow:hidden;}
+.ff-cloud{position:absolute;font-size:34px;animation:cloudDrift 6s linear infinite;opacity:.5;}
+.ff-cloud:nth-child(2){animation-delay:-3s;top:60%;font-size:22px;}
+@keyframes cloudDrift{from{left:-15%}to{left:110%}}
+.ff-figure{position:relative;z-index:1;text-align:center;}
+.ff-body-emoji{font-size:clamp(74px,17vw,115px);padding-top: 13px;display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 8px 18px rgba(0,0,0,.15));}
+.ff-body-emoji img{width:clamp(74px,17vw,115px);height:clamp(74px,17vw,115px);object-fit:contain;}
+.ff-gear-layer{position:absolute;inset:-18px;pointer-events:none;z-index:2;}
+.ff-gear-item{position:absolute;font-size:clamp(26px,6vw,38px);animation:gearPop .4s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));}
+@keyframes gearPop{from{transform:scale(0) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.ff-name{font-family:'Baloo 2',sans-serif;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:#555;margin-top: 44px;text-align:center;}
+.ff-progress{font-size:clamp(11px,2.5vw,13px);font-weight:800;color:#888;text-align:center;margin-top:3px;}
+.siren-glow{display:none;text-align:center;margin-top:10px;font-size:clamp(16px,3.5vw,22px);font-weight:900;}
+.siren-glow.active{display:block;animation:sirenColors .5s infinite alternate;}
+@keyframes sirenColors{from{color:#e74c3c;text-shadow:0 0 20px rgba(231,76,60,.8)}to{color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,.8)}}
+.shelf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.shelf-card{background:#fff;border:3px solid #e0d8d0;border-radius:18px;padding:clamp(10px,2.5vw,15px) 6px;text-align:center;cursor:pointer;transition:all .25s;user-select:none;position:relative;touch-action:manipulation;}
+.shelf-card:hover:not(.used){transform:translateY(-5px) scale(1.04);box-shadow:0 8px 22px rgba(0,0,0,.1);border-color:#aaa;}
+.shelf-card:active:not(.used){transform:scale(.92);}
+.shelf-card.used{opacity:.25;pointer-events:none;}
+.shelf-card .sc-icon{font-size:clamp(28px,6.5vw,40px);display:flex;align-items:center;justify-content:center;min-height:40px;transition:transform .3s;}
+.shelf-card .sc-icon img{width:clamp(28px,6.5vw,40px);height:clamp(28px,6.5vw,40px);object-fit:contain;display:block;}
+.shelf-card:hover:not(.used) .sc-icon{transform:scale(1.2) rotate(-5deg);}
+.shelf-card .sc-name{font-size:clamp(8px,1.8vw,11px);font-weight:800;color:#888;margin-top:5px;line-height:1.2;}
+.correct-stamp{position:absolute;top:-5px;right:-5px;background:var(--safe);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:none;align-items:center;justify-content:center;font-weight:900;}
+.shelf-card.used .correct-stamp{display:flex;}
+.tooltip-pop{background:linear-gradient(135deg,#1a1a2e,#2d2d4e);color:#fff;border-radius:18px;padding:12px 16px;font-size:clamp(12px,3vw,14px);line-height:1.5;margin:8px 0;display:none;text-align:center;border:2px solid rgba(255,215,0,.3);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.tooltip-pop.show{display:block;animation:feedIn .3s;}
+.tooltip-pop strong{color:var(--fire3);}
+
+/* ══════════════════════════════════
+   LEVEL 5 - FIRE (extinguish)
+══════════════════════════════════ */
+.fire-stage{background: url(https://i.ibb.co/VpYKXdk2/abandoned-living-room-dusty-sunlight-600nw-2547882133.webp);background-position: right;background-size: contain;border-radius:22px;padding:clamp(18px,4.5vw,32px) 18px;text-align:center;margin:14px 0;position:relative;border:3px solid #ffcc80;min-height:clamp(140px,24vw,190px);overflow:hidden;}
+.fire-obj{font-size:clamp(50px,11vw,75px);display:inline-flex;align-items:center;justify-content:center;position:relative;z-index:1;min-height:75px;min-width:75px;}
+.fire-obj img{width:clamp(50px,11vw,75px);height:clamp(50px,11vw,75px);object-fit:contain;}
+.fire-flames{display:inline-block;position:relative;z-index:2;vertical-align:bottom;}
+.flame{display:inline-block;animation:flicker .35s infinite alternate;font-size:clamp(34px,7.5vw,50px);filter:drop-shadow(0 0 12px rgba(255,100,0,.7));}
+.flame:nth-child(2){animation-delay:.1s;font-size:clamp(26px,6vw,38px);animation-duration:.5s;}
+.flame:nth-child(3){animation-delay:.2s;font-size:clamp(20px,4.5vw,28px);animation-duration:.3s;}
+@keyframes flicker{0%{transform:scale(1) rotate(-4deg)}100%{transform:scale(1.12) rotate(4deg)}}
+.flame.out{animation:none;transition:font-size .6s,opacity .6s;font-size:0!important;opacity:0;}
+.puff-smoke{display:none;font-size:clamp(26px,6vw,40px);animation:puffUp 1s forwards;}
+@keyframes puffUp{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-28px)}}
+.fire-scenario-label{font-size:clamp(13px,3vw,16px);font-weight:800;color:#e65100;margin-bottom:9px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(7px,2vw,12px);margin:14px 0;}
+@media(max-width:460px){.tools-grid{grid-template-columns:repeat(2,1fr);}}
+.tool-card{background:#fff;border:3px solid #e0d8d0;border-radius:20px;padding:clamp(12px,2.5vw,18px) 7px;text-align:center;cursor:pointer;transition:all .2s;touch-action:manipulation;position:relative;overflow:hidden;}
+.tool-card:hover{transform:translateY(-5px);box-shadow:0 9px 26px rgba(0,0,0,.1);border-color:#ccc;}
+.tool-card:active{transform:scale(.92);}
+.tool-card .ti{font-size:clamp(34px,7.5vw,50px);display:flex;align-items:center;justify-content:center;min-height:50px;transition:transform .3s;}
+.tool-card .ti img{width:clamp(34px,7.5vw,50px);height:clamp(34px,7.5vw,50px);object-fit:contain;display:block;}
+.tool-card:hover .ti{transform:scale(1.2);}
+.tool-card .tn{font-size:clamp(9px,2.2vw,12px);font-weight:800;color:#888;margin-top:5px;}
+.tool-card.tool-ok{border-color:var(--safe);background:linear-gradient(160deg,#f0fff4,#d4edda);animation:correctBounce .5s;}
+.tool-card.tool-warn{border-color:#f39c12;background:linear-gradient(160deg,#fffbf0,#fef3d0);animation:wrongWobble .4s;}
+.danger-notice{background:linear-gradient(135deg,#fff3cd,#fde8b0);border:3px solid #ffc107;border-radius:18px;padding:12px 16px;margin:10px 0;font-size:clamp(12px,3vw,14px);font-weight:800;color:#856404;display:none;animation:feedIn .3s;}
+.danger-notice.show{display:block;}
+.final-tip{background:linear-gradient(135deg,#fff3e0,#ffe0b2);border:3px solid #ff9800;border-radius:18px;padding:14px 18px;margin-top:12px;display:none;font-size:clamp(13px,3.5vw,16px);font-weight:800;color:#bf360c;text-align:center;animation:feedIn .5s;}
+
+/* ══════════════════════════════════
+   MEDICAL LEVELS
+══════════════════════════════════ */
+/* Lvl 1 Med - who needs doctor */
+.patient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(100px,22vw,130px),1fr));gap:14px;margin:18px 0;}
+.patient-card{background:linear-gradient(160deg,#fff,#f8fffe);border:3.5px solid #e0f2f1;border-radius:24px;padding:18px 10px;text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.patient-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 12px 30px rgba(0,0,0,.1);}
+.patient-card:active{transform:scale(.93);}
+.patient-icon{font-size:clamp(44px,10vw,62px);display:flex;align-items:center;justify-content:center;min-height:62px;}
+.patient-icon img{width:clamp(44px,10vw,62px);height:clamp(44px,10vw,62px);object-fit:contain;display:block;}
+.patient-name{font-size:clamp(10px,2.5vw,12px);font-weight:800;color:#888;margin-top:7px;}
+.patient-card.correct-pick{border-color:var(--med);background:linear-gradient(160deg,#e0f7fa,#b2ebf2);animation:correctBounce .5s;}
+.patient-card.wrong-pick{border-color:#bbb;background:#f5f5f5;animation:wrongWobble .4s;}
+
+/* Lvl 2 Med - suitcase */
+.suitcase-scene{display:flex;flex-direction:column;align-items:center;gap:16px;margin:16px 0;}
+.suitcase-outer{position:relative;width:clamp(200px,50vw,280px);}
+.suitcase-body{padding:20px;min-height:80px;position:relative;}
+.suitcase-handle{width:60px;height:20px;border-radius:12px 12px 0 0;margin:0 auto;position:absolute;top:-20px;left:50%;transform:translateX(-50%);}
+.suitcase-cross{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:28px;background:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.suitcase-items{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:40px;}
+.placed-item{font-size:28px;animation:gearPop .3s;}
+.med-items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(80px,18vw,100px),1fr));gap:10px;width:100%;}
+.med-item-card{background:#fff;border:3px solid #e0f2f1;border-radius:18px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;}
+.med-item-card:hover{transform:translateY(-4px);border-color:var(--med);}
+.med-item-card:active{transform:scale(.93);}
+.med-item-card.used{opacity:.3;pointer-events:none;}
+.med-item-icon{font-size:clamp(34px,8vw,48px);display:flex;align-items:center;justify-content:center;min-height:48px;}
+.med-item-icon img{width:clamp(34px,8vw,48px);height:clamp(34px,8vw,48px);object-fit:contain;display:block;}
+.med-item-name{font-size:clamp(9px,2vw,11px);font-weight:800;color:#888;margin-top:5px;}
+.med-item-card.mi-correct{border-color:var(--med);background:linear-gradient(160deg,#e0f7fa,#b2ebf2);animation:correctBounce .4s;}
+.med-item-card.mi-wrong{border-color:#bbb;background:#f5f5f5;animation:wrongWobble .4s;}
+
+/* Lvl 4 Med - road */
+.road-scene{position:relative;background:linear-gradient(to bottom,#87ceeb,#b0d4f1 35%,#aaa 35%,#888 65%,#aaa 65%,#87ceeb 100%);border-radius:22px;height:clamp(200px,38vw,280px);overflow:hidden;border:3px solid #90caf9;margin:14px 0;}
+.road-lane{position:absolute;top:35%;bottom:35%;left:0;right:0;background:#888;display:flex;align-items:center;}
+.road-marking{position:absolute;left:0;right:0;top:50%;height:4px;background:repeating-linear-gradient(90deg,#FFD700 0,#FFD700 30px,transparent 30px,transparent 60px);}
+.road-car{position:absolute;font-size:clamp(32px,7vw,48px);transition:left 1.4s cubic-bezier(.25,.46,.45,.94),top 1s;}
+.ambu-car{position:absolute;font-size:clamp(32px,7vw,48px);transition:left 2s;}
+.road-car-blocker{cursor:pointer;}
+.road-car-blocker:hover{filter:brightness(1.2);}
+.move-hint{text-align:center;font-size:clamp(12px,3vw,15px);font-weight:800;color:var(--med2);margin-top:8px;}
+
+/* Lvl 5 Med - catch vitamins */
+.catch-arena{position:relative;background:linear-gradient(to bottom,#e0f7fa,#b2ebf2);border-radius:22px;height:clamp(220px,42vw,300px);overflow:hidden;border:3px solid var(--med);margin:14px 0;}
+.basket{position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-size:clamp(36px,8vw,52px);cursor:none;transition:left .05s;}
+.falling-item{position:absolute;font-size:clamp(26px,6vw,38px);animation:fallDown linear forwards;}
+@keyframes fallDown{from{top:-60px}to{top:110%;}}
+.catch-score-bar{display:flex;align-items:center;justify-content:space-between;font-weight:900;font-size:clamp(14px,3.5vw,18px);margin-bottom:8px;color:var(--med2);}
+.hero-display{font-size:clamp(48px,11vw,72px);transition:all .5s;display:flex;align-items:center;justify-content:center;text-align:center;margin:10px 0;}
+.hero-display img{width:clamp(48px,11vw,72px);height:clamp(48px,11vw,72px);}
+
+/* ══════════════════════════════════
+   POLICE LEVELS
+══════════════════════════════════ */
+/* Lvl 1 Pol - situations */
+.situation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(120px,26vw,160px),1fr));gap:14px;margin:18px 0;}
+.situation-card{background:linear-gradient(160deg,#fff,#f0f4ff);border:3.5px solid #dde2ff;border-radius:22px;padding:18px 10px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
+.situation-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 10px 28px rgba(0,0,0,.1);}
+.situation-card:active{transform:scale(.93);}
+.situation-icon{font-size:clamp(44px,10vw,62px);display:flex;align-items:center;justify-content:center;min-height:62px;}
+.situation-icon img{width:clamp(44px,10vw,62px);height:clamp(44px,10vw,62px);object-fit:contain;display:block;}
+.situation-label{font-size:clamp(10px,2.2vw,12px);font-weight:800;color:#666;margin-top:7px;line-height:1.3;}
+.situation-card.correct-pick{border-color:var(--pol);background:linear-gradient(160deg,#e3f2fd,#bbdefb);animation:correctBounce .5s;}
+.situation-card.wrong-pick{border-color:#ccc;background:#f5f5f5;animation:wrongWobble .4s;}
+
+/* Lvl 2 Pol - equip officer */
+/* reuses ff-arena / shelf styles */
+.pol-display{background:linear-gradient(to bottom,#e8eaf6,#c5cae9);border-radius:22px;min-height:clamp(240px,44vw,340px);border:3px solid #9fa8da;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+
+/* Lvl 3 Pol - find child */
+.park-scene{position:relative;background-image: url(https://img.freepik.com/free-vector/park-2d-game-landscape_1284-13137.jpg);
+    background-position: bottom;;border-radius:22px;height:clamp(220px,42vw,300px);overflow:hidden;border:3px solid #4caf50;margin:14px 0;cursor:crosshair;}
+.park-person{position:absolute;font-size:clamp(22px,5vw,32px);cursor:pointer;transition:transform .1s;user-select:none;}
+.park-person:hover{transform:scale(1.2);}
+.target-badge{position:absolute;top:-8px;right:-8px;background:#FFD700;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:900;animation:pulseProg .8s infinite;display:none;}
+.target-hint{background:linear-gradient(135deg,#1a237e,#283593);border-radius:20px;padding:14px 18px;color:#fff;font-size:clamp(13px,3.5vw,17px);font-weight:800;margin:12px 0;border:2px solid rgba(144,164,251,.4);}
+.target-hint strong{color:#FFD700;}
+
+/* Lvl 4 Pol - traffic light */
+.intersection-scene{position:relative;background:linear-gradient(to bottom,#87ceeb 0%,#b0d4f1 35%,#777 35%,#666 65%,#888 65%,#a7c4bc 100%);border-radius:22px;height:clamp(220px,42vw,300px);overflow:hidden;border:3px solid #78909c;margin:14px 0;}
+.road-h{position:absolute;top:35%;bottom:35%;left:0;right:0;background:#666;}
+.road-v{position:absolute;left:35%;right:35%;top:0;bottom:0;background:#777;}
+.road-line-h{position:absolute;top:50%;height:3px;left:0;right:0;background:repeating-linear-gradient(90deg,#FFD700 0,#FFD700 24px,transparent 24px,transparent 48px);}
+.road-line-v{position:absolute;left:50%;width:3px;top:0;bottom:0;background:repeating-linear-gradient(0deg,#FFD700 0,#FFD700 24px,transparent 24px,transparent 48px);}
+.traffic-light-box{position:absolute;top:8%;left:50%;transform:translateX(-50%);background:#222;border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px;border:3px solid #444;box-shadow:0 4px 12px rgba(0,0,0,.5);cursor:pointer;}
+.tl-bulb{width:clamp(20px,4.5vw,30px);height:clamp(20px,4.5vw,30px);border-radius:50%;background:#333;transition:all .3s;box-shadow:inset 0 2px 4px rgba(0,0,0,.5);}
+.tl-bulb.on-red{background:#f44336;box-shadow:0 0 14px rgba(244,67,54,.8);}
+.tl-bulb.on-green{background:#4caf50;box-shadow:0 0 14px rgba(76,175,80,.8);}
+.tl-bulb.on-yellow{background:#FFD700;box-shadow:0 0 14px rgba(255,215,0,.8);}
+.int-car{position:absolute;font-size:clamp(24px,5vw,34px);transition:all 1s;}
+.int-person{position:absolute;font-size:clamp(22px,5vw,30px);transition:all 1s;}
+.tl-instruction{text-align:center;font-weight:800;font-size:clamp(13px,3.5vw,17px);color:var(--pol);margin:8px 0;}
+
+/* ══════════════════════════════════
+   FINAL - City of Heroes
+══════════════════════════════════ */
+#city-final .game-card{background:linear-gradient(135deg,#fffef5,#fffde7);border:5px solid var(--accent);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 10px rgba(255,215,0,.2),0 0 0 18px rgba(255,215,0,.08),inset 0 1px 0 rgba(255,255,255,.9);}
+.city-map{background:linear-gradient(135deg,#1a237e,#283593);border-radius:24px;padding:24px;margin:16px 0;border:4px solid #3949AB;box-shadow:0 8px 30px rgba(26,35,126,.4);}
+.map-buildings{text-align:center;font-size:clamp(24px,5.5vw,36px);letter-spacing:2px;margin-bottom:12px;}
+.map-numbers{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:16px 0;}
+.map-num-btn{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));border:3px solid rgba(255,255,255,.3);border-radius:20px;padding:12px 18px;font-family:'Baloo 2',sans-serif;font-size:clamp(18px,4.5vw,26px);font-weight:900;color:#fff;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.map-num-btn:hover{transform:translateY(-4px);border-color:#FFD700;color:#FFD700;}
+.map-num-btn:active{transform:scale(.95);}
+.map-num-label{font-size:clamp(9px,2vw,11px);font-weight:700;opacity:.7;}
+.dip-stars{font-size:clamp(26px,6vw,40px);letter-spacing:4px;animation:starSpin 3s linear infinite;}
+@keyframes starSpin{0%,100%{filter:drop-shadow(0 0 8px gold)}50%{filter:drop-shadow(0 0 24px gold)}}
+.dip-title{font-family:'Baloo 2',sans-serif;font-size:clamp(1.8rem,5.5vw,3rem);font-weight:900;color:var(--fire);text-shadow:2px 2px 0 rgba(0,0,0,.1);}
+.dip-badges{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin:18px 0;}
+.dip-badge{background:linear-gradient(135deg,#fff,#fffde7);border:3px solid var(--accent);border-radius:18px;padding:9px 14px;font-size:clamp(11px,2.8vw,14px);font-weight:900;color:#333;display:flex;align-items:center;gap:6px;box-shadow:0 4px 10px rgba(0,0,0,.08);animation:featPop .5s backwards;}
+.dip-badge:nth-child(1){animation-delay:.1s}.dip-badge:nth-child(2){animation-delay:.2s}.dip-badge:nth-child(3){animation-delay:.3s}.dip-badge:nth-child(4){animation-delay:.4s}
+.dip-name-area{background:rgba(255,215,0,.12);border:3px dashed var(--accent);border-radius:18px;padding:clamp(14px,3.5vw,22px);text-align:center;margin:14px 0;}
+.dip-name-area label{font-size:13px;font-weight:800;color:#aaa;display:block;margin-bottom:9px;}
+#dip-name-input{border:none;border-bottom:3px solid var(--accent);background:transparent;width:100%;max-width:300px;font-family:'Baloo 2',sans-serif;font-size:clamp(18px,5vw,26px);font-weight:900;text-align:center;color:var(--fire);outline:none;display:block;margin:0 auto;}
+.dip-body{text-align:center;font-size:clamp(13px,3.5vw,16px);color:#666;line-height:1.9;margin:14px 0;}
+.dip-body strong{color:var(--fire);font-weight:900;font-size:1.15em;}
+.dip-footer{text-align:center;color:#bbb;font-size:12px;margin-top:18px;}
+
+/* Burst stars */
+.burst{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;}
+.burst-star{position:absolute;top:50%;left:50%;font-size:14px;animation:burstOut .7s forwards;}
+@keyframes burstOut{from{transform:translate(-50%,-50%) scale(.5);opacity:1}to{transform:translate(calc(-50% + var(--bx)),calc(-50% + var(--by))) scale(1.2);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="stars-layer"></div>
+<div class="bg-floaters" id="bg-floaters"></div>
+<div class="confetti-layer" id="confetti-layer"></div>
+
+<!-- Welcome overlay -->
+<div id="welcome-overlay" style="
+  position:fixed;inset:0;z-index:500;
+  background:radial-gradient(ellipse at 40% 30%, #2a0a5e 0%, #0a0a1a 60%, #0d1b2e 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+  animation:none;
+">
+  <div style="font-size:clamp(50px,14vw,100px);animation:mascotBounce 1.8s infinite;filter:drop-shadow(0 8px 24px rgba(255,215,0,.5));"><img src="  https://cdn-icons-png.flaticon.com/512/8354/8354019.png" style="
+    height: 185px;
+    /* width:  150px; */
+">
+
+
+  </div>
+
+  <div style="font-size:clamp(1.8rem,7vw,3.8rem);font-weight:900;background:linear-gradient(135deg,#FF6B35,#FFD700,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:10px 0 4px;line-height:1.1;">Город Героев</div>
+  <div style="font-size:clamp(13px,3.5vw,24px);color:rgba(255,255,255,.75);font-weight:800;margin-bottom:47px;line-height:1.6;">
+    Три команды спасателей ждут тебя!<br>
+    <span style="color:#FFD700;">🚒 101</span> · <span style="color:#4DD0E1;">🚓 102</span> · <span style="color:#90CAF9;">🚑 103</span>
+  </div>
+  <div style="display:flex;gap:16px;justify-content:center;font-size:clamp(28px,8vw,52px);margin-bottom:24px;animation:mascotBounce 2s .3s infinite;">
+    <span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-1f692.svg" alt="🧑‍🚒" style="width:60px;height:60px;" loading="lazy"></span><span style="animation-delay:.8s;display:inline-block;animation:mascotBounce 2s .9s infinite;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="🕵️" style="width:60px;height:60px;" loading="lazy"></span><span style="animation-delay:.4s;display:inline-block;animation:mascotBounce 2s .6s infinite;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-2695-fe0f.svg" alt="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-2695-fe0f.svg" style="width:60px;height:60px;" loading="lazy"></span>
+  </div>
+  <button onclick="closeWelcome()" style="
+    background:linear-gradient(135deg,#FF4500,#FF6B35,#FFD700);
+    border:none;border-radius:60px;padding:clamp(14px,3vw,20px) clamp(30px,7vw,56px);
+    font-family:'Baloo 2',sans-serif;font-size:clamp(18px,5vw,26px);font-weight:900;
+    color:#fff;cursor:pointer;
+    box-shadow:0 8px 0 #b83200,0 12px 30px rgba(255,69,0,.5);
+    transition:all .15s;touch-action:manipulation;
+    animation:pulseProg 1.5s infinite;
+  ">🎮 Поехали!</button>
+  <div style="font-size:clamp(11px,2.5vw,13px);color:rgba(255,255,255,.35);margin-top:16px;font-weight:700;">Для детей 5–7 лет · Озвучка 🔊</div>
+</div>
+
+<!-- Top bar -->
+<div id="voice-bar">
+  <div class="app-logo">🏙️ <span>Город Героев</span></div>
+  <div class="speak-waves" id="speak-waves">
+    <div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div><div class="sw"></div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button id="voice-btn" onclick="toggleVoice()" data-speak="Включить или выключить звук">
+      <span id="voice-icon">🔊</span><span id="voice-label">Звук</span>
+    </button>
+    <button id="edit-btn" onclick="openEditor()" title="Редактировать тексты" style="background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.2);border-radius:50px;padding:7px 13px;font-size:14px;font-weight:800;color:rgba(255,255,255,.8);cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;font-family:'Baloo 2',sans-serif;">⚙️ <span style="font-size:12px;">Ред.</span></button>
+  </div>
+</div>
+
+<div id="app">
+
+<!-- ════════ CITY MENU ════════ -->
+<div id="city-menu" class="screen active">
+  <div style="text-align:center;padding:10px 0 6px;">
+    <div class="city-bg-city" style="display:flex;justify-content:center;align-items:flex-end;gap:8px;margin:8px 0;">
+  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3d7.svg" alt="🏗️" style="width:40px;height:40px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3e2.svg" alt="🏢" style="width:44px;height:44px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3e5.svg" alt="🏥" style="width:44px;height:44px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f692.svg" alt="🚒" style="width:40px;height:40px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3e6.svg" alt="🏦" style="width:44px;height:44px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f691.svg" alt="🚑" style="width:38px;height:38px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="👮" style="width:36px;height:36px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f333.svg" alt="🌳" style="width:38px;height:38px;" loading="lazy">
+</div>
+    <div class="city-title">🏙️ Город Героев</div>
+    <div class="city-subtitle">Выбери, кем стать сегодня!</div>
+  </div>
+  <div class="city-sectors">
+    <div class="sector-card sector-fire" id="sec-fire" onclick="enterSector('fire')" data-speak="Пожарный! Номер сто один. Туши огонь и стань пожарным!">
+      <div class="sector-badge" id="badge-fire">✓</div>
+      <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f692.svg" alt="🚒" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
+      <div class="sector-name">Пожарный</div>
+      <div class="sector-num">101</div>
+      <div class="sector-desc">Туши огонь!<br>Стань пожарным!</div>
+    </div>
+    <div class="sector-card sector-med" id="sec-med" onclick="enterSector('med')" data-speak="Доктор! Номер сто три. Лечи людей и стань доктором!">
+      <div class="sector-badge" id="badge-med">✓</div>
+      <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f691.svg" alt="🚑" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
+      <div class="sector-name">Доктор</div>
+      <div class="sector-num">103</div>
+      <div class="sector-desc">Лечи людей!<br>Стань доктором!</div>
+    </div>
+    <div class="sector-card sector-pol" id="sec-pol" onclick="enterSector('pol')" data-speak="Полицейский! Номер сто два. Охраняй порядок и стань полицейским!">
+      <div class="sector-badge" id="badge-pol">✓</div>
+      <span class="sector-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" alt="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f693.svg" style="width:100%;height:100%;object-fit:contain;" loading="lazy"></span>
+      <div class="sector-name">Полицейский</div>
+      <div class="sector-num">102</div>
+      <div class="sector-desc">Охраняй порядок!<br>Стань полицейским!</div>
+    </div>
+  </div>
+  <div class="city-tip">🌟 Пройди все три игры и стань Почётным Жителем Города Героев!</div>
+  <div id="all-done-btn" class="btn-row hidden">
+    <button class="btn btn-fire" onclick="showCityFinal()" data-speak="Получить главную награду Города Героев!">🏆 Получить награду Города Героев!</button>
+  </div>
+</div>
+
+<!-- ════════ FIRE SECTOR ════════ -->
+<div id="fire-sector" class="screen">
+  <div id="progress-wrap-fire" class="prog-wrap-holder"></div>
+  <!-- Level 1 -->
+  <div id="fire-l1" class="game-card" style="display:none;">
+    <div class="level-badge">⭐ Уровень 1 из 5 — 🚒 Пожарный</div>
+    <h2 class="level-title">🔥 Опасно — Безопасно!</h2>
+    <p class="desc">Нажимай только на <strong>опасные</strong> предметы — те, которые могут загореться!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" data-speak="Прочитать задание вслух" id="rb-f1" onclick="readLvl('f1')">🔊 Читай вслух!</button></div>
+    <div id="lvl1-counter">Нашёл: <span class="counter-nums"><span id="found-count">0</span> из <span id="total-danger">?</span></span> 🔍</div>
+    <div id="items-grid"></div>
+    <div id="f1-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="f1-next" class="btn btn-fire hidden" onclick="fireLvl(2)">Дальше! →</button></div>
+  </div>
+  <!-- Level 2 -->
+  <div id="fire-l2" class="game-card" style="display:none;">
+    <div class="level-badge">⭐ Уровень 2 из 5 — 🚒 Пожарный</div>
+    <h2 class="level-title">🚪 Выход из ловушки!</h2>
+    <p class="desc">В комнате появился <strong>дым</strong>! Что нужно делать?</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" data-speak="Прочитать задание вслух" id="rb-f2" onclick="readLvl('f2')">🔊 Читай вслух!</button></div>
+    <div class="room-scene" id="room-scene"><div class="rs-floor"></div><div class="rs-window"></div><div class="rs-door"></div><div class="rs-smoke"><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div>
+    <div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div>
+    <div class="smoke-puff">💨</div><div class="smoke-puff">💨</div><div class="smoke-puff">💨</div>
+  </div><div class="rs-character" id="rs-char" style="left:83%;"></div></div>
+    <div id="choices-area"></div>
+    <div id="f2-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="f2-next" class="btn btn-fire hidden" onclick="fireLvl(3)">Дальше! →</button></div>
+  </div>
+  <!-- Level 3 -->
+  <div id="fire-l3" class="game-card" style="display:none;">
+    <div class="level-badge">⭐ Уровень 3 из 5 — 🚒 Пожарный</div>
+    <h2 class="level-title">📱 Вызови пожарных!</h2>
+    <p class="desc">Нажми <strong>ДВА</strong> правильных номера: <strong>101</strong> и <strong>112</strong>!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" data-speak="Прочитать задание вслух" id="rb-f3" onclick="readLvl('f3')">🔊 Читай вслух!</button></div>
+    <div id="f3-task" style="text-align:center;font-size:clamp(13px,3vw,16px);font-weight:800;color:#555;margin-bottom:6px;">Найди и нажми оба нужных номера 👇</div>
+    <div class="num-choices-big" id="f3-nums"></div>
+    <div id="f3-fb" class="feedback-box"></div>
+    <div class="dispatcher-card" id="f3-dispatcher"><span class="dispatcher-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f469-200d-1f4bc.svg" alt="👩‍💼" style="width:80px;height:80px;" loading="lazy"></span><p>📞 <strong>«Пожарная служба слушает! Что произошло?»</strong></p><p>🗣️ Проговори свой адрес вслух — улицу и номер дома!</p></div>
+    <div class="phone-container mt-12">
+      <div class="phone-outer">
+        <div class="phone-screen" id="f3-screen">_</div>
+        <div class="phone-keys">
+          <button class="pkey" onclick="pKey('f3','1')">1</button><button class="pkey" onclick="pKey('f3','2')">2</button><button class="pkey" onclick="pKey('f3','3')">3</button>
+          <button class="pkey" onclick="pKey('f3','4')">4</button><button class="pkey" onclick="pKey('f3','5')">5</button><button class="pkey" onclick="pKey('f3','6')">6</button>
+          <button class="pkey" onclick="pKey('f3','7')">7</button><button class="pkey" onclick="pKey('f3','8')">8</button><button class="pkey" onclick="pKey('f3','9')">9</button>
+          <button class="pkey red" onclick="pClear('f3')">✕</button><button class="pkey" onclick="pKey('f3','0')">0</button><button class="pkey green" onclick="pCall('f3')">📞</button>
+        </div>
+      </div>
+    </div>
+    <div id="f3-phone-fb" class="feedback-box mt-12"></div>
+    <div class="btn-row"><button id="f3-next" class="btn btn-fire hidden" onclick="fireLvl(4)">Дальше! →</button></div>
+  </div>
+  <!-- Level 4 -->
+  <div id="fire-l4" class="game-card" style="display:none;">
+    <div class="level-badge">⭐ Уровень 4 из 5 — 🚒 Пожарный</div>
+    <h2 class="level-title">👷 Одень пожарного!</h2>
+    <p class="desc">Нажимай на <strong>нужное снаряжение</strong>, чтобы пожарный Иван был готов!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" data-speak="Прочитать задание вслух" id="rb-f4" onclick="readLvl('f4')">🔊 Читай вслух!</button></div>
+    <div id="f4-tooltip" class="tooltip-pop"></div>
+    <div class="ff-arena">
+      <div class="ff-display"><div class="ff-bg-sky"><div class="ff-cloud" style="top:15%;animation-duration:8s;">☁️</div><div class="ff-cloud" style="top:55%;animation-duration:11s;animation-delay:-4s;">☁️</div></div><div class="ff-figure" id="f4-figure"><span class="ff-body-emoji" id="f4-body"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f468.svg" alt="👨" style="width:100px;height:100px;" loading="lazy"></span><div class="ff-gear-layer" id="f4-gear"></div></div><div class="ff-name" id="f4-name">Пожарный Иван</div><div class="ff-progress" id="f4-progress">Снаряжение: 0 / 6</div><div class="siren-glow" id="f4-siren">🚨 ВЫ — У — У — У! 🚒</div></div>
+      <div><div class="shelf-grid" id="f4-shelf"></div></div>
+    </div>
+    <div id="f4-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="f4-next" class="btn btn-fire hidden" onclick="fireLvl(5)">Дальше! →</button></div>
+  </div>
+  <!-- Level 5 -->
+  <div id="fire-l5" class="game-card" style="display:none;">
+    <div class="level-badge">⭐ Уровень 5 из 5 — 🚒 Пожарный</div>
+    <h2 class="level-title">💧 Потуши искру!</h2>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn" data-speak="Прочитать задание вслух" id="rb-f5" onclick="readLvl('f5')">🔊 Читай вслух!</button></div>
+    <div class="fire-scenario-label" id="f5-label">🔥 Загорелась занавеска!</div>
+    <div class="fire-stage"><div id="f5-obj" class="fire-obj"></div><div class="fire-flames" id="f5-flames"><span class="flame">🔥</span><span class="flame">🔥</span><span class="flame">🔥</span></div><div id="f5-smoke" class="puff-smoke">💨💨</div></div>
+    <p class="desc">Выбери правильное средство тушения! 👇</p>
+    <div class="tools-grid" id="f5-tools"></div>
+    <div class="danger-notice" id="f5-danger"></div>
+    <div id="f5-fb" class="feedback-box"></div>
+    <div class="final-tip" id="f5-tip">🧑‍🚒 Помни! Если огонь БОЛЬШОЙ — не туши сам! Беги и кричи на помощь! Звони 101!</div>
+    <div class="btn-row"><button id="f5-next" class="btn btn-fire hidden" onclick="completeSector('fire')">🏅 Уровень пройден!</button></div>
+  </div>
+  <!-- Fire diploma -->
+  <div id="fire-diploma" class="game-card" style="display:none;">
+    <div style="text-align:center;">
+      <div class="dip-stars">⭐⭐⭐</div>
+      <div class="dip-title">🚒 Юный Огнеборец!</div>
+      <div style="font-size:clamp(80px,18vw,120px);animation:mascotBounce 2s infinite;display:block;filter:drop-shadow(0 8px 20px rgba(255,69,0,.3));"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-1f692.svg" alt="🧑‍🚒" style="width:120px;height:120px;" loading="lazy"></div>
+      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты знаешь, как справиться с огнём!<br>Значок <strong style="color:var(--fire);">Огнеборца</strong> — твой!</p>
+      <div class="dip-badges"><div class="dip-badge">🔥 Знает опасности</div><div class="dip-badge">🚪 Умеет выбраться</div><div class="dip-badge">📱 Знает 101</div><div class="dip-badge">💧 Умеет тушить</div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-fire" onclick="backToCity()">← Город героев</button></div>
+  </div>
+</div>
+
+<!-- ════════ MEDICAL SECTOR ════════ -->
+<div id="med-sector" class="screen">
+  <!-- Level 1 -->
+  <div id="med-l1" class="game-card med-card" style="display:none;">
+    <div class="level-badge med">⭐ Уровень 1 из 5 — 🚑 Доктор</div>
+    <h2 class="level-title">🩺 Кому нужен врач?</h2>
+    <p class="desc">Нажимай на тех, кому <strong class="med">срочно нужна помощь доктора!</strong> Смотри внимательно!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m1" onclick="readLvl('m1')">🔊 Читай вслух!</button></div>
+    <div id="m1-counter" style="text-align:center;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:#555;margin-bottom:8px;">Нашёл: <span style="font-size:clamp(20px,5vw,28px);font-weight:900;color:var(--med2);"><span id="m1-found">0</span> из <span id="m1-total">?</span></span> 🏥</div>
+    <div class="patient-grid" id="m1-grid"></div>
+    <div id="m1-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="m1-next" class="btn btn-med hidden" onclick="medLvl(2)">Дальше! →</button></div>
+  </div>
+  <!-- Level 2 -->
+  <div id="med-l2" class="game-card med-card" style="display:none;">
+    <div class="level-badge med">⭐ Уровень 2 из 5 — 🚑 Доктор</div>
+    <h2 class="level-title">🧳 Собери чемоданчик!</h2>
+    <p class="desc">Положи в чемоданчик только <strong class="med">нужные инструменты врача!</strong></p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m2" onclick="readLvl('m2')">🔊 Читай вслух!</button></div>
+    <div class="suitcase-scene">
+      <div class="suitcase-outer">
+        <div class="suitcase-handle"></div>
+        <div class="suitcase-body">
+          <img src="https://cdn-icons-png.flaticon.com/512/3302/3302185.png" alt="🚑" style="width: 237px;height: 241px;margin-left: 15px;/* margin: 38px; */">
+          <div class="suitcase-items" id="m2-placed"></div>
+        </div>
+      </div>
+      <div class="med-items-grid" id="m2-grid"></div>
+    </div>
+    <div id="m2-progress" style="text-align:center;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:var(--med2);margin-bottom:8px;">Инструментов: <span id="m2-count">0</span> из <span id="m2-total">?</span></div>
+    <div id="m2-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="m2-next" class="btn btn-med hidden" onclick="medLvl(3)">Дальше! →</button></div>
+  </div>
+  <!-- Level 3 -->
+  <div id="med-l3" class="game-card med-card" style="display:none;">
+    <div class="level-badge med">⭐ Уровень 3 из 5 — 🚑 Доктор</div>
+    <h2 class="level-title">📱 Алло, Скорая!</h2>
+    <p class="desc">Набери <strong class="med">ДВА</strong> правильных номера скорой: <strong class="med">103</strong> и <strong class="med">112</strong>!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m3" onclick="readLvl('m3')">🔊 Читай вслух!</button></div>
+    <div class="num-choices-big" id="m3-nums"></div>
+    <div id="m3-fb" class="feedback-box"></div>
+    <div class="dispatcher-card med" id="m3-dispatcher"><span class="dispatcher-icon"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f469-200d-2695-fe0f.svg" alt="👩‍⚕️" style="width:80px;height:80px;" loading="lazy"></span><p>📞 <strong>«Скорая помощь слушает! Что случилось?»</strong></p><p>🗣️ Назови своё имя и адрес! Что болит?</p></div>
+    <div class="phone-container mt-12">
+      <div class="phone-outer med-phone">
+        <div class="phone-screen med-screen" id="m3-screen">_</div>
+        <div class="phone-keys">
+          <button class="pkey" onclick="pKey('m3','1')">1</button><button class="pkey" onclick="pKey('m3','2')">2</button><button class="pkey" onclick="pKey('m3','3')">3</button>
+          <button class="pkey" onclick="pKey('m3','4')">4</button><button class="pkey" onclick="pKey('m3','5')">5</button><button class="pkey" onclick="pKey('m3','6')">6</button>
+          <button class="pkey" onclick="pKey('m3','7')">7</button><button class="pkey" onclick="pKey('m3','8')">8</button><button class="pkey" onclick="pKey('m3','9')">9</button>
+          <button class="pkey red" onclick="pClear('m3')">✕</button><button class="pkey" onclick="pKey('m3','0')">0</button><button class="pkey green" onclick="pCall('m3')">📞</button>
+        </div>
+      </div>
+    </div>
+    <div id="m3-phone-fb" class="feedback-box mt-12"></div>
+    <div class="btn-row"><button id="m3-next" class="btn btn-med hidden" onclick="medLvl(4)">Дальше! →</button></div>
+  </div>
+  <!-- Level 4 -->
+  <div id="med-l4" class="game-card med-card" style="display:none;">
+    <div class="level-badge med">⭐ Уровень 4 из 5 — 🚑 Доктор</div>
+    <h2 class="level-title">🚑 Дорогу скорой!</h2>
+    <p class="desc">Нажимай на машинки, чтобы освободить <strong class="med">путь скорой помощи!</strong></p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m4" onclick="readLvl('m4')">🔊 Читай вслух!</button></div>
+    <div class="road-scene" id="m4-road">
+      <div class="road-lane"><div class="road-marking"></div></div>
+      <div id="m4-cars"></div>
+      <div class="road-car ambu-car" id="m4-ambu" style="left:-15%;top:38%;" data-speak="Скорая помощь! Освободи ей дорогу!">🚑</div>
+    </div>
+    <div class="move-hint" id="m4-hint">👆 Нажми на машины, чтобы убрать их с дороги!</div>
+    <div id="m4-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="m4-next" class="btn btn-med hidden" onclick="medLvl(5)">Дальше! →</button></div>
+  </div>
+  <!-- Level 5 -->
+  <div id="med-l5" class="game-card med-card" style="display:none;">
+    <div class="level-badge med">⭐ Уровень 5 из 5 — 🚑 Доктор</div>
+    <h2 class="level-title">🥦 Витаминная подзарядка!</h2>
+    <p class="desc">Лови <strong class="med">полезные предметы</strong> в корзинку! Двигай мышкой или пальцем!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn med-read" data-speak="Прочитать задание вслух" id="rb-m5" onclick="readLvl('m5')">🔊 Читай вслух!</button></div>
+    <div class="catch-score-bar"><span>🌟 Поймано: <span id="m5-score">0</span></span><span id="m5-lives">❤️❤️❤️</span><span id="m5-timer">⏱️ 30с</span></div>
+    <div class="catch-arena" id="m5-arena"></div>
+    <span class="hero-display" id="m5-hero"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f912.svg" alt="🤒" style="width:72px;height:72px;" loading="lazy"></span>
+    <div id="m5-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="m5-next" class="btn btn-med hidden" onclick="completeSector('med')">🏅 Уровень пройден!</button></div>
+  </div>
+  <!-- Med diploma -->
+  <div id="med-diploma" class="game-card med-card" style="display:none;">
+    <div style="text-align:center;">
+      <div class="dip-stars">⭐⭐⭐</div>
+      <div class="dip-title" style="color:var(--med2);">🚑 Друг Доктора!</div>
+      <div style="font-size:clamp(80px,18vw,120px);animation:mascotBounce 2s infinite;display:block;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f468-200d-2695.svg" alt="👨‍⚕️" style="width:120px;height:120px;" loading="lazy"></div>
+      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты знаешь, как помогать людям!<br>Значок <strong style="color:var(--med2);">Друга Доктора</strong> — твой!</p>
+      <div class="dip-badges"><div class="dip-badge">🩺 Знает, кому нужна помощь</div><div class="dip-badge">🧳 Собрал чемоданчик</div><div class="dip-badge">📱 Знает 103</div><div class="dip-badge">🥦 Ест полезное</div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-med" onclick="backToCity()">← Город героев</button></div>
+  </div>
+</div>
+
+<!-- ════════ POLICE SECTOR ════════ -->
+<div id="pol-sector" class="screen">
+  <!-- Level 1 -->
+  <div id="pol-l1" class="game-card pol-card" style="display:none;">
+    <div class="level-badge pol">⭐ Уровень 1 из 5 — 👮 Детектив</div>
+    <h2 class="level-title">🏫 Школа порядка!</h2>
+    <p class="desc">Нажимай на ситуации, где <strong class="pol">нужна помощь полицейского!</strong></p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p1" onclick="readLvl('p1')">🔊 Читай вслух!</button></div>
+    <div id="p1-counter" style="text-align:center;font-size:clamp(14px,3.5vw,18px);font-weight:900;color:#555;margin-bottom:8px;">Нашёл: <span style="font-size:clamp(20px,5vw,28px);font-weight:900;color:var(--pol);"><span id="p1-found">0</span> из <span id="p1-total">?</span></span> 🔍</div>
+    <div class="situation-grid" id="p1-grid"></div>
+    <div id="p1-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="p1-next" class="btn btn-pol hidden" onclick="polLvl(2)">Дальше! →</button></div>
+  </div>
+  <!-- Level 2 -->
+  <div id="pol-l2" class="game-card pol-card" style="display:none;">
+    <div class="level-badge pol">⭐ Уровень 2 из 5 — 👮 Детектив</div>
+    <h2 class="level-title">👮 Собери патрульного!</h2>
+    <p class="desc">Нажимай на <strong class="pol">нужное снаряжение</strong> полицейского!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p2" onclick="readLvl('p2')">🔊 Читай вслух!</button></div>
+    <div id="p2-tooltip" class="tooltip-pop"></div>
+    <div class="ff-arena">
+      <div class="pol-display ff-display"><div class="ff-figure" id="p2-figure"><span class="ff-body-emoji" id="p2-body"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f464.svg" alt="👤" style="width:100px;height:100px;" loading="lazy"></span><div class="ff-gear-layer" id="p2-gear"></div></div><div class="ff-name" id="p2-name">Полицейский Максим</div><div class="ff-progress" id="p2-progress">Снаряжение: 0 / 5</div><div class="siren-glow" id="p2-siren">🚨 ПРИЁМ! ПАТРУЛЬ НА СВЯЗИ! 👮</div></div>
+      <div><div class="shelf-grid" id="p2-shelf"></div></div>
+    </div>
+    <div id="p2-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="p2-next" class="btn btn-pol hidden" onclick="polLvl(3)">Дальше! →</button></div>
+  </div>
+  <!-- Level 3 -->
+  <div id="pol-l3" class="game-card pol-card" style="display:none;">
+    <div class="level-badge pol">⭐ Уровень 3 из 5 — 👮 Детектив</div>
+    <h2 class="level-title">👀 Найди потеряшку!</h2>
+    <p class="desc">В парке потерялся ребёнок! Внимательно прочитай приметы и <strong class="pol">найди его!</strong></p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p3" onclick="readLvl('p3')">🔊 Читай вслух!</button></div>
+    <div class="target-hint" id="p3-hint">🔍 Найди: <strong id="p3-target-desc">мальчика в синей кепке</strong></div>
+    <div class="park-scene" id="p3-park"></div>
+    <div id="p3-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="p3-next" class="btn btn-pol hidden" onclick="polLvl(4)">Дальше! →</button></div>
+  </div>
+  <!-- Level 4 -->
+  <div id="pol-l4" class="game-card pol-card" style="display:none;">
+    <div class="level-badge pol">⭐ Уровень 4 из 5 — 👮 Детектив</div>
+    <h2 class="level-title">🚦 Дорожный инспектор!</h2>
+    <p class="desc">Нажимай на <strong class="pol">светофор</strong>, чтобы безопасно пропустить всех!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p4" onclick="readLvl('p4')">🔊 Читай вслух!</button></div>
+    <div class="intersection-scene" id="p4-scene">
+      <div class="road-h"><div class="road-line-h"></div></div>
+      <div class="road-v"><div class="road-line-v"></div></div>
+      <div class="traffic-light-box" id="p4-light" onclick="toggleLight()" data-speak="Светофор! Нажми, чтобы переключить свет!">
+        <div class="tl-bulb" id="tl-red"></div>
+        <div class="tl-bulb" id="tl-yellow"></div>
+        <div class="tl-bulb" id="tl-green"></div>
+      </div>
+      <div id="p4-entities"></div>
+    </div>
+    <div class="tl-instruction" id="p4-instruction">👆 Нажми на светофор, чтобы переключить свет!</div>
+    <div id="p4-fb" class="feedback-box"></div>
+    <div class="btn-row"><button id="p4-next" class="btn btn-pol hidden" onclick="polLvl(5)">Дальше! →</button></div>
+  </div>
+  <!-- Level 5 -->
+  <div id="pol-l5" class="game-card pol-card" style="display:none;">
+    <div class="level-badge pol">⭐ Уровень 5 из 5 — 👮 Детектив</div>
+    <h2 class="level-title">📡 Спецсвязь!</h2>
+    <p class="desc">Набери <strong class="pol">ДВА</strong> правильных номера полиции: <strong class="pol">102</strong> и <strong class="pol">112</strong>!</p>
+    <div class="btn-row" style="margin:0 0 10px;"><button class="read-btn pol-read" data-speak="Прочитать задание вслух" id="rb-p5" onclick="readLvl('p5')">🔊 Читай вслух!</button></div>
+    <div class="num-choices-big" id="p5-nums"></div>
+    <div id="p5-fb" class="feedback-box"></div>
+    <div class="dispatcher-card pol" id="p5-dispatcher"><span class="dispatcher-icon"><img src="   https://cdn-icons-png.flaticon.com/512/1022/1022331.png " alt="👮‍♂️" style="width:80px;height:80px;" loading="lazy"></span><p>📞 <strong>«Дежурная часть слушает! Что произошло?»</strong></p><p>🗣️ Скажи своё имя и где ты находишься!</p></div>
+    <div class="phone-container mt-12">
+      <div class="phone-outer pol-phone">
+        <div class="phone-screen pol-screen" id="p5-screen">_</div>
+        <div class="phone-keys">
+          <button class="pkey" onclick="pKey('p5','1')">1</button><button class="pkey" onclick="pKey('p5','2')">2</button><button class="pkey" onclick="pKey('p5','3')">3</button>
+          <button class="pkey" onclick="pKey('p5','4')">4</button><button class="pkey" onclick="pKey('p5','5')">5</button><button class="pkey" onclick="pKey('p5','6')">6</button>
+          <button class="pkey" onclick="pKey('p5','7')">7</button><button class="pkey" onclick="pKey('p5','8')">8</button><button class="pkey" onclick="pKey('p5','9')">9</button>
+          <button class="pkey red" onclick="pClear('p5')">✕</button><button class="pkey" onclick="pKey('p5','0')">0</button><button class="pkey green" onclick="pCall('p5')">📞</button>
+        </div>
+      </div>
+    </div>
+    <div id="p5-phone-fb" class="feedback-box mt-12"></div>
+    <div class="btn-row"><button id="p5-next" class="btn btn-pol hidden" onclick="completeSector('pol')">🏅 Уровень пройден!</button></div>
+  </div>
+  <!-- Pol diploma -->
+  <div id="pol-diploma" class="game-card pol-card" style="display:none;">
+    <div style="text-align:center;">
+      <div class="dip-stars">⭐⭐⭐</div>
+      <div class="dip-title" style="color:var(--pol);">👮 Юный Детектив!</div>
+      <div style="font-size:clamp(80px,18vw,120px);animation:mascotBounce 2s infinite;display:block;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f575.svg" alt="🕵️" style="width:120px;height:120px;" loading="lazy"></div>
+      <p style="font-size:clamp(14px,3.5vw,18px);font-weight:800;color:#555;margin:12px 0;">Ты умеешь охранять порядок!<br>Значок <strong style="color:var(--pol);">Юного Детектива</strong> — твой!</p>
+      <div class="dip-badges"><div class="dip-badge">🏫 Знает, когда звать полицию</div><div class="dip-badge">👮 Собрал снаряжение</div><div class="dip-badge">📱 Знает 102</div><div class="dip-badge">🚦 Знает правила дороги</div></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-pol" onclick="backToCity()">← Город героев</button></div>
+  </div>
+</div>
+
+<!-- ════════ CITY FINAL ════════ -->
+<div id="city-final" class="screen">
+  <div class="game-card">
+    <div style="text-align:center;">
+      <div class="dip-stars">🌟🌟🌟🌟🌟</div>
+      <div class="dip-title">🏙️ ПОЧЁТНЫЙ ЖИТЕЛЬ</div>
+      <div style="font-size:clamp(14px,4vw,20px);font-weight:800;color:#888;margin-bottom:16px;">Города Героев!</div>
+      <div style="font-size:clamp(60px,14vw,100px);animation:mascotBounce 2s infinite;display:block;"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9b8.svg" alt="🦸" style="width:110px;height:110px;" loading="lazy"></div>
+    </div>
+    <div class="dip-name-area">
+      <label>✏️ Напиши своё имя:</label>
+      <input type="text" id="dip-name-input" placeholder="Твоё имя" maxlength="30">
+    </div>
+    <div class="dip-body">
+      Настоящим удостоверяется, что<br>
+      <strong id="dip-name-display">Юный Герой</strong><br>
+      прошёл все три испытания<br>
+      <strong>«Города Героев»</strong><br>
+      и готов защищать и помогать!
+    </div>
+    <div class="city-map">
+      <div class="map-buildings" style="display:flex;justify-content:center;align-items:flex-end;gap:8px;">
+  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3d7.svg" alt="🏗️" style="width:38px;height:38px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3e2.svg" alt="🏢" style="width:42px;height:42px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3e5.svg" alt="🏥" style="width:40px;height:40px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f692.svg" alt="🚒" style="width:38px;height:38px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3e6.svg" alt="🏦" style="width:40px;height:40px;" loading="lazy"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f333.svg" alt="🌳" style="width:36px;height:36px;" loading="lazy">
+</div>
+      <div style="text-align:center;color:rgba(255,255,255,.7);font-size:clamp(12px,3vw,15px);font-weight:800;margin-bottom:12px;">Нажми на номер — узнай, когда звонить!</div>
+      <div class="map-numbers">
+        <button class="map-num-btn" onclick="tellNumber('101')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f692.svg" alt="🚒" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>101<span class="map-num-label">Пожарные</span></button>
+        <button class="map-num-btn" onclick="tellNumber('102')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f46e.svg" alt="👮" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>102<span class="map-num-label">Полиция</span></button>
+        <button class="map-num-btn" onclick="tellNumber('103')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f691.svg" alt="🚑" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>103<span class="map-num-label">Скорая</span></button>
+        <button class="map-num-btn" onclick="tellNumber('112')"><span><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4de.svg" alt="📞" style="width:28px;height:28px;vertical-align:middle;" loading="lazy"></span>112<span class="map-num-label">Все службы</span></button>
+      </div>
+    </div>
+    <div class="dip-badges">
+      <div class="dip-badge">🧑‍🚒 Огнеборец</div>
+      <div class="dip-badge">👨‍⚕️ Друг доктора</div>
+      <div class="dip-badge">🕵️ Детектив</div>
+      <div class="dip-badge">🏙️ Герой города</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-fire" onclick="window.print()">🖨️ Распечатать</button>
+      <button class="btn btn-green" onclick="restartAll()">🔄 Играть снова!</button>
+    </div>
+    <div class="dip-footer">🏙️ Город Героев · Береги себя и помогай другим!</div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<script>
+function closeWelcome(){
+  playClick();
+  const overlay=document.getElementById('welcome-overlay');
+  overlay.style.transition='opacity .5s';
+  overlay.style.opacity='0';
+  setTimeout(()=>overlay.style.display='none',500);
+}
+
+// ══════════════════════════════════
+//  FLOATERS
+// ══════════════════════════════════
+(function(){
+  const emojis=['🔥','🚒','⭐','🚑','👮','💧','✨','🌟','🚨','❄️','🎉','🏅'];
+  const c=document.getElementById('bg-floaters');
+  for(let i=0;i<24;i++){
+    const d=document.createElement('div');d.className='floater';
+    d.textContent=emojis[i%emojis.length];
+    d.style.left=(Math.random()*100)+'vw';
+    d.style.animationDuration=(12+Math.random()*18)+'s';
+    d.style.animationDelay=(Math.random()*18)+'s';
+    c.appendChild(d);
+  }
+})();
+
+// ══════════════════════════════════
+//  AUDIO
+// ══════════════════════════════════
+let audioCtx=null;
+function getAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playTone(freq,dur,type='sine',vol=0.15){try{const ctx=getAudio();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.type=type;osc.frequency.setValueAtTime(freq,ctx.currentTime);gain.gain.setValueAtTime(vol,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);osc.start();osc.stop(ctx.currentTime+dur);}catch(e){}}
+function playSuccess(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,.2,'sine',.14),i*75));}
+function playError(){[220,196].forEach((f,i)=>setTimeout(()=>playTone(f,.22,'sawtooth',.09),i*110));}
+function playClick(){playTone(440,.07,'sine',.07);}
+function playSiren(){try{const ctx=getAudio();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.type='sawtooth';osc.frequency.setValueAtTime(600,ctx.currentTime);osc.frequency.linearRampToValueAtTime(900,ctx.currentTime+0.5);osc.frequency.linearRampToValueAtTime(600,ctx.currentTime+1.0);gain.gain.setValueAtTime(0.11,ctx.currentTime);gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+1.2);osc.start();osc.stop(ctx.currentTime+1.2);}catch(e){}}
+function playAmbulanceSiren(){try{const ctx=getAudio();for(let i=0;i<3;i++){const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.type='sawtooth';const t=ctx.currentTime+i*0.5;osc.frequency.setValueAtTime(700,t);osc.frequency.linearRampToValueAtTime(500,t+0.25);gain.gain.setValueAtTime(0.1,t);gain.gain.exponentialRampToValueAtTime(0.001,t+0.48);osc.start(t);osc.stop(t+0.5);}}catch(e){}}
+function playPoliceSiren(){try{const ctx=getAudio();for(let i=0;i<4;i++){const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.type='square';const t=ctx.currentTime+i*0.3;osc.frequency.setValueAtTime(i%2===0?800:600,t);gain.gain.setValueAtTime(0.07,t);gain.gain.exponentialRampToValueAtTime(0.001,t+0.28);osc.start(t);osc.stop(t+0.3);}}catch(e){}}
+
+// ══════════════════════════════════
+//  SPEECH
+// ══════════════════════════════════
+let voiceOn=true;
+const synth=window.speechSynthesis;
+const wavesEl=document.getElementById('speak-waves');
+function getRuVoice(){const voices=synth.getVoices();const priority=[v=>v.lang==='ru-RU'&&v.name.includes('Google'),v=>v.lang==='ru-RU'&&!v.localService,v=>v.lang==='ru-RU',v=>v.lang.startsWith('ru'),v=>true];for(const p of priority){const found=voices.find(p);if(found)return found;}return null;}
+function speak(text,opts={}){
+  if(!voiceOn||!synth)return;
+  synth.cancel();
+  wavesEl.classList.remove('active');
+  setTimeout(()=>{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='ru-RU';
+    u.rate=opts.rate||0.75;    // slower = clearer for kids
+    u.pitch=opts.pitch||1.4;   // higher = more child-friendly
+    u.volume=opts.volume||1;
+    const v=getRuVoice();if(v)u.voice=v;
+    const rb=opts.readBtn?document.getElementById(opts.readBtn):null;
+    if(rb)rb.classList.add('reading');
+    u.onstart=()=>wavesEl.classList.add('active');
+    u.onend=u.onerror=()=>{wavesEl.classList.remove('active');if(rb)rb.classList.remove('reading');};
+    synth.speak(u);
+  },80);
+}
+function stopSpeak(){synth&&synth.cancel();wavesEl.classList.remove('active');}
+function toggleVoice(){voiceOn=!voiceOn;const btn=document.getElementById('voice-btn');const icon=document.getElementById('voice-icon');const lbl=document.getElementById('voice-label');if(voiceOn){btn.classList.remove('off');icon.textContent='🔊';lbl.textContent='Звук';speak('Звук включён!',{pitch:1.3,rate:0.9});}else{stopSpeak();btn.classList.add('off');icon.textContent='🔇';lbl.textContent='Тихо';}}
+if(synth){synth.onvoiceschanged=()=>{getRuVoice();};synth.getVoices();}
+
+const INSTRUCTIONS={
+  f1:'Смотри на картинки! Нажимай только на опасные предметы, которые могут вызвать пожар! Свечка, петарда — опасно! Мячик — безопасно!',
+  f2:'В комнате появился дым! Что делать? Нельзя прятаться под кровать и нельзя выбегать на балкон! Выбери правильный ответ!',
+  f3:'Запомни! Пожарных вызывают по двум номерам: сто один и сто двенадцать! Нажми оба правильных номера!',
+  f4:'Помоги пожарному Ивану! Нажимай только на нужное снаряжение: каска, костюм, маска, сапоги, перчатки и фонарь!',
+  f5:'Что-то загорелось! Выбери правильное средство тушения! Но помни — большой огонь тушить самому нельзя!',
+  m1:'Посмотри на детей! Кому из них нужна срочная помощь доктора? Нажимай на того, кто сильно заболел или получил серьёзную травму!',
+  m2:'Помоги доктору собрать чемоданчик скорой помощи! Клади только нужные медицинские инструменты!',
+  m3:'Запомни! Скорую помощь вызывают по номерам: сто три и сто двенадцать! Нажми оба правильных номера!',
+  m4:'Скорой помощи нужно срочно проехать! Нажимай на машины, чтобы освободить им дорогу!',
+  m5:'Лови полезные предметы — овощи, фрукты!',
+  p1:'Посмотри на картинки! В каких ситуациях нужна помощь полицейского? Нажимай на тревожные ситуации!',
+  p2:'Одень полицейского Максима! Нажимай только на нужное снаряжение: фуражка, рация, жезл, свисток, жилет!',
+  p3:'В парке потерялся ребёнок! Внимательно прочитай его приметы и найди его среди людей!',
+  p4:'Ты дорожный инспектор! Нажимай на светофор, чтобы машины и пешеходы могли безопасно ехать!',
+  p5:'Запомни! Полицию вызывают по номерам: сто два и сто двенадцать! Нажми оба правильных номера!'
+};
+function readLvl(key){playClick();speak(INSTRUCTIONS[key],{readBtn:'rb-'+key,rate:0.78,pitch:1.2});}
+
+// ══════════════════════════════════
+//  STATE
+// ══════════════════════════════════
+const sectorDone={fire:false,med:false,pol:false};
+let curSector=null;
+
+// Phone state per screen
+const phoneBufs={};
+const phoneDone={};
+// Dual number selection state
+const numSelected={};
+
+// ══════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function showSectorLevel(sector,lvl){
+  if(window._twemojiRefresh) setTimeout(window._twemojiRefresh, 300);
+  const prefix={fire:'fire-l',med:'med-l',pol:'pol-l'}[sector];
+  ['l1','l2','l3','l4','l5','diploma'].forEach(s=>{
+    const el=document.getElementById(sector+'-'+s);if(el)el.style.display='none';
+  });
+  for(let i=1;i<=5;i++){const el=document.getElementById(sector+'-l'+i);if(el)el.style.display='none';}
+  const dipl=document.getElementById(sector+'-diploma');if(dipl)dipl.style.display='none';
+  const target=document.getElementById(sector+'-l'+lvl);if(target)target.style.display='block';
+}
+
+function enterSector(sector){
+  playClick(); curSector=sector;
+  stopSpeak();
+  showScreen(sector+'-sector');
+  showSectorLevel(sector,1);
+  const greetings={
+    fire:'Отлично! Добро пожаловать в пожарную службу! Пять уровней, и ты станешь другом пожарного!',
+    med:'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!',
+    pol:'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!'
+  };
+  const builders={fire:()=>buildF1(),med:()=>buildM1(),pol:()=>buildP1()};
+  builders[sector]();
+  // Apply Twemoji to render consistent cross-platform images
+  twemoji.parse(document.body, {
+    folder: 'svg',
+    ext: '.svg',
+    base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/',
+    className: 'twemoji'
+  });
+  // Re-apply after any dynamic DOM changes
+  window._twemojiRefresh = () => {
+    twemoji.parse(document.body, {
+      folder: 'svg', ext: '.svg',
+      base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/',
+      className: 'twemoji'
+    });
+  };
+  setTimeout(()=>speak(greetings[sector],{rate:0.8,pitch:1.15}),500);
+}
+
+function backToCity(){
+  stopSpeak(); playClick();
+  showScreen('city-menu');
+  updateCityBadges();
+  const allDone=Object.values(sectorDone).every(v=>v);
+  if(allDone){
+    document.getElementById('all-done-btn').classList.remove('hidden');
+    setTimeout(()=>speak('Ура! Ты прошёл все три игры! Нажимай кнопку, чтобы получить главную награду Города Героев!',{rate:0.78,pitch:1.2}),600);
+  } else {
+    setTimeout(()=>speak('Выбирай следующего героя!',{rate:0.82,pitch:1.15}),400);
+  }
+}
+
+function updateCityBadges(){
+  ['fire','med','pol'].forEach(s=>{
+    const sec=document.getElementById('sec-'+s);
+    const badge=document.getElementById('badge-'+s);
+    if(sectorDone[s]){sec.classList.add('completed');}
+  });
+}
+
+function completeSector(sector){
+  playSuccess(); launchConfetti(70);
+  sectorDone[sector]=true;
+  showSectorLevel(sector,'diploma');
+  const msgs={
+    fire:'УРА! УРА! Ты прошёл все уровни пожарного! Значок Огнеборца теперь твой! Через несколько секунд мы вернёмся в Город Героев!',
+    med:'ЗАМЕЧАТЕЛЬНО! Ты прошёл все уровни доктора! Значок Друга Доктора теперь твой! Сейчас вернёмся в Город Героев!',
+    pol:'МОЛОДЕЦ! Ты прошёл все уровни детектива! Значок Юного Детектива теперь твой! Возвращаемся в Город Героев!'
+  };
+  setTimeout(()=>speak(msgs[sector],{rate:0.78,pitch:1.3}),600);
+  // Auto-return to city after 5 seconds
+  setTimeout(()=>{
+    backToCity();
+  }, 5500);
+}
+
+function showCityFinal(){
+  playSuccess(); launchConfetti(100);
+  showScreen('city-final');
+  setTimeout(()=>speak('Поздравляем! Ты прошёл весь Город Героев! Ты настоящий герой и защитник!',{rate:0.78,pitch:1.15}),800);
+}
+
+function restartAll(){
+  stopSpeak();sectorDone.fire=false;sectorDone.med=false;sectorDone.pol=false;
+  ['fire','med','pol'].forEach(s=>{const sec=document.getElementById('sec-'+s);if(sec)sec.classList.remove('completed');});
+  document.getElementById('all-done-btn').classList.add('hidden');
+  showScreen('city-menu');
+  setTimeout(()=>speak('Снова в Город Героев! Выбирай кем стать!',{rate:0.82,pitch:1.2}),400);
+}
+
+function tellNumber(num){
+  playClick();
+  const msgs={'101':'Сто один — это пожарные! Звони сюда, если случился пожар!','102':'Сто два — это полиция! Звони сюда, если кто-то в опасности или ты потерялся!','103':'Сто три — это скорая помощь! Звони сюда, если кто-то заболел или получил травму!','112':'Сто двенадцать — это единый номер экстренных служб! Можно звонить в любой ситуации!'};
+  speak(msgs[num]||num,{rate:0.78,pitch:1.1});
+}
+
+// ══════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════
+function spawnBurst(card){const b=document.createElement('div');b.className='burst';card.appendChild(b);const stars=['⭐','✨','🌟','💫','🎉'];for(let i=0;i<10;i++){const s=document.createElement('div');s.className='burst-star';s.textContent=stars[i%stars.length];const angle=Math.random()*360;const r=50+Math.random()*50;s.style.setProperty('--bx',Math.cos(angle*Math.PI/180)*r+'px');s.style.setProperty('--by',Math.sin(angle*Math.PI/180)*r+'px');s.style.animationDelay=(Math.random()*.15)+'s';b.appendChild(s);}setTimeout(()=>b.remove(),900);}
+function launchConfetti(count=60){const layer=document.getElementById('confetti-layer');const colors=['#FF4500','#FFD700','#2ECC71','#3498DB','#E91E63','#9B59B6','#FF6B35','#00BCD4'];for(let i=0;i<count;i++){const p=document.createElement('div');p.className='conf-piece';p.style.left=(Math.random()*100)+'vw';p.style.top='-20px';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.width=(6+Math.random()*10)+'px';p.style.height=(6+Math.random()*10)+'px';p.style.borderRadius=Math.random()>.5?'50%':'3px';const dur=1.5+Math.random()*2;p.style.animationDuration=dur+'s';p.style.animationDelay=(Math.random()*.8)+'s';layer.appendChild(p);setTimeout(()=>p.remove(),(dur+1)*1000);}}
+
+// ══════════════════════════════════
+//  DUAL NUMBER PHONE (shared)
+// ══════════════════════════════════
+// Correct pairs per screen
+const CORRECT_PAIRS={
+  f3:['101','112'],
+  m3:['103','112'],
+  p5:['102','112']
+};
+const NUM_CHOICES={
+  f3:[{n:'102',hint:'Сто два — это полиция!'},{n:'101',hint:'Правильно! 101 — пожарные!'},{n:'103',hint:'Сто три — это скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'104',hint:'Сто четыре — это газовая служба!'}],
+  m3:[{n:'101',hint:'Сто один — это пожарные!'},{n:'102',hint:'Сто два — это полиция!'},{n:'103',hint:'Правильно! 103 — скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'105',hint:'Это неверный номер!'}],
+  p5:[{n:'101',hint:'Сто один — это пожарные!'},{n:'102',hint:'Правильно! 102 — полиция!'},{n:'103',hint:'Сто три — это скорая!'},{n:'112',hint:'Правильно! 112 — единый номер!'},{n:'999',hint:'Это не наш номер!'}]
+};
+
+function initNumPanel(id){
+  numSelected[id]=[];
+  const correct=CORRECT_PAIRS[id];
+  const container=document.getElementById(id+'-nums')||(id==='p5'?document.getElementById('p5-nums'):null);
+  if(!container)return;
+  container.innerHTML='';
+  (NUM_CHOICES[id]||[]).forEach(item=>{
+    const btn=document.createElement('button');
+    btn.className='num-chip-big';
+    btn.textContent=item.n;
+    btn.onclick=()=>handleNumSelect(id,btn,item,correct);
+    container.appendChild(btn);
+  });
+}
+
+function handleNumSelect(id,btn,item,correct){
+  if(btn.classList.contains('ncb-correct')||btn.classList.contains('ncb-wrong'))return;
+  playClick();
+  const fb=document.getElementById(id+'-fb');
+  if(correct.includes(item.n)){
+    btn.classList.add('ncb-correct');
+    numSelected[id]=numSelected[id]||[];
+    if(!numSelected[id].includes(item.n))numSelected[id].push(item.n);
+    playSuccess();
+    speak(item.hint,{rate:0.78,pitch:1.2});
+    fb.className='feedback-box good';
+    if(numSelected[id].length===1){
+      fb.textContent='✅ '+item.hint+' Найди ещё один правильный номер!';
+    } else if(numSelected[id].length>=correct.length){
+      fb.textContent='🎉 Отлично! Ты нашёл оба правильных номера! Умница!';
+      launchConfetti(30);
+      const disp=document.getElementById(id+'-dispatcher');if(disp)disp.style.display='block';
+      setTimeout(()=>{
+        const nextBtn=document.getElementById(id.replace(/[0-9]/g,'')+id.slice(-1)+'-next')||document.getElementById(id+'-next')||document.getElementById(id.replace('f3','f3').replace('m3','m3').replace('p5','p5')+'-next');
+        // find correct next button
+        let nid=id;
+        if(id==='f3')nid='f3';else if(id==='m3')nid='m3';else if(id==='p5')nid='p5';
+        const nb=document.getElementById(nid+'-next');if(nb)nb.classList.remove('hidden');
+      },1000);
+      const dispMsg={f3:'Молодец! Ты знаешь оба номера пожарных! Алло, Пожарная служба слушает! Что произошло? Назови свой адрес вслух - улицу и номер дома!',m3:'Молодец! Ты знаешь оба номера скорой! Скорая помощь слушает! Что случилось? Назови своё имя и адрес! Что случилось!',p5:'Молодец! Ты знаешь оба номера полиции! Скажи где ты и что случилось!'};
+      setTimeout(()=>speak(dispMsg[id]||'Молодец! Ты нашёл оба номера!',{rate:0.78,pitch:1.2}),1200);
+    }
+  } else {
+    btn.classList.add('ncb-wrong');
+    playError();
+    fb.className='feedback-box bad';
+    fb.textContent='❌ '+item.hint+' Ищи правильный номер!';
+    speak(item.hint+' Попробуй ещё!',{rate:0.78,pitch:1.0});
+    setTimeout(()=>{btn.classList.remove('ncb-wrong');btn.disabled=false;},2500);
+  }
+}
+
+// ══════════════════════════════════
+//  PHONE KEYPAD (shared)
+// ══════════════════════════════════
+const VALID_CALLS={f3:['101','112'],m3:['103','112'],p5:['102','112']};
+function pKey(id,d){if(!phoneBufs[id])phoneBufs[id]='';if(phoneBufs[id].length>=3)return;playClick();phoneBufs[id]+=d;const s=document.getElementById(id+'-screen');if(s)s.textContent=phoneBufs[id]||'_';}
+function pClear(id){phoneBufs[id]='';const s=document.getElementById(id+'-screen');if(s)s.textContent='_';playClick();}
+function pCall(id){
+  const buf=phoneBufs[id]||'';
+  if(!buf){speak('Сначала набери номер!',{rate:0.82,pitch:1.2});return;}
+  playClick();
+  const s=document.getElementById(id+'-screen');
+  if(s){s.classList.add('ring');setTimeout(()=>s.classList.remove('ring'),1000);}
+  const fb=document.getElementById(id+'-phone-fb');
+  const valid=VALID_CALLS[id]||[];
+  if(valid.includes(buf)){
+    fb.className='feedback-box good';
+    fb.textContent=`✅ Набрал ${buf}! Правильно! Помощь едет!`;
+    playSuccess();speak(`Номер ${buf.split('').join(' ')} набран! Помощь едет! Молодец!`,{rate:0.78,pitch:1.2});
+    phoneDone[id]=true;
+    launchConfetti(25);
+    const disp=document.getElementById(id+'-dispatcher');if(disp)disp.style.display='block';
+    const nb=document.getElementById(id+'-next');if(nb)nb.classList.remove('hidden');
+  } else {
+    fb.className='feedback-box bad';
+    const hint={f3:'Пожарные — 101 или 112!',m3:'Скорая — 103 или 112!',p5:'Полиция — 102 или 112!'};
+    fb.textContent=`❌ Номер ${buf} неверный. ${hint[id]||'Попробуй ещё!'}`; 
+    playError();speak(hint[id]||'Неверный номер! Попробуй ещё раз!',{rate:0.78,pitch:1.0});
+    setTimeout(()=>{phoneBufs[id]='';const s=document.getElementById(id+'-screen');if(s)s.textContent='_';fb.className='feedback-box';},2500);
+  }
+}
+
+// ══════════════════════════════════
+//  ██ FIRE LEVELS ██
+// ══════════════════════════════════
+const FIRE_ITEMS=[
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e8.svg" alt="🧨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Петарда',danger:true,msg:'Правильно! Петарды могут взорваться!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f56f.svg" alt="🕯️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свеча',danger:true,msg:'Да! Открытый огонь опасен!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/2990/2990631.png" alt="https://cdn-icons-png.flaticon.com/512/2990/2990631.png" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Забытый утюг',danger:true,msg:'Верно! Забытый утюг загорается!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f387.svg" alt="🎇" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Бенгальский огонь',danger:true,msg:'Правильно! Искры очень горячие!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26a1.svg" alt="⚡" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Оголённый провод',danger:true,msg:'Да! Искрящий провод опасен!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f525.svg" alt="🔥" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огонь на плите',danger:true,msg:'Верно! Огонь дома — это опасно!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9f8.svg" alt="🧸" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Мишка',danger:false,msg:'Мишка безопасный! Ищи опасные предметы!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c0.svg" alt="🏀" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Мячик',danger:false,msg:'Мячик просто прыгает! Безопасно!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4da.svg" alt="📚" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Книжка',danger:false,msg:'Читать полезно! Ищи опасные предметы!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a8.svg" alt="🎨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Краски',danger:false,msg:'Рисование безопасно!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa80.svg" alt="🪀" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Йо-йо',danger:false,msg:'Отличная игрушка! Безопасно!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ae.svg" alt="🎮" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Геймпад',danger:false,msg:'Игры — весело! Не опасно!'},
+];
+const FF_ITEMS=[
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26d1.svg" alt="⛑️" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Каска',correct:true,pos:'top:-28px;left:50%;transform:translateX(-50%)',info:'Каска защищает голову!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f462.svg" alt="👢" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Сапоги',correct:true,pos:'bottom:-50px;left:50%;transform:translateX(-50%)',info:'Сапоги защищают ноги от огня!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Костюм',correct:true,pos:'top: 61%; left: -34px',info:'Огнеупорный костюм — не страшен огонь!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f637.svg" alt="😷" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Маска',correct:true,pos:'top: 50%; right: -60px',info:'Маска защищает от дыма!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e4.svg" alt="🧤" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Перчатки',correct:true,pos:'bottom:30%;left:-33px',info:'Перчатки защищают руки!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f526.svg" alt="🔦" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Фонарь',correct:true,pos:'bottom:40%;right:-55px',info:'Фонарь помогает видеть в темноте!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/16431/16431988.png" alt="🎩" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Шляпа',correct:false,info:'Это шляпа повара! Не нужна!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/7868/7868861.png" alt="https://cdn-icons-png.flaticon.com/512/7868/7868861.png" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Ласты',correct:false,info:'Ласты для плавания, не для пожара!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f302.svg" alt="🌂" style="width:34px;height:34px;object-fit:contain;" loading="lazy">',name:'Зонтик',correct:false,info:'Зонтик пожарному не поможет!'},
+];
+const FIRE_SCENARIOS=[
+  {obj:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa9f.svg" alt="🪟" style="width:70px;height:70px;" loading="lazy">',label:'Загорелась занавеска!',scenarioText:'Загорелась занавеска! Как потушить?',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:true,msg:'Правильно! Водой тушим занавеску!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Отлично! Огнетушитель справится!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Верно! Одеяло перекрывает кислород!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет потушить огонь!'}]},
+  {obj:'<img src="https://cdn-icons-png.flaticon.com/512/6113/6113986.png" alt="🔌" style="width:70px;height:70px;" loading="lazy">',label:'Загорелся электроприбор!',scenarioText:'Загорелся электроприбор! Водой нельзя!',tools:[{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1faa3.svg" alt="🪣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Вода',ok:false,warn:'⚠️ Водой нельзя тушить электроприборы — опасно для жизни!',msg:''},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ef.svg" alt="🧯" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Огнетушитель',ok:true,msg:'Правильно! Огнетушитель безопасен!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6cf.svg" alt="🛏️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Одеяло',ok:true,msg:'Можно! Сначала отключи от розетки!'},{icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f36d.svg" alt="🍭" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Конфета',ok:false,bad:true,msg:'Конфета не поможет! Выбери другое!'}]},
+];
+
+let f1Found=0,f1Total=0,f2Done=false,f3Done=false,f4Correct=0,f5Done=false;
+const F4_CORRECT=FF_ITEMS.filter(i=>i.correct).length;
+let f5ScenarioIdx=0;
+
+function fireLvl(n){
+  playSuccess();stopSpeak();
+  showSectorLevel('fire',n);
+  const builders={1:buildF1,2:buildF2,3:buildF3,4:buildF4,5:buildF5};
+  const msgs={1:'Уровень один!',2:'Уровень два! В комнате дым. Что делать?',3:'Уровень три! Выбери оба правильных номера пожарных!',4:'Уровень четыре! Одень пожарного!',5:'Уровень пять! Потуши огонь!'};
+  if(builders[n])builders[n]();
+  setTimeout(()=>speak(msgs[n]||'',{rate:0.8,pitch:1.15}),500);
+}
+
+function buildF1(){
+  f1Found=0;
+  const grid=document.getElementById('items-grid');grid.innerHTML='';
+  const shuffled=[...FIRE_ITEMS].sort(()=>Math.random()-.5);
+  f1Total=shuffled.filter(i=>i.danger).length;
+  document.getElementById('found-count').textContent='0';
+  document.getElementById('total-danger').textContent=f1Total;
+  document.getElementById('f1-fb').className='feedback-box';
+  document.getElementById('f1-next').classList.add('hidden');
+  shuffled.forEach((item,i)=>{
+    const card=document.createElement('div');card.className='item-card'+(item.danger?' danger-border':'');
+    card.style.animation=`featPop .4s ${i*.05}s backwards`;
+    card.innerHTML=`<span class="item-icon">${item.icon}</span><div class="item-name">${item.name}</div><div class="danger-badge">⚠️</div>`;
+    card.onclick=()=>{if(card.dataset.done)return;card.dataset.done='1';playClick();const fb=document.getElementById('f1-fb');if(item.danger){card.classList.remove('danger-border');card.classList.add('correct-pick');spawnBurst(card);playSuccess();f1Found++;document.getElementById('found-count').textContent=f1Found;fb.className='feedback-box good';fb.textContent='🎉 '+item.msg;speak(item.msg,{rate:0.82,pitch:1.25});if(f1Found===f1Total){setTimeout(()=>{fb.textContent='🎉🎉 Ты нашёл ВСЕ опасные предметы! Герой!';speak('Ура! Ты нашёл все опасные предметы! Молодец!',{rate:0.78,pitch:1.2});launchConfetti(40);},300);document.getElementById('f1-next').classList.remove('hidden');}}else{card.classList.add('safe-pick');playError();fb.className='feedback-box bad';fb.textContent='😊 '+item.msg;speak(item.msg,{rate:0.82,pitch:1.0});setTimeout(()=>{card.classList.remove('safe-pick');delete card.dataset.done;},1000);}};
+    grid.appendChild(card);
+  });
+}
+function buildF2(){
+  f2Done=false;
+  const area=document.getElementById('choices-area');area.innerHTML='';
+  const choices=[
+    {correct:false,text:'Спрятаться под кровать 🛏️',msg:'Прятаться очень опасно! Там скапливается дым!'},
+    {correct:false,text:'Выбежать на балкон 🪟',msg:'На балконе можно оказаться в ловушке!'},
+    {correct:true,text:'Намочить тряпочку 🧻 и ползти к выходу!',msg:'Молодец! Намоченная тряпочка помогает дышать! Ползком — в низу меньше дыма!'},
+  ];
+  choices.forEach((c,i)=>{
+    const btn=document.createElement('button');btn.className='choice-card';
+    btn.innerHTML=`<span class="choice-num">${i+1}</span><span>${c.text}</span>`;
+    btn.onclick=()=>{if(f2Done)return;f2Done=true;playClick();document.querySelectorAll('.choice-card').forEach(b=>b.disabled=true);const fb=document.getElementById('f2-fb');if(c.correct){btn.classList.add('cc-correct');fb.className='feedback-box good';fb.textContent='✅ '+c.msg;playSuccess();speak(c.msg,{rate:0.78,pitch:1.15});const char=document.getElementById('rs-char');char.textContent='🏃';setTimeout(()=>{char.style.left='7%';},300);setTimeout(()=>{char.textContent='😊';},1800);launchConfetti(30);document.getElementById('f2-next').classList.remove('hidden');}else{btn.classList.add('cc-wrong');fb.className='feedback-box bad';fb.textContent='❌ '+c.msg+' Попробуй ещё!';playError();speak(c.msg+' Попробуй ещё раз!',{rate:0.78,pitch:1.0});setTimeout(()=>{f2Done=false;document.querySelectorAll('.choice-card').forEach(b=>{b.className='choice-card';b.disabled=false;});fb.className='feedback-box';},3500);}};
+    area.appendChild(btn);
+  });
+  document.getElementById('rs-char').style.left='88%';document.getElementById('rs-char').style.bottom='1%';document.getElementById('rs-char').style.height='102px';document.getElementById('rs-char').style.width='142px';document.getElementById('rs-char').textContent='🧍‍♂️';
+  document.getElementById('f2-fb').className='feedback-box';
+  document.getElementById('f2-next').classList.add('hidden');
+}
+function buildF3(){
+  f3Done=false;phoneBufs['f3']='';phoneDone['f3']=false;numSelected['f3']=[];
+  document.getElementById('f3-screen').textContent='_';
+  document.getElementById('f3-fb').className='feedback-box';
+  document.getElementById('f3-phone-fb').className='feedback-box';
+  document.getElementById('f3-dispatcher').style.display='none';
+  document.getElementById('f3-next').classList.add('hidden');
+  initNumPanel('f3');
+}
+function buildF4(){
+  f4Correct=0;
+  document.getElementById('f4-body').innerHTML='<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f468.svg" alt="👨" style="width:100px;height:100px;" loading="lazy">';document.getElementById('f4-gear').innerHTML='';
+  document.getElementById('f4-progress').textContent=`Снаряжение: 0 / ${F4_CORRECT}`;
+  document.getElementById('f4-name').textContent='Пожарный Иван';
+  document.getElementById('f4-siren').className='siren-glow';
+  document.getElementById('f4-fb').className='feedback-box';document.getElementById('f4-tooltip').className='tooltip-pop';
+  document.getElementById('f4-next').classList.add('hidden');
+  const shelf=document.getElementById('f4-shelf');shelf.innerHTML='';
+  [...FF_ITEMS].sort(()=>Math.random()-.5).forEach((item,i)=>{
+    const el=document.createElement('div');el.className='shelf-card'+(item.correct?'':' wrong-shelf');
+    el.style.animation=`featPop .4s ${i*.06}s backwards`;
+    el.innerHTML=`<div class="sc-icon">${item.icon}</div><div class="sc-name">${item.name}</div><div class="correct-stamp">✓</div>`;
+    el.onclick=()=>{if(el.classList.contains('used'))return;playClick();const tip=document.getElementById('f4-tooltip');const fb=document.getElementById('f4-fb');tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;tip.className='tooltip-pop show';speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});if(item.correct){el.classList.add('used');f4Correct++;playSuccess();document.getElementById('f4-progress').textContent=`Снаряжение: ${f4Correct} / ${F4_CORRECT}`;const gear=document.getElementById('f4-gear');const span=document.createElement('span');span.className='ff-gear-item';span.innerHTML=item.icon;span.style.cssText='position:absolute;'+item.pos;gear.appendChild(span);fb.className='feedback-box good';fb.textContent='✅ '+item.info;if(f4Correct===F4_CORRECT){setTimeout(()=>{document.getElementById('f4-body').innerHTML='<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-1f692.svg" alt="🧑‍🚒" style="width:100px;height:100px;" loading="lazy">';document.getElementById('f4-name').textContent='Пожарный Иван ГОТОВ!';document.getElementById('f4-siren').className='siren-glow active';fb.className='feedback-box good';fb.textContent='🎉 Пожарный Иван полностью экипирован!';playSiren();speak('УРА! Пожарный Иван готов к выезду! Молодец! Вы у у у!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('f4-next').classList.remove('hidden');},400);}}else{playError();fb.className='feedback-box bad';fb.textContent='❌ '+item.info+' Ищи другое!';el.style.animation='wrongWobble .4s';setTimeout(()=>el.style.animation='',500);}};
+    shelf.appendChild(el);
+  });
+}
+function buildF5(){
+  f5Done=false;f5ScenarioIdx=Math.floor(Math.random()*FIRE_SCENARIOS.length);
+  const sc=FIRE_SCENARIOS[f5ScenarioIdx];
+  document.getElementById('f5-label').textContent='🔥 '+sc.label;
+  document.getElementById('f5-obj').innerHTML=sc.obj;
+  document.getElementById('f5-flames').innerHTML='<span class="flame">🔥</span><span class="flame">🔥</span><span class="flame">🔥</span>';
+  document.getElementById('f5-smoke').style.display='none';
+  document.getElementById('f5-danger').className='danger-notice';
+  document.getElementById('f5-fb').className='feedback-box';
+  document.getElementById('f5-tip').style.display='none';
+  document.getElementById('f5-next').classList.add('hidden');
+  setTimeout(()=>speak(sc.scenarioText,{rate:0.78,pitch:1.1}),600);
+  const grid=document.getElementById('f5-tools');grid.innerHTML='';
+  sc.tools.forEach((t,i)=>{
+    const card=document.createElement('div');card.className='tool-card';card.style.animation=`featPop .4s ${i*.08}s backwards`;
+    card.innerHTML=`<div class="ti">${t.icon}</div><div class="tn">${t.name}</div>`;
+    card.onclick=()=>{if(f5Done)return;playClick();const notice=document.getElementById('f5-danger');const fb=document.getElementById('f5-fb');if(t.warn){notice.textContent=t.warn;notice.className='danger-notice show';card.classList.add('tool-warn');playError();speak(t.warn.replace('⚠️',''),{rate:0.78,pitch:1.0});setTimeout(()=>{card.classList.remove('tool-warn');notice.className='danger-notice';},3000);return;}if(t.bad){card.classList.add('tool-no');fb.className='feedback-box bad';fb.textContent='❌ '+t.msg;playError();speak(t.msg,{rate:0.78,pitch:1.0});setTimeout(()=>card.classList.remove('tool-no'),700);return;}if(t.ok){f5Done=true;card.classList.add('tool-ok');fb.className='feedback-box good';fb.textContent='✅ '+t.msg;playSuccess();speak(t.msg,{rate:0.78,pitch:1.2});document.querySelectorAll('#f5-flames .flame').forEach((f,i)=>setTimeout(()=>f.classList.add('out'),i*200));setTimeout(()=>{document.getElementById('f5-smoke').style.display='block';},700);setTimeout(()=>{document.getElementById('f5-tip').style.display='block';speak('Молодец! Помни: большой огонь — не туши сам! Беги и звони сто один!',{rate:0.78,pitch:1.1});launchConfetti(50);document.getElementById('f5-next').classList.remove('hidden');},1500);}};
+    grid.appendChild(card);
+  });
+}
+
+// ══════════════════════════════════
+//  ██ MEDICAL LEVELS ██
+// ══════════════════════════════════
+const PATIENTS=[
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/17084/17084795.png" alt="🤒" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Высокая температура',needsDoc:true,msg:'Правильно! Высокая температура — нужен врач!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/5499/5499057.png" alt="🦷" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Болит зуб',needsDoc:true,msg:'Верно! Сильная зубная боль — нужен доктор!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/4843/4843993.png" alt="🤕" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Ударился головой',needsDoc:true,msg:'Да! Удар головой — срочно нужен врач!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/4261/4261326.png" alt="😁" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Весело играет',needsDoc:false,msg:'Этот ребёнок здоров! Ищи того, кому плохо!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/9442/9442064.png" alt="🩹" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Маленький синяк',needsDoc:false,msg:'Синяк? Достаточно пластыря! Врач не нужен!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/4138/4138922.png" alt="😊" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Просто устал',needsDoc:false,msg:'Просто нужно отдохнуть! Врач не нужен!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/5730/5730178.png" alt="🤢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Сильно тошнит',needsDoc:true,msg:'Правильно! Если очень плохо — нужна скорая!'},
+];
+const MED_TOOLS=[
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa7a.svg" alt="🩺" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Стетоскоп',correct:true,sound:'♥️',msg:'Стетоскоп слушает сердце и лёгкие!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f489.svg" alt="💉" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Шприц',correct:true,sound:'💉',msg:'Шприц нужен для уколов и анализов!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f321.svg" alt="🌡️" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Градусник',correct:true,sound:'🌡️',msg:'Градусник измеряет температуру!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1fa79.svg" alt="🩹" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Бинт',correct:true,sound:'🩹',msg:'Бинт перевязывает раны!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f48a.svg" alt="💊" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Лекарство',correct:true,sound:'💊',msg:'Лекарство помогает выздоровлять!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f527.svg" alt="🔧" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Гаечный ключ',correct:false,msg:'Это инструмент слесаря, не доктора!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/4617/4617762.png" alt="https://cdn-icons-png.flaticon.com/512/4617/4617762.png" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Расчёска',correct:false,msg:'Расчёска не нужна в чемоданчике!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f944.svg" alt="🥄" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Ложка',correct:false,msg:'Обычная ложка не нужна доктору!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9f8.svg" alt="🧸" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Игрушка',correct:false,msg:'Игрушка не медицинский инструмент!'},
+];
+let m1Found=0,m1Total=0,m2Count=0,m2Total=0,m3Done=false;
+let m4CarsMoved=0,m4TotalCars=3,m4Done=false;
+let m5Running=false,m5Score=0,m5Lives=3,m5TimerVal=30,m5TimerInterval=null,m5FallInterval=null;
+
+function medLvl(n){
+  playSuccess();stopSpeak();
+  showSectorLevel('med',n);
+  const builders={1:buildM1,2:buildM2,3:buildM3,4:buildM4,5:buildM5};
+  const msgs={1:'Уровень один!',2:'Уровень два! Собери медицинский чемоданчик!',3:'Уровень три! Набери два правильных номера скорой!',4:'Уровень четыре! Дай дорогу скорой помощи!',5:'Уровень пять! Лови полезное и будь здоров!'};
+  if(builders[n])builders[n]();
+  setTimeout(()=>speak(msgs[n]||'',{rate:0.8,pitch:1.15}),500);
+}
+
+function buildM1(){
+  m1Found=0;
+  const grid=document.getElementById('m1-grid');grid.innerHTML='';
+  const shuffled=[...PATIENTS].sort(()=>Math.random()-.5);
+  m1Total=shuffled.filter(i=>i.needsDoc).length;
+  document.getElementById('m1-found').textContent='0';
+  document.getElementById('m1-total').textContent=m1Total;
+  document.getElementById('m1-fb').className='feedback-box';
+  document.getElementById('m1-next').classList.add('hidden');
+  shuffled.forEach((pt,i)=>{
+    const card=document.createElement('div');card.className='patient-card'+(pt.needsDoc?' needs-doc':'');
+    card.style.animation=`featPop .4s ${i*.06}s backwards`;
+    card.innerHTML=`<span class="patient-icon">${pt.icon}</span><div class="patient-name">${pt.name}</div>`;
+    card.onclick=()=>{if(card.dataset.done)return;card.dataset.done='1';playClick();const fb=document.getElementById('m1-fb');if(pt.needsDoc){card.classList.add('correct-pick');spawnBurst(card);playSuccess();m1Found++;document.getElementById('m1-found').textContent=m1Found;fb.className='feedback-box med-good';fb.textContent='✅ '+pt.msg;speak(pt.msg,{rate:0.82,pitch:1.25});if(m1Found===m1Total){setTimeout(()=>{fb.textContent='🎉 Ты нашёл всех, кому нужна помощь! Молодец!';speak('Ура! Ты правильно определил всех, кому нужен врач!',{rate:0.78,pitch:1.2});launchConfetti(40);},300);document.getElementById('m1-next').classList.remove('hidden');}}else{card.classList.add('wrong-pick');playError();fb.className='feedback-box bad';fb.textContent='😊 '+pt.msg;speak(pt.msg,{rate:0.82,pitch:1.0});setTimeout(()=>{card.classList.remove('wrong-pick');delete card.dataset.done;},1000);}};
+    grid.appendChild(card);
+  });
+}
+function buildM2(){
+  m2Count=0;
+  const correct=MED_TOOLS.filter(i=>i.correct);m2Total=correct.length;
+  document.getElementById('m2-placed').innerHTML='';
+  document.getElementById('m2-count').textContent='0';
+  document.getElementById('m2-total').textContent=m2Total;
+  document.getElementById('m2-fb').className='feedback-box';
+  document.getElementById('m2-next').classList.add('hidden');
+  const grid=document.getElementById('m2-grid');grid.innerHTML='';
+  [...MED_TOOLS].sort(()=>Math.random()-.5).forEach((tool,i)=>{
+    const card=document.createElement('div');card.className='med-item-card';card.style.animation=`featPop .4s ${i*.06}s backwards`;
+    card.innerHTML=`<div class="med-item-icon">${tool.icon}</div><div class="med-item-name">${tool.name}</div>`;
+    card.onclick=()=>{if(card.classList.contains('used'))return;playClick();const fb=document.getElementById('m2-fb');if(tool.correct){card.classList.add('used','mi-correct');playSuccess();m2Count++;document.getElementById('m2-count').textContent=m2Count;const placed=document.getElementById('m2-placed');const span=document.createElement('span');span.innerHTML=tool.icon;span.style.animation='gearPop .3s';placed.appendChild(span);fb.className='feedback-box med-good';fb.textContent='✅ '+tool.msg;speak(tool.msg,{rate:0.78,pitch:1.2});if(m2Count===m2Total){setTimeout(()=>{fb.textContent='🎉 Чемоданчик собран! Доктор готов!';speak('Отлично! Чемоданчик скорой помощи полностью собран! Умница!',{rate:0.78,pitch:1.2});launchConfetti(40);document.getElementById('m2-next').classList.remove('hidden');},400);}}else{card.classList.add('mi-wrong');playError();fb.className='feedback-box bad';fb.textContent='❌ '+tool.msg;speak(tool.msg,{rate:0.78,pitch:1.0});setTimeout(()=>card.classList.remove('mi-wrong'),700);}};
+    grid.appendChild(card);
+  });
+}
+function buildM3(){
+  m3Done=false;phoneBufs['m3']='';phoneDone['m3']=false;numSelected['m3']=[];
+  document.getElementById('m3-screen').textContent='_';
+  document.getElementById('m3-fb').className='feedback-box';
+  document.getElementById('m3-phone-fb').className='feedback-box';
+  document.getElementById('m3-dispatcher').style.display='none';
+  document.getElementById('m3-next').classList.add('hidden');
+  initNumPanel('m3');
+  setTimeout(()=>speak('Скорую помощь вызывают по двум номерам: сто три и сто двенадцать! Нажми оба!',{rate:0.78,pitch:1.1}),600);
+}
+function buildM4(){
+  m4Done=false;m4CarsMoved=0;
+  const carsDiv=document.getElementById('m4-cars');carsDiv.innerHTML='';
+  const positions=[{left:'25%',top:'36%'},{left:'48%',top:'36%'},{left:'68%',top:'36%'}];
+  const carEmojis=['🚗','🚙','🚕'];
+  m4TotalCars=3;
+  positions.forEach((pos,i)=>{
+    const car=document.createElement('div');car.className='road-car road-car-blocker';car.textContent=carEmojis[i];car.style.left=pos.left;car.style.top=pos.top;
+    car.onclick=()=>{if(car.dataset.moved)return;car.dataset.moved='1';playClick();const tops=['10%','65%','10%'];car.style.top=tops[i]||'10%';m4CarsMoved++;speak(i===0?'Молодец! Убери все машины!':i===1?'Ещё одну!':'Отлично!',{rate:0.82,pitch:1.2});const fb=document.getElementById('m4-fb');fb.className='feedback-box med-good';fb.textContent='✅ Машинка убрана! Убирай все три!';if(m4CarsMoved>=m4TotalCars&&!m4Done){m4Done=true;setTimeout(()=>{const ambu=document.getElementById('m4-ambu');ambu.style.left='-110%';playAmbulanceSiren();fb.textContent='🚑 Ура! Скорая проехала! Ты спас жизнь!';speak('Ура! Скорая помощь проехала! Ты помог спасти жизнь!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('m4-next').classList.remove('hidden');},500);}};
+    carsDiv.appendChild(car);
+  });
+  document.getElementById('m4-ambu').style.left='93%';
+  document.getElementById('m4-fb').className='feedback-box';
+  document.getElementById('m4-hint').style.display='block';
+  document.getElementById('m4-next').classList.add('hidden');
+  setTimeout(()=>speak('Нажимай на машины, чтобы убрать их с дороги! Скорая должна проехать!',{rate:0.78,pitch:1.1}),500);
+}
+function buildM5(){
+  m5Score=0;m5Lives=3;m5TimerVal=30;m5Running=false;
+  document.getElementById('m5-score').textContent='0';
+  document.getElementById('m5-lives').textContent='❤️❤️❤️';
+  document.getElementById('m5-timer').textContent='⏱️ 30с';
+  document.getElementById('m5-hero').innerHTML='<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f912.svg" alt="🤒" style="width:72px;height:72px;" loading="lazy">';
+  document.getElementById('m5-fb').className='feedback-box';
+  document.getElementById('m5-next').classList.add('hidden');
+  const arena=document.getElementById('m5-arena');arena.innerHTML='';
+  const basket=document.createElement('div');basket.className='basket';basket.id='m5-basket';basket.textContent='🧺';basket.style.left='50%';arena.appendChild(basket);
+  // mouse/touch control
+  arena.onmousemove=(e)=>{if(!m5Running)return;const rect=arena.getBoundingClientRect();const x=e.clientX-rect.left;const bw=50;const pct=Math.max(bw/2,Math.min(rect.width-bw/2,x));basket.style.left=pct+'px';basket.style.transform='translateX(-50%)';};
+  arena.ontouchmove=(e)=>{if(!m5Running)return;e.preventDefault();const rect=arena.getBoundingClientRect();const x=e.touches[0].clientX-rect.left;const bw=50;const pct=Math.max(bw/2,Math.min(rect.width-bw/2,x));basket.style.left=pct+'px';basket.style.transform='translateX(-50%)';};
+  setTimeout(startM5,1000);
+  setTimeout(()=>speak('Лови полезные предметы! Овощи, фрукты — в корзинку!',{rate:0.78,pitch:1.1}),600);
+}
+const M5_GOOD=['🍎','🥦','🥕','🍊','🥑','🍆','🥒','🍇','🥬','🍋'];
+const M5_BAD=['🍭','🍩','🍨','🍔','🍟','🎂'];
+function startM5(){
+  m5Running=true;
+  if(m5TimerInterval)clearInterval(m5TimerInterval);
+  if(m5FallInterval)clearInterval(m5FallInterval);
+  m5TimerInterval=setInterval(()=>{
+    m5TimerVal--;
+    document.getElementById('m5-timer').textContent='⏱️ '+m5TimerVal+'с';
+    if(m5TimerVal<=0){endM5();}
+  },1000);
+  m5FallInterval=setInterval(()=>{
+    if(!m5Running)return;
+    const arena=document.getElementById('m5-arena');
+    if(!arena)return;
+    const isGood=Math.random()>0.35;
+    const pool=isGood?M5_GOOD:M5_BAD;
+    const emoji=pool[Math.floor(Math.random()*pool.length)];
+    const item=document.createElement('div');item.className='falling-item';item.textContent=emoji;item.dataset.good=isGood?'1':'0';
+    item.dataset.speak = isGood ? emoji + ' — это полезное! Лови!' : emoji + ' — это вредное! Не бери!';
+    item.style.left=(5+Math.random()*85)+'%';
+    const dur=(2+Math.random()*2)+'s';
+    item.style.animationDuration=dur;
+    arena.appendChild(item);
+    // collision check
+    const check=setInterval(()=>{
+      if(!item.parentNode){clearInterval(check);return;}
+      const basket=document.getElementById('m5-basket');
+      if(!basket){clearInterval(check);return;}
+      const ir=item.getBoundingClientRect();const br=basket.getBoundingClientRect();
+      if(ir.bottom>br.top&&ir.top<br.bottom&&ir.right>br.left&&ir.left<br.right){
+        clearInterval(check);item.remove();
+        if(item.dataset.good==='1'){m5Score++;document.getElementById('m5-score').textContent=m5Score;playSuccess();if(m5Score>=10)endM5(true);}
+        else{m5Lives--;const hearts='❤️'.repeat(Math.max(0,m5Lives));document.getElementById('m5-lives').textContent=hearts||'💔';playError();speak('Ой! Это вредное! Лови только полезное!',{rate:0.82,pitch:1.1});if(m5Lives<=0)endM5();}
+      }
+    },100);
+    setTimeout(()=>{clearInterval(check);if(item.parentNode)item.remove();},parseFloat(dur)*1000+200);
+  },900);
+}
+function endM5(win=false){
+  m5Running=false;
+  if(m5TimerInterval)clearInterval(m5TimerInterval);
+  if(m5FallInterval)clearInterval(m5FallInterval);
+  const fb=document.getElementById('m5-fb');
+  if(m5Score>=7||win){
+    document.getElementById('m5-hero').innerHTML='<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4aa.svg" alt="💪" style="width:72px;height:72px;" loading="lazy">';
+    fb.className='feedback-box med-good';fb.textContent=`🎉 Ты поймал ${m5Score} полезных вещей! Герой здоровья!`;
+    playSuccess();speak('Ура! Ты поймал много полезного! Теперь ты сильный и здоровый!',{rate:0.78,pitch:1.2});launchConfetti(50);
+    document.getElementById('m5-next').classList.remove('hidden');
+  } else if(m5Lives<=0){
+    document.getElementById('m5-hero').innerHTML='<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f912.svg" alt="🤒" style="width:72px;height:72px;" loading="lazy">';
+    fb.className='feedback-box bad';fb.textContent=`Поймал ${m5Score}. Попробуй ещё раз!`;
+    playError();speak('Ой! Поймал слишком много вредного! Лови только полезные продукты!',{rate:0.78,pitch:1.0});
+    setTimeout(()=>buildM5(),3000);
+  } else {
+    document.getElementById('m5-hero').textContent=m5Score>=5?'😊':'🤒';
+    if(m5Score>=5){fb.className='feedback-box med-good';fb.textContent=`🎉 Ты поймал ${m5Score} полезных вещей! Молодец!`;playSuccess();speak('Молодец! Ты любишь полезное и заботишься о здоровье!',{rate:0.78,pitch:1.2});launchConfetti(40);document.getElementById('m5-next').classList.remove('hidden');}
+    else{fb.className='feedback-box bad';fb.textContent=`Поймал только ${m5Score}. Попробуй ещё!`;playError();setTimeout(()=>buildM5(),3000);}
+  }
+}
+
+// ══════════════════════════════════
+//  ██ POLICE LEVELS ██
+// ══════════════════════════════════
+const SITUATIONS=[
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6b2.svg" alt="🚲" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Уводят чужой велосипед',needsPol:true,msg:'Правильно! Это кража — нужно вызвать полициию!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f476.svg" alt="👶" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Потерялся малыш',needsPol:true,msg:'Правильно! — звони 102! И полицейские помогут ему вернуться домой.'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6a6.svg" alt="🚦" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Сломан светофор',needsPol:true,msg:'Верно! Без светофора может случится авария — нужен регулировщик!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f338.svg" alt="🌸" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Люди гуляют в парке',needsPol:false,msg:'Это просто прогулка! Полиция не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26bd.svg" alt="⚽" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Дети играют в мяч',needsPol:false,msg:'Играть в мяч безопасно! Полиция не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f366.svg" alt="🍦" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Дети едят мороженое',needsPol:false,msg:'Мороженое — это вкусно! Полиция не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f528.svg" alt="🔨" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',label:'Кто-то ломает скамейку',needsPol:true,msg:'Правильно! Портить городсую собственность нельзя — нужно вызвать полицию!'},
+];
+const POL_ITEMS=[
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" alt="https://cdn-icons-png.flaticon.com/512/17220/17220665.png" style="width:45px;height:45px;object-fit:contain;" loading="lazy">',name:'Фуражка',correct:true,pos:'top:-15px;left:50%;transform:translateX(-50%)',info:'Фуражка — головной убор полицейского!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4df.svg" alt="📟" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Рация',correct:true,pos:'bottom:20%;right:-50px;;',info:'Рация для связи! Приём, патруль на связи!'},
+  {icon:'<img src="https://i.ibb.co/6cNMq6vf/png-klev-club-zf5o-p-zhezl-png-11-Photoroom.png" alt="🚔" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жезл',correct:true,pos:'top:64%;right:-50px;',info:'Жезл регулировщика для управления движением!'},
+  {icon:'<img src="https://cdn-icons-png.flaticon.com/512/2656/2656074.png" alt="📢" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Свисток',correct:true,pos:'top:64%;left:-50px',info:'Свисток привлекает внимание!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9ba.svg" alt="🦺" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Жилет',correct:true,pos:'top:19%;left:-48px',info:'Светоотражающий жилет — полицейского видно!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a9.svg" alt="🎩" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Цилиндр',correct:false,info:'Это нарядная шляпа! Полицейскому не нужна!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a3.svg" alt="🎣" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Удочка',correct:false,info:'Удочка для рыбалки, а не для патруля!'},
+  {icon:'<img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/26bd.svg" alt="⚽" style="width:64px;height:64px;object-fit:contain;" loading="lazy">',name:'Мяч',correct:false,info:'Мяч не нужен на службе! Это не снаряжение!'},
+];
+const POL_CORRECT=POL_ITEMS.filter(i=>i.correct).length;
+const PARK_PEOPLE=[
+  {
+    isTarget:true,
+    style:'left:52%;top:28%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/PBdRt5W/image-1-Photoroom-1.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">мальчик в синей кепке</div></div>',
+    label:'мальчик в синей кепке'
+  },
+  {
+    isTarget:false,
+    style:'left:0%;top:50%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/N61Tv2HN/photo-2026-03-29-14-34-30-Photoroom.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">тётя</div></div>'
+  },
+  {
+    isTarget:false,
+    style:'left:72%;top:52%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/FLq0pkD7/photo-2026-03-29-14-34-23-Photoroom.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">дедушка</div></div>'
+  },
+  {
+    isTarget:false,
+    style:'left:28%;top:58%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/wNntfDWQ/photo-2026-03-29-14-34-33-Photoroom.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">дядя</div></div>'
+  },
+  {
+    isTarget:false,
+    style:'left:78%;top:47%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/4gVRsX5P/photo-2026-03-29-14-34-19-Photoroom.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">девочка</div></div>'
+  },
+  {
+    isTarget:false,
+    style:'left:38%;top: 42%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/V0g54k6W/photo-2026-03-29-14-34-11-Photoroom.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;"> мальчик в красной кепке</div></div>'
+  },
+  {
+    isTarget:false,
+    style:'left:18%;top:65%;',
+    render:'<div style="text-align:center;"><div style="font-size:clamp(26px,6vw,36px);"><img draggable="false" class="twemoji" alt="🧍‍♂️" src="https://i.ibb.co/VPZYjSg/photo-2026-03-29-14-34-27-Photoroom.png" style="height: 101px;width: 45px;"></div><div style="font-size:clamp(10px,2vw,13px);color:#55555500;font-weight:800;">папа</div></div>'
+  },
+];
+let p1Found=0,p1Total=0,p2Correct=0,p3Done=false,p4Done=false,p4Step=0,p5Done=false;
+let tlState='red'; // red, green
+const TL_STEPS=[
+  {task:'🚸 Дети хотят перейти! Нажми светофор — сделай КРАСНЫЙ для машин!', need:'red', hint:'Нажми светофор — зажги КРАСНЫЙ! Тогда машины остановятся!', success:'Молодец! Красный для машин — дети переходят!'},
+  {task:'🚗 Дети перешли! Нажми ЗЕЛЁНЫЙ — пропусти машины!', need:'green', hint:'Нажми светофор — зажги ЗЕЛЁНЫЙ, чтобы машины поехали!', success:'Отлично! Зелёный — машины едут!'},
+  {task:'🚸 Снова дети! Нажми КРАСНЫЙ — останови машины!', need:'red', hint:'Нажми светофор — снова КРАСНЫЙ для машин!', success:'Правильно! Все дети в безопасности!'},
+];
+
+function polLvl(n){
+  playSuccess();stopSpeak();
+  showSectorLevel('pol',n);
+  const builders={1:buildP1,2:buildP2,3:buildP3,4:buildP4,5:buildP5};
+  const msgs={1:'Уровень один!',2:'Уровень два! Одень полицейского!',3:'Уровень три! Найди потеряшку!',4:'Уровень четыре! Управляй светофором!',5:'Уровень пять! Набери номер полиции!'};
+  if(builders[n])builders[n]();
+  if(window._twemojiRefresh) setTimeout(window._twemojiRefresh, 150);
+  setTimeout(()=>speak(msgs[n]||'',{rate:0.8,pitch:1.15}),500);
+}
+
+function buildP1(){
+  p1Found=0;
+  const grid=document.getElementById('p1-grid');grid.innerHTML='';
+  const shuffled=[...SITUATIONS].sort(()=>Math.random()-.5);
+  p1Total=shuffled.filter(i=>i.needsPol).length;
+  document.getElementById('p1-found').textContent='0';
+  document.getElementById('p1-total').textContent=p1Total;
+  document.getElementById('p1-fb').className='feedback-box';
+  document.getElementById('p1-next').classList.add('hidden');
+  shuffled.forEach((sit,i)=>{
+    const card=document.createElement('div');card.className='situation-card'+(sit.needsPol?' needs-pol':'');
+    card.style.animation=`featPop .4s ${i*.06}s backwards`;
+    card.innerHTML=`<span class="situation-icon">${sit.icon}</span><div class="situation-label">${sit.label}</div>`;
+    card.onclick=()=>{if(card.dataset.done)return;card.dataset.done='1';playClick();const fb=document.getElementById('p1-fb');if(sit.needsPol){card.classList.add('correct-pick');spawnBurst(card);playSuccess();p1Found++;document.getElementById('p1-found').textContent=p1Found;fb.className='feedback-box pol-good';fb.textContent='✅ '+sit.msg;speak(sit.msg,{rate:0.82,pitch:1.25});if(p1Found===p1Total){setTimeout(()=>{fb.textContent='🎉 Молодец! Ты нашёл все опасные ситуации!';speak('Отлично! Ты знаешь, когда нужна полиция!',{rate:0.78,pitch:1.2});launchConfetti(40);},300);document.getElementById('p1-next').classList.remove('hidden');}}else{card.classList.add('wrong-pick');playError();fb.className='feedback-box bad';fb.textContent='😊 '+sit.msg;speak(sit.msg,{rate:0.82,pitch:1.0});setTimeout(()=>{card.classList.remove('wrong-pick');delete card.dataset.done;},1000);}};
+    grid.appendChild(card);
+  });
+}
+function buildP2(){
+  p2Correct=0;
+  document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/4440/4440953.png" alt="👤" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-gear').innerHTML='';
+  document.getElementById('p2-progress').textContent=`Снаряжение: 0 / ${POL_CORRECT}`;
+  document.getElementById('p2-name').textContent='Полицейский Максим';
+  document.getElementById('p2-siren').className='siren-glow';
+  document.getElementById('p2-fb').className='feedback-box';document.getElementById('p2-tooltip').className='tooltip-pop';
+  document.getElementById('p2-next').classList.add('hidden');
+  const shelf=document.getElementById('p2-shelf');shelf.innerHTML='';
+  [...POL_ITEMS].sort(()=>Math.random()-.5).forEach((item,i)=>{
+    const el=document.createElement('div');el.className='shelf-card'+(item.correct?'':' wrong-shelf');
+    el.style.animation=`featPop .4s ${i*.06}s backwards`;
+    el.innerHTML=`<div class="sc-icon">${item.icon}</div><div class="sc-name">${item.name}</div><div class="correct-stamp">✓</div>`;
+    el.onclick=()=>{if(el.classList.contains('used'))return;playClick();const tip=document.getElementById('p2-tooltip');const fb=document.getElementById('p2-fb');tip.innerHTML=`<strong>${item.icon} ${item.name}</strong><br>${item.info}`;tip.className='tooltip-pop show';speak(item.info,{rate:0.78,pitch:item.correct?1.2:1.0});if(item.correct){el.classList.add('used');p2Correct++;playSuccess();document.getElementById('p2-progress').textContent=`Снаряжение: ${p2Correct} / ${POL_CORRECT}`;const gear=document.getElementById('p2-gear');const span=document.createElement('span');span.className='ff-gear-item';span.innerHTML=item.icon;span.style.cssText='position:absolute;'+item.pos;gear.appendChild(span);fb.className='feedback-box pol-good';fb.textContent='✅ '+item.info;if(p2Correct===POL_CORRECT){setTimeout(()=>{document.getElementById('p2-body').innerHTML='<img src="https://cdn-icons-png.flaticon.com/512/6704/6704995.png" alt="👮" style="width:100px;height:100px;" loading="lazy">';document.getElementById('p2-name').textContent='Полицейский Максим ГОТОВ!';document.getElementById('p2-siren').className='siren-glow active';fb.textContent='🎉 Патруль готов к выезду!';playPoliceSiren();speak('Внимание! Полицейский Максим готов к патрулю! Приём, патруль на связи!',{rate:0.78,pitch:1.2});launchConfetti(50);document.getElementById('p2-next').classList.remove('hidden');},400);}}else{playError();fb.className='feedback-box bad';fb.textContent='❌ '+item.info;el.style.animation='wrongWobble .4s';setTimeout(()=>el.style.animation='',500);}};
+    shelf.appendChild(el);
+  });
+}
+function buildP3(){
+  p3Done=false;
+  const park=document.getElementById('p3-park');park.innerHTML='';
+  const target=PARK_PEOPLE.find(p=>p.isTarget);
+  document.getElementById('p3-target-desc').textContent=target.label;
+  document.getElementById('p3-fb').className='feedback-box';
+  document.getElementById('p3-next').classList.add('hidden');
+  const shuffled=[...PARK_PEOPLE].sort(()=>Math.random()-.5);
+  shuffled.forEach(person=>{
+    const el=document.createElement('div');
+    el.className='park-person';
+    el.innerHTML=person.render;
+    el.style.cssText='position: absolute; cursor: pointer; user-select: none; border-radius: 14px; padding: 6px 8px; left: 52%; top: 28%; transform: scale(1);'+person.style;
+    el.onmouseover=()=>{if(!p3Done)el.style.transform='scale(1.15)';};
+    el.onmouseout=()=>{if(!p3Done)el.style.transform='scale(1)';};
+    el.onclick=()=>{
+      if(p3Done)return;playClick();
+      const fb=document.getElementById('p3-fb');
+      if(person.isTarget){
+        p3Done=true;
+        el.style.transform='scale(1.4)';
+        el.style.border='3px solid #FFD700';
+        el.style.boxShadow='0 0 20px rgba(255,215,0,.8)';
+        playSuccess();
+        fb.className='feedback-box pol-good';
+        fb.textContent='✅ Нашёл! Если ты потерялся — стой на месте и жди! Полицейский обязательно найдёт тебя!';
+        speak('Нашёл! Умница! Запомни: если ты сам потерялся — стой на месте и жди! Полицейский обязательно придёт!',{rate:0.78,pitch:1.3});
+        launchConfetti(40);
+        document.getElementById('p3-next').classList.remove('hidden');
+      } else {
+        el.style.animation='wrongWobble .4s';
+        playError();
+        fb.className='feedback-box bad';
+        fb.textContent='❌ Это не тот! Ищи: '+target.label;
+        speak('Это не тот! Ищи мальчика именно с синей кепкой!',{rate:0.78,pitch:1.1});
+        setTimeout(()=>{el.style.animation='';el.style.transform='scale(1)';},500);
+      }
+    };
+    park.appendChild(el);
+  });
+  setTimeout(()=>speak('Найди в парке '+target.label+'! Смотри внимательно!',{rate:0.75,pitch:1.3}),600);
+}
+function buildP4(){
+  p4Done=false; p4Step=0;
+  // Start GREEN so first correct action is RED
+  tlState='green';
+  setTL('green');
+
+  const scene=document.getElementById('p4-scene');
+  let old=document.getElementById('p4-entities');
+  if(old)old.remove();
+  const ents=document.createElement('div');
+  ents.id='p4-entities';
+  ents.style.cssText='position:absolute;inset:0;pointer-events:none;';
+  scene.appendChild(ents);
+  spawnP4Scene(ents,0);
+
+  document.getElementById('p4-fb').className='feedback-box';
+  document.getElementById('p4-next').classList.add('hidden');
+  document.getElementById('p4-instruction').textContent=TL_STEPS[0].task;
+  setTimeout(()=>speak(TL_STEPS[0].hint,{rate:0.75,pitch:1.3}),600);
+}
+
+function spawnP4Scene(ents,stepIdx){
+  ents.innerHTML='';
+  if(stepIdx===0||stepIdx===2){
+    // Children waiting, car driving (light is green = cars going)
+    const ped1=document.createElement('div');
+    ped1.id='p4-ped1';
+    ped1.style.cssText='position:absolute;font-size:clamp(24px,5.5vw,36px);left:39%;top:6%;transition:top 1.5s ease-in-out;';
+    ped1.textContent='🧍‍♂️';
+    ents.appendChild(ped1);
+    const ped2=document.createElement('div');
+    ped2.id='p4-ped2';
+    ped2.style.cssText='position:absolute;font-size:clamp(24px,5.5vw,36px);left:54%;top:6%;transition:top 1.5s ease-in-out;';
+    ped2.textContent='👧';
+    ents.appendChild(ped2);
+    // Car driving across — shows light is currently green
+    const car=document.createElement('div');
+    car.id='p4-car-anim';
+    car.style.cssText='position:absolute;font-size:clamp(28px,6vw,40px);top:42%;left:-12%;';
+    car.textContent=(stepIdx===0)?'🚗':'🚕';
+    ents.appendChild(car);
+    // Animate car moving right continuously
+    function animateCar(){
+      car.style.transition='none';
+      car.style.left='-12%';
+      setTimeout(()=>{
+        car.style.transition='left 2.8s linear';
+        car.style.left='112%';
+      },50);
+    }
+    animateCar();
+    car._interval=setInterval(()=>{
+      if(!document.getElementById('p4-car-anim'))return;
+      animateCar();
+    },3000);
+  } else {
+    // stepIdx===1: cars waiting, pedestrians crossing (light is red)
+    const car1=document.createElement('div');
+    car1.id='p4-car1';
+    car1.style.cssText='position:absolute;font-size:clamp(28px,6vw,40px);top:42%;left:8%;transition:left 1.5s ease-in-out;';
+    car1.textContent='🚙';
+    ents.appendChild(car1);
+    const car2=document.createElement('div');
+    car2.id='p4-car2';
+    car2.style.cssText='position:absolute;font-size:clamp(28px,6vw,40px);top:48%;left:72%;transition:left 1.5s ease-in-out;transform:scaleX(-1);';
+    car2.textContent='🚐';
+    ents.appendChild(car2);
+  }
+}
+
+function setTL(state){
+  tlState=state;
+  document.getElementById('tl-red').className='tl-bulb'+(state==='red'?' on-red':'');
+  document.getElementById('tl-yellow').className='tl-bulb'+(state==='yellow'?' on-yellow':'');
+  document.getElementById('tl-green').className='tl-bulb'+(state==='green'?' on-green':'');
+}
+
+function toggleLight(){
+  if(p4Done)return;
+  playClick();
+  const step=TL_STEPS[p4Step];
+  if(!step)return;
+  const newState=tlState==='red'?'green':'red';
+
+  // Flash yellow
+  setTL('yellow');
+  playTone(660,.15,'sine',.08);
+
+  setTimeout(()=>{
+    setTL(newState);
+    const fb=document.getElementById('p4-fb');
+
+    if(newState===step.need){
+      playSuccess();
+      fb.className='feedback-box pol-good';
+      fb.textContent='✅ '+step.success;
+      speak(step.success,{rate:0.78,pitch:1.3});
+
+      // Stop any car animation interval
+      const canim=document.getElementById('p4-car-anim');
+      if(canim&&canim._interval)clearInterval(canim._interval);
+
+      if(newState==='red'){
+        // Children walk across
+        const ped1=document.getElementById('p4-ped1');
+        const ped2=document.getElementById('p4-ped2');
+        if(ped1)setTimeout(()=>{ped1.style.top='92%';},300);
+        if(ped2)setTimeout(()=>{ped2.style.top='92%';},550);
+        if(canim)setTimeout(()=>{canim.style.opacity='0.3';},100);
+      } else {
+        // Cars drive away
+        const c1=document.getElementById('p4-car1');
+        const c2=document.getElementById('p4-car2');
+        if(c1)setTimeout(()=>{c1.style.left='112%';},300);
+        if(c2)setTimeout(()=>{c2.style.left='-20%';},450);
+      }
+
+      p4Step++;
+
+      if(p4Step>=TL_STEPS.length){
+        p4Done=true;
+        setTimeout(()=>{
+          fb.textContent='🎉 Ура! Ты настоящий дорожный инспектор! Все в безопасности!';
+          speak('УРА! Молодец! Все безопасно проехали и перешли! Ты настоящий инспектор!',{rate:0.78,pitch:1.3});
+          launchConfetti(50);
+          document.getElementById('p4-next').classList.remove('hidden');
+        },2200);
+      } else {
+        setTimeout(()=>{
+          const scene=document.getElementById('p4-scene');
+          let old=document.getElementById('p4-entities');if(old)old.remove();
+          const ents2=document.createElement('div');ents2.id='p4-entities';ents2.style.cssText='position:absolute;inset:0;pointer-events:none;';
+          scene.appendChild(ents2);
+          spawnP4Scene(ents2,p4Step);
+          document.getElementById('p4-instruction').textContent=TL_STEPS[p4Step].task;
+          speak(TL_STEPS[p4Step].hint,{rate:0.75,pitch:1.3});
+          fb.className='feedback-box';
+        },2400);
+      }
+
+    } else {
+      playError();
+      fb.className='feedback-box bad';
+      fb.textContent='❌ Не то! '+step.hint;
+      speak('Не так! '+step.hint,{rate:0.78,pitch:1.2});
+      setTimeout(()=>{
+        setTL('yellow');
+        setTimeout(()=>{
+          setTL(newState==='red'?'green':'red');
+          fb.className='feedback-box';
+        },400);
+      },1600);
+    }
+  },400);
+}
+
+function buildP5(){
+  p5Done=false;phoneBufs['p5']='';phoneDone['p5']=false;numSelected['p5']=[];
+  document.getElementById('p5-screen').textContent='_';
+  document.getElementById('p5-fb').className='feedback-box';
+  document.getElementById('p5-phone-fb').className='feedback-box';
+  document.getElementById('p5-dispatcher').style.display='none';
+  document.getElementById('p5-next').classList.add('hidden');
+  initNumPanel('p5');
+  setTimeout(()=>speak('Полицию вызывают по двум номерам: сто два и сто двенадцать! Нажми оба!',{rate:0.78,pitch:1.1}),600);
+}
+
+// ══════════════════════════════════
+//  Diploma name
+// ══════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('dip-name-input');
+  if(inp)inp.addEventListener('input',()=>{document.getElementById('dip-name-display').textContent=inp.value.trim()||'Юный Герой';});
+  if(synth){synth.onvoiceschanged=()=>{};synth.getVoices();}
+  setTimeout(()=>speak(
+    'Привет, привет, привет! Добро пожаловать в Город Героев! ' +
+    'Здесь живут три супер-команды: пожарные, доктора и полицейские! ' +
+    'В каждой команде пять весёлых заданий! ' +
+    'Выбирай любой сектор и становись настоящим героем! ' +
+    'Ты готов? Тогда вперёд!',
+    {rate:0.74, pitch:1.35}
+  ), 1000);
+});
+
+// ══════════════════════════════════
+//  HOVER-TO-SPEAK
+// ══════════════════════════════════
+let hoverTimer = null;
+let lastHoverCard = null; // track the "card" node, not raw target
+
+// Map of CSS class → label-child selector (or null = use innerText)
+const CARD_SELECTORS = [
+  // data-speak attribute anywhere up the tree
+  { attr: 'data-speak', label: null },
+  // Sector menu cards
+  { cls: 'sector-card',    label: (el) => {
+      const n = el.querySelector('.sector-name')?.textContent?.trim() || '';
+      const num = el.querySelector('.sector-num')?.textContent?.trim() || '';
+      const d = el.querySelector('.sector-desc')?.textContent?.trim().replace(/\s+/g,' ') || '';
+      return [n, num ? 'Номер ' + num : '', d].filter(Boolean).join('. ');
+    }
+  },
+  // Fire / Police dress-up shelf items
+  { cls: 'shelf-card',     label: (el) => el.querySelector('.sc-name')?.textContent?.trim() },
+  // Fire L1 danger items
+  { cls: 'item-card',      label: (el) => el.querySelector('.item-name')?.textContent?.trim() },
+  // Fire L2 choice buttons
+  { cls: 'choice-card',    label: (el) => el.innerText.trim().replace(/\s+/g,' ') },
+  // Fire L5 extinguishing tools
+  { cls: 'tool-card',      label: (el) => el.querySelector('.tn')?.textContent?.trim() },
+  // Medical L1 patients
+  { cls: 'patient-card',   label: (el) => el.querySelector('.patient-name')?.textContent?.trim() },
+  // Medical L2 kit items
+  { cls: 'med-item-card',  label: (el) => el.querySelector('.med-item-name')?.textContent?.trim() },
+  // Medical L4 road cars
+  { cls: 'road-car',       label: (el) => 'Машина. Нажми, чтобы убрать с дороги!' },
+  // Police L1 situations
+  { cls: 'situation-card', label: (el) => el.querySelector('.situation-label')?.textContent?.trim() },
+  // Police L3 park people
+  { cls: 'park-person',    label: (el) => el.innerText.trim().replace(/\s+/g,' ').substring(0,60) },
+  // Phone number chips
+  { cls: 'num-chip-big',   label: (el) => 'Номер ' + el.textContent.trim() },
+  // City final number buttons
+  { cls: 'map-num-btn',    label: (el) => el.innerText.trim().replace(/\s+/g,' ') },
+  // Phone keypad keys
+  { cls: 'pkey',           label: (el) => {
+      const t = el.textContent.trim();
+      if (t === '✕') return 'Стереть';
+      if (t === '📞') return 'Позвонить!';
+      return 'Цифра ' + t;
+    }
+  },
+  // Read-aloud button
+  { cls: 'read-btn',       label: () => 'Прочитать задание вслух' },
+  // Any generic button
+  { cls: 'btn',            label: (el) => el.innerText.trim().replace(/\s+/g,' ').substring(0,80) },
+];
+
+function findCard(el) {
+  // Walk up max 8 levels
+  let node = el;
+  for (let i = 0; i < 8; i++) {
+    if (!node || node === document.body) break;
+    // Check data-speak
+    if (node.dataset && node.dataset.speak) return { node, text: node.dataset.speak };
+    // Check class-based selectors
+    for (const def of CARD_SELECTORS) {
+      if (def.attr) continue; // handled above
+      if (node.classList && node.classList.contains(def.cls)) {
+        let text = typeof def.label === 'function' ? def.label(node) : def.label;
+        if (text && text.trim().length > 1) return { node, text: text.trim() };
+      }
+    }
+    node = node.parentElement;
+  }
+  return null;
+}
+
+document.addEventListener('mouseover', function(e) {
+  if (!voiceOn) return;
+  const found = findCard(e.target);
+  if (!found) { clearTimeout(hoverTimer); return; }
+  if (found.node === lastHoverCard) return; // same card, no repeat
+  lastHoverCard = found.node;
+  clearTimeout(hoverTimer);
+  const text = found.text;
+  hoverTimer = setTimeout(function() {
+    speakHover(text);
+  }, 380);
+});
+
+document.addEventListener('mouseout', function(e) {
+  // If leaving the tracked card entirely, clear the timer
+  const found = findCard(e.target);
+  if (found && found.node === lastHoverCard) {
+    // mouse moved within the card subtree — relatedTarget check
+    if (!e.relatedTarget || !lastHoverCard.contains(e.relatedTarget)) {
+      clearTimeout(hoverTimer);
+      lastHoverCard = null;
+    }
+  }
+});
+
+function speakHover(text) {
+  if (!voiceOn || !synth) return;
+  synth.cancel();
+  setTimeout(() => {
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ru-RU';
+    u.rate = 0.83;
+    u.pitch = 1.35;
+    u.volume = 1;
+    const v = getRuVoice(); if (v) u.voice = v;
+    u.onstart = () => wavesEl.classList.add('active');
+    u.onend = u.onerror = () => wavesEl.classList.remove('active');
+    synth.speak(u);
+  }, 50);
+}
+
+// ══════════════════════════════════
+//  EDITOR PANEL
+// ══════════════════════════════════
+const EDITOR_FIELDS = [
+  { group: '🌆 Главная страница', key: 'welcome_title', label: 'Заголовок', default: 'Город Героев' },
+  { group: '🌆 Главная страница', key: 'welcome_sub', label: 'Подзаголовок', default: 'Три команды спасателей ждут тебя!' },
+  { group: '🌆 Главная страница', key: 'welcome_speech', label: 'Приветственная речь', default: 'Привет, привет, привет! Добро пожаловать в Город Героев! Здесь живут три супер-команды: пожарные, доктора и полицейские! В каждой команде пять весёлых заданий! Выбирай любой сектор и становись настоящим героем! Ты готов? Тогда вперёд!', multiline: true },
+
+  { group: '🚒 Пожарный — секторная карточка', key: 'fire_name', label: 'Название', default: 'Пожарный' },
+  { group: '🚒 Пожарный — секторная карточка', key: 'fire_desc', label: 'Описание', default: 'Туши огонь!\nСтань пожарным!' },
+  { group: '🚒 Пожарный — секторная карточка', key: 'fire_greet', label: 'Приветствие при входе', default: 'Отлично! Добро пожаловать в пожарную службу! Пять уровней, и ты станешь другом пожарного!', multiline: true },
+
+  { group: '🚑 Доктор — секторная карточка', key: 'med_name', label: 'Название', default: 'Доктор' },
+  { group: '🚑 Доктор — секторная карточка', key: 'med_desc', label: 'Описание', default: 'Лечи людей!\nСтань доктором!' },
+  { group: '🚑 Доктор — секторная карточка', key: 'med_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!', multiline: true },
+
+  { group: '👮 Полицейский — секторная карточка', key: 'pol_name', label: 'Название', default: 'Полицейский' },
+  { group: '👮 Полицейский — секторная карточка', key: 'pol_desc', label: 'Описание', default: 'Охраняй порядок!\nСтань полицейским!' },
+  { group: '👮 Полицейский — секторная карточка', key: 'pol_greet', label: 'Приветствие при входе', default: 'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!', multiline: true },
+
+  { group: '📋 Задания — Пожарный', key: 'instr_f1', label: 'Уровень 1 — Опасно/Безопасно', default: INSTRUCTIONS.f1, multiline: true },
+  { group: '📋 Задания — Пожарный', key: 'instr_f2', label: 'Уровень 2 — Выход из ловушки', default: INSTRUCTIONS.f2, multiline: true },
+  { group: '📋 Задания — Пожарный', key: 'instr_f3', label: 'Уровень 3 — Вызови пожарных', default: INSTRUCTIONS.f3, multiline: true },
+  { group: '📋 Задания — Пожарный', key: 'instr_f4', label: 'Уровень 4 — Одень пожарного', default: INSTRUCTIONS.f4, multiline: true },
+  { group: '📋 Задания — Пожарный', key: 'instr_f5', label: 'Уровень 5 — Потуши искру', default: INSTRUCTIONS.f5, multiline: true },
+
+  { group: '📋 Задания — Доктор', key: 'instr_m1', label: 'Уровень 1 — Кому нужен врач', default: INSTRUCTIONS.m1, multiline: true },
+  { group: '📋 Задания — Доктор', key: 'instr_m2', label: 'Уровень 2 — Собери чемоданчик', default: INSTRUCTIONS.m2, multiline: true },
+  { group: '📋 Задания — Доктор', key: 'instr_m3', label: 'Уровень 3 — Вызови скорую', default: INSTRUCTIONS.m3, multiline: true },
+  { group: '📋 Задания — Доктор', key: 'instr_m4', label: 'Уровень 4 — Дай проехать', default: INSTRUCTIONS.m4, multiline: true },
+  { group: '📋 Задания — Доктор', key: 'instr_m5', label: 'Уровень 5 — Полезные предметы', default: INSTRUCTIONS.m5, multiline: true },
+
+  { group: '📋 Задания — Полицейский', key: 'instr_p1', label: 'Уровень 1 — Найди ситуацию', default: INSTRUCTIONS.p1, multiline: true },
+  { group: '📋 Задания — Полицейский', key: 'instr_p2', label: 'Уровень 2 — Одень полицейского', default: INSTRUCTIONS.p2, multiline: true },
+  { group: '📋 Задания — Полицейский', key: 'instr_p3', label: 'Уровень 3 — Найди ребёнка', default: INSTRUCTIONS.p3, multiline: true },
+  { group: '📋 Задания — Полицейский', key: 'instr_p4', label: 'Уровень 4 — Светофор', default: INSTRUCTIONS.p4, multiline: true },
+  { group: '📋 Задания — Полицейский', key: 'instr_p5', label: 'Уровень 5 — Вызови полицию', default: INSTRUCTIONS.p5, multiline: true },
+];
+
+const EDITOR_STORAGE_KEY = 'gorod_heroev_editor_v1';
+
+function loadEditorData() {
+  try { return JSON.parse(localStorage.getItem(EDITOR_STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+}
+
+function saveEditorData(data) {
+  localStorage.setItem(EDITOR_STORAGE_KEY, JSON.stringify(data));
+}
+
+function applyEditorData() {
+  const data = loadEditorData();
+
+  // Instructions
+  const instrMap = { f1:'instr_f1', f2:'instr_f2', f3:'instr_f3', f4:'instr_f4', f5:'instr_f5',
+                     m1:'instr_m1', m2:'instr_m2', m3:'instr_m3', m4:'instr_m4', m5:'instr_m5',
+                     p1:'instr_p1', p2:'instr_p2', p3:'instr_p3', p4:'instr_p4', p5:'instr_p5' };
+  Object.entries(instrMap).forEach(([k,edKey]) => {
+    if (data[edKey]) INSTRUCTIONS[k] = data[edKey];
+  });
+
+  // Sector card DOM
+  const applyText = (sel, val) => { const el = document.querySelector(sel); if (el && val) el.innerHTML = val.replace(/\n/g,'<br>'); };
+  if (data.fire_name) applyText('#sec-fire .sector-name', data.fire_name);
+  if (data.fire_desc) applyText('#sec-fire .sector-desc', data.fire_desc);
+  if (data.med_name)  applyText('#sec-med .sector-name',  data.med_name);
+  if (data.med_desc)  applyText('#sec-med .sector-desc',  data.med_desc);
+  if (data.pol_name)  applyText('#sec-pol .sector-name',  data.pol_name);
+  if (data.pol_desc)  applyText('#sec-pol .sector-desc',  data.pol_desc);
+
+  // Welcome page text
+  if (data.welcome_title) { const t = document.querySelector('.city-title'); if (t) t.textContent = '🏙️ ' + data.welcome_title; }
+  if (data.welcome_sub)   { const s = document.querySelector('.city-subtitle'); if (s) s.textContent = data.welcome_sub; }
+}
+
+// Patch greetings with editor overrides at runtime
+const _origEnterSector = enterSector;
+window.enterSector = function(sector) {
+  const data = loadEditorData();
+  const greetKey = {fire:'fire_greet', med:'med_greet', pol:'pol_greet'}[sector];
+  playClick(); curSector = sector;
+  stopSpeak();
+  showScreen(sector + '-sector');
+  showSectorLevel(sector, 1);
+  const greetings = {
+    fire: data.fire_greet || 'Отлично! Добро пожаловать в пожарную службу! Пять уровней, и ты станешь другом пожарного!',
+    med:  data.med_greet  || 'Добро пожаловать в скорую помощь! Пять уровней, и ты станешь Другом Доктора!',
+    pol:  data.pol_greet  || 'Добро пожаловать в полицию! Пять уровней, и ты станешь другом полицейского!'
+  };
+  const builders = {fire:()=>buildF1(), med:()=>buildM1(), pol:()=>buildP1()};
+  builders[sector]();
+  twemoji.parse(document.body, { folder:'svg', ext:'.svg', base:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/', className:'twemoji' });
+  window._twemojiRefresh = () => { twemoji.parse(document.body, { folder:'svg', ext:'.svg', base:'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/', className:'twemoji' }); };
+  setTimeout(() => speak(greetings[sector], {rate:0.8, pitch:1.15}), 500);
+};
+
+function openEditor() {
+  playClick();
+  stopSpeak();
+  const data = loadEditorData();
+  const modal = document.getElementById('editor-modal');
+  if (!modal) return;
+  
+  // Populate fields
+  EDITOR_FIELDS.forEach(f => {
+    const el = document.getElementById('ef-' + f.key);
+    if (el) el.value = data[f.key] !== undefined ? data[f.key] : f.default;
+  });
+  
+  modal.style.display = 'flex';
+  setTimeout(() => modal.style.opacity = '1', 10);
+}
+
+function closeEditor() {
+  const modal = document.getElementById('editor-modal');
+  modal.style.opacity = '0';
+  setTimeout(() => modal.style.display = 'none', 300);
+}
+
+function saveEditor() {
+  const data = {};
+  EDITOR_FIELDS.forEach(f => {
+    const el = document.getElementById('ef-' + f.key);
+    if (el) data[f.key] = el.value;
+  });
+  saveEditorData(data);
+  applyEditorData();
+  closeEditor();
+  speak('Изменения сохранены!', {rate: 0.85, pitch: 1.3});
+}
+
+function resetEditor() {
+  if (!confirm('Сбросить все изменения к исходным значениям?')) return;
+  localStorage.removeItem(EDITOR_STORAGE_KEY);
+  location.reload();
+}
+
+function buildEditorModal() {
+  const modal = document.createElement('div');
+  modal.id = 'editor-modal';
+  modal.style.cssText = 'display:none;opacity:0;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto;transition:opacity .3s;';
+  
+  // Group fields
+  const groups = {};
+  EDITOR_FIELDS.forEach(f => {
+    if (!groups[f.group]) groups[f.group] = [];
+    groups[f.group].push(f);
+  });
+
+  let tabsHTML = '';
+  let panelsHTML = '';
+  let groupKeys = Object.keys(groups);
+  groupKeys.forEach((g, gi) => {
+    const gid = 'eg-' + gi;
+    tabsHTML += `<button class="ed-tab${gi===0?' active':''}" onclick="edTab(this,'${gid}')">${g}</button>`;
+    let fieldsHTML = '';
+    groups[g].forEach(f => {
+      const ctrl = f.multiline
+        ? `<textarea id="ef-${f.key}" rows="3" style="width:100%;padding:10px;border:2px solid #e0e0e0;border-radius:12px;font-family:'Baloo 2',sans-serif;font-size:14px;font-weight:700;resize:vertical;line-height:1.5;"></textarea>`
+        : `<input id="ef-${f.key}" type="text" style="width:100%;padding:10px 14px;border:2px solid #e0e0e0;border-radius:12px;font-family:'Baloo 2',sans-serif;font-size:14px;font-weight:700;">`;
+      fieldsHTML += `<div style="margin-bottom:16px;"><label style="display:block;font-size:12px;font-weight:900;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">${f.label}</label>${ctrl}</div>`;
+    });
+    panelsHTML += `<div id="${gid}" class="ed-panel" style="display:${gi===0?'block':'none'}">${fieldsHTML}</div>`;
+  });
+
+  modal.innerHTML = `
+  <div style="background:#fff;border-radius:28px;max-width:680px;width:100%;box-shadow:0 40px 100px rgba(0,0,0,.5);overflow:hidden;margin:auto;">
+    <div style="background:linear-gradient(135deg,#FF4500,#FFD700);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:20px;font-weight:900;color:#fff;font-family:'Baloo 2',sans-serif;">⚙️ Редактор игры</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.8);font-weight:700;">Все изменения сохраняются в браузере</div>
+      </div>
+      <button onclick="closeEditor()" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="overflow-x:auto;background:#f8f8f8;border-bottom:2px solid #eee;display:flex;gap:4px;padding:10px 16px;scrollbar-width:none;">
+      ${tabsHTML}
+    </div>
+    <div style="padding:20px 24px;max-height:55vh;overflow-y:auto;">
+      ${panelsHTML}
+    </div>
+    <div style="padding:16px 24px;background:#f8f8f8;border-top:2px solid #eee;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+      <button onclick="resetEditor()" style="background:#eee;border:none;border-radius:50px;padding:10px 20px;font-family:'Baloo 2',sans-serif;font-size:14px;font-weight:800;color:#666;cursor:pointer;">🔄 Сброс</button>
+      <button onclick="closeEditor()" style="background:#eee;border:none;border-radius:50px;padding:10px 20px;font-family:'Baloo 2',sans-serif;font-size:14px;font-weight:800;color:#666;cursor:pointer;">Отмена</button>
+      <button onclick="saveEditor()" style="background:linear-gradient(135deg,#FF4500,#FFD700);border:none;border-radius:50px;padding:10px 24px;font-family:'Baloo 2',sans-serif;font-size:15px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(255,69,0,.4);">💾 Сохранить</button>
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+}
+
+function edTab(btn, panelId) {
+  document.querySelectorAll('.ed-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ed-panel').forEach(p => p.style.display = 'none');
+  btn.classList.add('active');
+  document.getElementById(panelId).style.display = 'block';
+}
+
+const edStyle = document.createElement('style');
+edStyle.textContent = `.ed-tab{background:transparent;border:none;border-radius:50px;padding:7px 14px;font-family:'Baloo 2',sans-serif;font-size:13px;font-weight:800;color:#888;cursor:pointer;white-space:nowrap;transition:all .2s;} .ed-tab.active{background:linear-gradient(135deg,#FF4500,#FFD700);color:#fff;box-shadow:0 3px 10px rgba(255,69,0,.3);}`;
+document.head.appendChild(edStyle);
+
+// Init editor on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  buildEditorModal();
+  applyEditorData();
+});
+</script>
+</body>
+</html>
